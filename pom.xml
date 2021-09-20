@@ -15,7 +15,7 @@
 
     <modules>
         <module>shared-kernel</module>
-        <module>movie</module>
+        <module>scheduledMovie</module>
         <module>ticket-reservation</module>
     </modules>
 </project>

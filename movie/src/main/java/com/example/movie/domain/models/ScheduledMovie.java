@@ -1,5 +1,6 @@
 package com.example.movie.domain.models;
 
+import com.example.movie.domain.valueobjects.Money;
 import com.example.movie.domain.valueobjects.MovieTime;
 import com.example.sharedkernel.domain.base.AbstractEntity;
 import com.example.sharedkernel.domain.base.DomainObjectId;
@@ -9,7 +10,10 @@ import javax.persistence.*;
 @Entity
 @Table(name="scheduled_movie")
 public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
+
     private int capacity;
+
+    private Money ticketPrice;
 
     @AttributeOverrides({
             @AttributeOverride(name="hour", column = @Column(name="starting_hour")),

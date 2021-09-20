@@ -5,12 +5,13 @@ import com.example.sharedkernel.domain.base.DomainObjectId;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class MovieId extends DomainObjectId {
-    private MovieId() {
-        super(MovieId.randomId(MovieId.class).getId());
+public class ScheduledMovieId extends DomainObjectId {
+
+    private ScheduledMovieId() {
+        super(ScheduledMovieId.randomId(ScheduledMovieId.class).getId());
     }
 
-    public MovieId(String uuid) {
+    public ScheduledMovieId(String uuid) {
         super(uuid);
     }
 
