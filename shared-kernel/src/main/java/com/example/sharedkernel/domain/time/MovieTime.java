@@ -1,4 +1,4 @@
-package com.example.movie.domain.valueobjects;
+package com.example.sharedkernel.domain.time;
 
 import com.example.sharedkernel.domain.base.ValueObject;
 import lombok.Getter;

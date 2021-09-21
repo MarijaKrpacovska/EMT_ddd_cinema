@@ -4,12 +4,14 @@ import com.example.movie.domain.valueobjects.Money;
 import com.example.movie.domain.valueobjects.MovieTime;
 import com.example.sharedkernel.domain.base.AbstractEntity;
 import com.example.sharedkernel.domain.base.DomainObjectId;
+import lombok.Getter;
 import lombok.NonNull;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name="scheduled_movie")
+@Getter
 public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
 
     private int capacity;
@@ -49,6 +51,10 @@ public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
 
     public void removeSales(int qty) {
         this.sales -= qty;
+    }
+
+    public MovieTime scheduledFor(){
+        return startTime;
     }
 
 
