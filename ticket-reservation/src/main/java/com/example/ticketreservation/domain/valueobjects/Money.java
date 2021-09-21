@@ -7,6 +7,7 @@ import lombok.NonNull;
 import javax.persistence.Embeddable;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import java.util.Objects;
 
 @Embeddable
 @Getter
@@ -48,6 +49,20 @@ public class Money implements ValueObject {
     public Money multiply(int m)  {
         return new Money(currency,amount*m);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Money money = (Money) o;
+        return amount == money.amount && currency == money.currency;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(currency, amount);
+    }
+
 
 }
 
