@@ -1,5 +1,7 @@
 package com.example.ticketreservation.service.impl;
 
+import com.example.sharedkernel.domain.events.ticketReservations.TicketAdded;
+import com.example.sharedkernel.infra.DomainEventPublisher;
 import com.example.ticketreservation.domain.exceptions.TicketIdDoesNotExist;
 import com.example.ticketreservation.domain.exceptions.TicketReservationIdDoesNotExist;
 import com.example.ticketreservation.domain.models.TicketId;
@@ -26,6 +28,7 @@ import java.util.Optional;
 public class TicketReservationServiceImpl implements TicketReservationService {
 
     private final TicketReservationRepository ticketReservationRepository;
+    private final DomainEventPublisher domainEventPublisher;
     private final Validator validator;
 
     @Override
@@ -36,6 +39,7 @@ public class TicketReservationServiceImpl implements TicketReservationService {
             throw new ConstraintViolationException("The order reservation form is not valid", constraintViolations);
         }
         var newTicketReservation = ticketReservationRepository.saveAndFlush(toDomainObject(ticketReservationForm));
+        newTicketReservation.getTickets().forEach(item -> domainEventPublisher.publish(new TicketAdded(item.getScheduledMovieId())));
         return newTicketReservation.getId();
 
     }

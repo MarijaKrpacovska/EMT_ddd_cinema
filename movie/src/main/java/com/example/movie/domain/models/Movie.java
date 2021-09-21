@@ -2,9 +2,8 @@ package com.example.movie.domain.models;
 
 import com.example.movie.domain.valueobjects.Money;
 import com.example.movie.domain.valueobjects.MovieLength;
-import com.example.movie.domain.valueobjects.MovieTime;
-import com.example.movie.domain.valueobjects.UnitOfTime;
 import com.example.sharedkernel.domain.base.AbstractEntity;
+import com.example.sharedkernel.domain.time.MovieTime;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -61,6 +60,20 @@ public class Movie extends AbstractEntity<MovieId> {
             }
         }
         return null;
+    }
+
+    public ScheduledMovie increaseSales(MovieTime movieTime) {
+        //Objects.requireNonNull(startTime,"Movie time must not be null");
+        ScheduledMovie scheduledMovie = findScheduledMovie(movieTime.getHour(),movieTime.getMinutes());
+        scheduledMovie.addSales();
+        return scheduledMovie;
+    }
+
+    public ScheduledMovie decreaseSales(MovieTime movieTime) {
+        //Objects.requireNonNull(startTime,"Movie time must not be null");
+        ScheduledMovie scheduledMovie = findScheduledMovie(movieTime.getHour(),movieTime.getMinutes());
+        scheduledMovie.removeSales();
+        return scheduledMovie;
     }
 
     public List<ScheduledMovie> findTimeOptions() {

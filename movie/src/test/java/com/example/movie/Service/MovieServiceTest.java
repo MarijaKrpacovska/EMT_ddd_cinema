@@ -7,6 +7,7 @@ import com.example.movie.domain.valueobjects.*;
 import com.example.movie.services.MovieService;
 import com.example.movie.services.forms.MovieForm;
 import com.example.movie.services.forms.ScheduledMovieForm;
+import com.example.sharedkernel.domain.time.MovieTime;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

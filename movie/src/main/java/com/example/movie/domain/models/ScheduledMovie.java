@@ -1,9 +1,9 @@
 package com.example.movie.domain.models;
 
 import com.example.movie.domain.valueobjects.Money;
-import com.example.movie.domain.valueobjects.MovieTime;
 import com.example.sharedkernel.domain.base.AbstractEntity;
 import com.example.sharedkernel.domain.base.DomainObjectId;
+import com.example.sharedkernel.domain.time.MovieTime;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -45,13 +45,14 @@ public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
         this.endTime=endTime;
     }
 
-    public void addSales(int qty) {
-        this.sales = this.sales - qty;
+    public void addSales() {
+        this.sales = this.sales + 1;
     }
 
-    public void removeSales(int qty) {
-        this.sales -= qty;
+    public void removeSales() {
+        this.sales -= 1;
     }
+
 
     public MovieTime scheduledFor(){
         return startTime;

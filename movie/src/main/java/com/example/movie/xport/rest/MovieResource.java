@@ -4,7 +4,6 @@ import com.example.movie.domain.exceptions.MovieIdDoesNotExistException;
 import com.example.movie.domain.models.Movie;
 import com.example.movie.domain.models.MovieId;
 import com.example.movie.domain.models.ScheduledMovie;
-import com.example.movie.domain.valueobjects.MovieTime;
 import com.example.movie.services.MovieService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;

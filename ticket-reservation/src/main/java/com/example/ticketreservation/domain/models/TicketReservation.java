@@ -5,6 +5,7 @@ import com.example.ticketreservation.domain.valueobjects.Currency;
 import com.example.ticketreservation.domain.valueobjects.Money;
 import com.example.ticketreservation.domain.valueobjects.ScheduledMovie;
 import com.example.ticketreservation.domain.valueobjects.SeatNumber;
+import lombok.Getter;
 import lombok.NonNull;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.Set;
 
 @Entity
 @Table(name="ticket_reservation")
+@Getter
 public class TicketReservation extends AbstractEntity<TicketReservationId> {
 
     private Instant reservationTime;

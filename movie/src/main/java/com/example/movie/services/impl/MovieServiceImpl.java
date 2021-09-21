@@ -10,6 +10,7 @@ import com.example.movie.domain.repositories.MovieRepository;
 import com.example.movie.services.MovieService;
 import com.example.movie.services.forms.MovieForm;
 import com.example.movie.services.forms.ScheduledMovieForm;
+import com.example.sharedkernel.domain.time.MovieTime;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -62,8 +63,23 @@ public class MovieServiceImpl implements MovieService {
         Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
         movie.deleteScheduledMovie(scheduledMovieId);
         movieRepository.saveAndFlush(movie);
-
     }
+
+//    @Override
+//    public ScheduledMovie ticketAdded(ScheduledMovieId scheduledMovieId) {
+//        ScheduledMovie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+//        movie.addSales();
+//        return movie;
+//    }
+//
+//    @Override
+//    public ScheduledMovie ticketRemoved(ScheduledMovieId scheduledMovieId) {
+//        ScheduledMovie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+//        movie.removeSales();
+//        return movie;
+//    }
+
+
 
     private Movie toDomainObject(MovieForm movieForm) {
         var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(), movieForm.getDescription());
@@ -72,5 +88,7 @@ public class MovieServiceImpl implements MovieService {
         movieForm.getScheduledMovies().forEach(item->movie.addScheduledMovie(item.getTicketPrice(), item.getCapacity(), item.getSales(),item.getStartTime(),item.getEndTime()));
         return movie;
     }
+
+
 
 }

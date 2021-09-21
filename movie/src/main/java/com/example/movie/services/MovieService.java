@@ -7,6 +7,7 @@ import com.example.movie.domain.models.MovieId;
 import com.example.movie.domain.models.ScheduledMovieId;
 import com.example.movie.services.forms.MovieForm;
 import com.example.movie.services.forms.ScheduledMovieForm;
+import com.example.sharedkernel.domain.time.MovieTime;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,5 +24,7 @@ public interface MovieService {
 
     void deleteItem(MovieId movieId, ScheduledMovieId scheduledMovieId) throws MovieIdDoesNotExistException, ScheduledMovieIdDoesNotExistException;
 
-
+//    public Movie ticketAdded(MovieId movieId, MovieTime movieTime);
+//
+//    public Movie ticketRemoved(MovieId movieId, MovieTime movieTime);
 }

@@ -1,7 +1,7 @@
 package com.example.movie.services.forms;
 
 import com.example.movie.domain.valueobjects.Money;
-import com.example.movie.domain.valueobjects.MovieTime;
+import com.example.sharedkernel.domain.time.MovieTime;
 import com.sun.istack.NotNull;
 import lombok.Data;
 
