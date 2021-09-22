@@ -20,6 +20,7 @@ import javax.validation.Validator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -82,7 +83,7 @@ public class MovieServiceImpl implements MovieService {
 
     private Movie toDomainObject(MovieForm movieForm) {
         var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(), movieForm.getDescription(),movieForm.getTicketPrice());
-        List<ScheduledMovieForm> scheduledMoviesList = movieForm.getScheduledMovies();
+        Set<ScheduledMovieForm> scheduledMoviesList = movieForm.getScheduledMovies();
 
         movieForm.getScheduledMovies().forEach(item->movie.addScheduledMovie(item.getStartTime(),item.getEndTime()));
         return movie;

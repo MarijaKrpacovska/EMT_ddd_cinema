@@ -33,25 +33,23 @@ public class MovieForm {
     @NonNull
     private Money ticketPrice;
 
-    @Valid
-    @NotEmpty
-    private Set<ScheduledMovie> scheduledMovies = new HashSet<>();
+    private Set<ScheduledMovieForm> scheduledMovies = new HashSet<>();
 
-    @JsonCreator
-    public MovieForm(@JsonProperty("name") String name,
-                 @JsonProperty("movieLength") MovieLength movieLength,
-                 @JsonProperty("genre") Genre genre,
-                 @JsonProperty("publishDate") Instant publishDate,
-                 @JsonProperty("description") String description,
-                 @JsonProperty("ticketPrice") Money ticketPrice,
-                 @JsonProperty("scheduledMovies") Set<ScheduledMovie> scheduledMovies) {
-        this.name = name;
-        this.movieLength = movieLength;
-        this.genre=genre;
-        this.publishDate=publishDate;
-        this.description= description;
-        this.ticketPrice=ticketPrice;
-        this.scheduledMovies=scheduledMovies;
-    }
+//    @JsonCreator
+//    public MovieForm(@JsonProperty("name") String name,
+//                 @JsonProperty("movieLength") MovieLength movieLength,
+//                 @JsonProperty("genre") Genre genre,
+//                 @JsonProperty("publishDate") Instant publishDate,
+//                 @JsonProperty("description") String description,
+//                 @JsonProperty("ticketPrice") Money ticketPrice,
+//                 @JsonProperty("scheduledMovies") Set<ScheduledMovieForm> scheduledMovies) {
+//        this.name = name;
+//        this.movieLength = movieLength;
+//        this.genre=genre;
+//        this.publishDate=publishDate;
+//        this.description= description;
+//        this.ticketPrice=ticketPrice;
+//        this.scheduledMovies=scheduledMovies;
+//    }
 
 }

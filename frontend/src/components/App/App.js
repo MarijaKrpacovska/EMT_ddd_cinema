@@ -4,6 +4,7 @@ import Movies from '../Movie/movie';
 import MovieDetails from '../Movie/movieDetails'
 import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom'
 import MovieService from "../../repository/movieRepository";
+import MovieAdd from "../Movie/movieAdd";
 
 class App extends Component {
 
@@ -18,11 +19,16 @@ class App extends Component {
         return (
                 <Router>
                     <div className="container">
-                        <Route path={"/movie/details/:id"} exact render={() =>
-                            <MovieDetails selectedMovie={this.state.movies}/>}/>
-                        <Route path={"/movie"} exact render={() =>
+                        <Route path={"/movie/findById/:id"} exact render={() =>
+                            <MovieDetails selectedMovie={this.state.selectedMovie}/>}/>
+
+                        <Route path={"/movie/add"} exact render={() =>
+                            <MovieAdd onAddMovie={this.addMovie}/>}/>
+
+                        <Route path={"/movie"}
+                               exact render={() =>
                             <Movies movies={this.state.movies}
-                                    onDetails={this.getMovie}/>}/>
+                                    onDetails={this.getMovie}/> } />
                     </div>
                 </Router>
         );
@@ -41,13 +47,22 @@ class App extends Component {
             });
     }
     getMovie = (id) => {
+        console.log("vo getMovie"+id)
         MovieService.getMovie(id)
             .then((data) => {
+                console.log("vo getMovie"+typeof (data.data))
                 this.setState({
                     selectedMovie: data.data
                 })
             })
     }
+    addMovie = (name, movieLength, genre, publishDate, description,ticketPrice,scheduledMovies) => {
+        MovieService.addMovie(name, movieLength, genre, publishDate, description,ticketPrice,scheduledMovies)
+            .then(() => {
+                this.loadMovies();
+            });
+    }
+
 
 }
 

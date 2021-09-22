@@ -1,8 +1,6 @@
 import React from "react";
 
-
 const moviesDetails = (props) => {
-
 
     return (
         <div className={"container mm-4 mt-5"}>

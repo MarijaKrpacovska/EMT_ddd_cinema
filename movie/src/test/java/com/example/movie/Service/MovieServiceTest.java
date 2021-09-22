@@ -39,10 +39,10 @@ public class MovieServiceTest {
         //scheduledMovieForm1.setTicketPrice(new Money(Currency.MKD,20));
 
 
-        MovieForm movieForm = new MovieForm(new MovieLength(40, UnitOfTime.min),new Money(Currency.MKD,10));
-        movieForm.setScheduledMovies(Arrays.asList(scheduledMovieForm,scheduledMovieForm1));
+      //  MovieForm movieForm = new MovieForm(new MovieLength(40, UnitOfTime.min),new Money(Currency.MKD,10));
+       // movieForm.setScheduledMovies(Arrays.asList(scheduledMovieForm,scheduledMovieForm1));
 
-        Movie newMovie  = movieService.addMovie(movieForm).get();
+    //    Movie newMovie  = movieService.addMovie(movieForm).get();
        // Movie newMovie = movieService.findById(newMovieId).orElseThrow(MovieIdDoesNotExistException::new);
 
     }
