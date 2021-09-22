@@ -34,7 +34,7 @@ public class TicketReservationServiceTest {
 
 
     private static Movie newMovie(String name, MovieLength movieLength, Genre genre, Instant publishDate, String description) {
-        Movie movie = new Movie(MovieId.randomId(MovieId.class),name,movieLength,genre,publishDate,description, null);
+        Movie movie = new Movie(MovieId.randomId(MovieId.class),name,movieLength,genre,publishDate,description, new Money(Currency.MKD,10),null);
         return movie;
     }
 
@@ -53,7 +53,7 @@ public class TicketReservationServiceTest {
 
         TicketReservationId newTicketReservationId = ticketReservationService.makeReservation(ticketReservationForm);
         TicketReservation newTicketReservation = ticketReservationService.findById(newTicketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
-       // Assertions.assertEquals(newTicketReservation.total(), Money.valueOf(Currency.MKD,60));
+        Assertions.assertEquals(newTicketReservation.total(), Money.valueOf(Currency.MKD,20));
 
     }
 
@@ -75,6 +75,8 @@ public class TicketReservationServiceTest {
 
         TicketReservationId newTicketReservationId = ticketReservationService.makeReservation(ticketReservationForm);
         TicketReservation newTR = ticketReservationService.findById(newTicketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
+        Assertions.assertEquals(newTR.total(), Money.valueOf(Currency.MKD,8));
+
     }
 
 

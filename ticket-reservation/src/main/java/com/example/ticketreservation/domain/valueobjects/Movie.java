@@ -2,10 +2,14 @@ package com.example.ticketreservation.domain.valueobjects;
 
 import com.example.sharedkernel.domain.base.ValueObject;
 import com.example.sharedkernel.domain.genre.Genre;
+import com.example.sharedkernel.domain.money.Currency;
+import com.example.sharedkernel.domain.money.Money;
 import com.example.sharedkernel.domain.time.MovieLength;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NonNull;
+
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,6 +19,7 @@ public class Movie implements ValueObject {
 
     private MovieId movieId;
 
+    @NonNull
     private MovieLength movieLength;
 
     private Genre genre;
@@ -25,6 +30,9 @@ public class Movie implements ValueObject {
 
     private String description;
 
+    @NonNull
+    private Money ticketPrice;
+
     private Set<ScheduledMovie> scheduledMovies  = new HashSet<>();
 
     private Movie() {
@@ -32,6 +40,7 @@ public class Movie implements ValueObject {
         this.name= "";
         this.publishDate = Instant.now();
         this.description = "";
+        this.ticketPrice=new Money(Currency.MKD,0);
     }
 
     @JsonCreator
@@ -41,6 +50,7 @@ public class Movie implements ValueObject {
                  @JsonProperty("genre") Genre genre,
                  @JsonProperty("publishDate") Instant publishDate,
                  @JsonProperty("description") String description,
+                 @JsonProperty("ticketPrice") Money ticketPrice,
                  @JsonProperty("scheduledMovies") Set<ScheduledMovie> scheduledMovies) {
         this.movieId = movieId;
         this.name = name;
@@ -49,6 +59,7 @@ public class Movie implements ValueObject {
         this.publishDate=publishDate;
         this.description= description;
         this.scheduledMovies=scheduledMovies;
+        this.ticketPrice=ticketPrice;
     }
 
 }

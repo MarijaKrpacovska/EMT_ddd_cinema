@@ -59,7 +59,7 @@ public class TicketReservationServiceImpl implements TicketReservationService {
     @Override
     public void addTicket(TicketReservationId ticketReservationId, TicketForm ticketForm) throws TicketReservationIdDoesNotExist {
         TicketReservation ticketReservation = ticketReservationRepository.findById(ticketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
-        ticketReservation.addTicket(ticketForm.getMovie());
+        ticketReservation.addTicket(ticketForm.getMovie(),ticketForm.getQty());
         ticketReservationRepository.saveAndFlush(ticketReservation);
       //  domainEventPublisher.publish(new TicketAdded(ticketForm.getMovie().getMovieId().getId(),new MovieTime(4,30)));
 
@@ -75,7 +75,7 @@ public class TicketReservationServiceImpl implements TicketReservationService {
 
     private TicketReservation toDomainObject(TicketReservationForm ticketReservationForm) {
         var ticketReservation = new TicketReservation(Instant.now(),ticketReservationForm.getCurrency());
-        ticketReservationForm.getTickets().forEach(item->ticketReservation.addTicket(item.getMovie()));
+        ticketReservationForm.getTickets().forEach(item->ticketReservation.addTicket(item.getMovie(),item.getQty() ));
         return ticketReservation;
     }
 

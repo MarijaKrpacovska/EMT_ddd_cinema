@@ -1,6 +1,5 @@
 package com.example.movie.domain.models;
 
-import com.example.movie.domain.valueobjects.Money;
 import com.example.sharedkernel.domain.base.AbstractEntity;
 import com.example.sharedkernel.domain.base.DomainObjectId;
 import com.example.sharedkernel.domain.time.MovieTime;
@@ -13,10 +12,6 @@ import javax.persistence.*;
 @Table(name="scheduled_movie")
 @Getter
 public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
-
-    private int capacity;
-
-    private Money ticketPrice;
 
     private int sales;
 
@@ -36,23 +31,22 @@ public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
         super(DomainObjectId.randomId(ScheduledMovieId.class));
     }
 
-    public ScheduledMovie(@NonNull Money ticketPrice, int capacity, int sales,@NonNull MovieTime startTime, @NonNull MovieTime endTime) {
+    public ScheduledMovie(int sales,@NonNull MovieTime startTime, @NonNull MovieTime endTime) {
         super(DomainObjectId.randomId(ScheduledMovieId.class));
-        this.ticketPrice = ticketPrice;
-        this.capacity = capacity;
         this.sales = sales;
         this.startTime=startTime;
         this.endTime=endTime;
     }
 
+    //se koristi za zgolemuvanje na prodazhbite za ova prikazhuvanje na film.
     public void addSales() {
         this.sales = this.sales + 1;
     }
 
+    //se koristi za namaluvanje na prodazhbite za ova prikazhuvanje na film.
     public void removeSales() {
         this.sales -= 1;
     }
-
 
     public MovieTime scheduledFor(){
         return startTime;

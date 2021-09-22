@@ -14,7 +14,7 @@ import java.util.Optional;
 
 public interface MovieService {
 
-    public MovieId addMovie(MovieForm movieForm);
+    public Optional<Movie> addMovie(MovieForm movieForm);
 
     List<Movie> findAll();
 

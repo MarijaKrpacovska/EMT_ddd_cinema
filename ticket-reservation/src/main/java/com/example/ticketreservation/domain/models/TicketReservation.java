@@ -4,8 +4,6 @@ import com.example.sharedkernel.domain.base.AbstractEntity;
 import com.example.sharedkernel.domain.money.Currency;
 import com.example.sharedkernel.domain.money.Money;
 import com.example.ticketreservation.domain.valueobjects.Movie;
-import com.example.ticketreservation.domain.valueobjects.ScheduledMovie;
-import com.example.ticketreservation.domain.valueobjects.SeatNumber;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -29,6 +27,9 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
 
+    @Enumerated(EnumType.STRING)
+    private PaymentMethod paymentMethod;
+
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Ticket> tickets = new HashSet<>();
 
@@ -46,9 +47,9 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
         return tickets.stream().map(Ticket::subtotal).reduce(new Money(currency, 0), Money::add);
     }
 
-    public Ticket addTicket(@NonNull Movie movie) {
+    public Ticket addTicket(@NonNull Movie movie, int qty) {
         Objects.requireNonNull(movie,"movie must not be null");
-        var ticket  = new Ticket(movie.getMovieId(), new Money(Currency.MKD,40), new SeatNumber());
+        var ticket  = new Ticket(movie.getMovieId(), movie.getTicketPrice(),qty);
         tickets.add(ticket);
         return ticket;
     }

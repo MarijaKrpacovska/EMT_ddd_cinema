@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 const movies = (props) => {
     return (
@@ -16,6 +17,11 @@ const movies = (props) => {
                             return (
                                 <tr>
                                     <td>{term.id.id}</td>
+                                    <Link className={"btn btn-info ml-2"}
+                                       onClick={() => props.onDetails(term.id.id)}
+                                       to={`/movie/details/${term.id.id}`}>
+                                        Details
+                                    </Link>
                                 </tr>
                             );
                         })}

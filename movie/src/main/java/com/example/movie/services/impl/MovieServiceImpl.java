@@ -30,14 +30,14 @@ public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
 
     @Override
-    public MovieId addMovie(MovieForm movieForm) {
+    public Optional<Movie> addMovie(MovieForm movieForm) {
         Objects.requireNonNull(movieForm,"movie must not be null.");
         var constraintViolations = validator.validate(movieForm);
         if (constraintViolations.size()>0) {
             throw new ConstraintViolationException("The movie form is not valid", constraintViolations);
         }
         var newMovie = movieRepository.saveAndFlush(toDomainObject(movieForm));
-        return newMovie.getId();
+        return Optional.of(newMovie);
 
     }
 
@@ -54,7 +54,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void addScheduledMovie(MovieId movieId, ScheduledMovieForm scheduledMovieForm) throws MovieIdDoesNotExistException {
         Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-        movie.addScheduledMovie(scheduledMovieForm.getTicketPrice(), scheduledMovieForm.getCapacity(), scheduledMovieForm.getSales(), scheduledMovieForm.getStartTime(), scheduledMovieForm.getEndTime());
+        movie.addScheduledMovie(scheduledMovieForm.getStartTime(), scheduledMovieForm.getEndTime());
         movieRepository.saveAndFlush(movie);
     }
 
@@ -80,12 +80,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
 
-
     private Movie toDomainObject(MovieForm movieForm) {
-        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(), movieForm.getDescription());
+        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(), movieForm.getDescription(),movieForm.getTicketPrice());
         List<ScheduledMovieForm> scheduledMoviesList = movieForm.getScheduledMovies();
 
-        movieForm.getScheduledMovies().forEach(item->movie.addScheduledMovie(item.getTicketPrice(), item.getCapacity(), item.getSales(),item.getStartTime(),item.getEndTime()));
+        movieForm.getScheduledMovies().forEach(item->movie.addScheduledMovie(item.getStartTime(),item.getEndTime()));
         return movie;
     }
 

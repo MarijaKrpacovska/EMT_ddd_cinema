@@ -4,6 +4,7 @@ import com.example.sharedkernel.domain.base.DomainObjectId;
 import lombok.NonNull;
 
 public class MovieId extends DomainObjectId {
+
     private MovieId() {
         super(MovieId.randomId(MovieId.class).getId());
     }
