@@ -53,10 +53,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void addScheduledMovie(MovieId movieId, ScheduledMovieForm scheduledMovieForm) throws MovieIdDoesNotExistException {
+    public Optional<Movie> addScheduledMovie(MovieId movieId, ScheduledMovieForm scheduledMovieForm) throws MovieIdDoesNotExistException {
         Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
         movie.addScheduledMovie(scheduledMovieForm.getStartTime(), scheduledMovieForm.getEndTime());
-        movieRepository.saveAndFlush(movie);
+        var newMovie =movieRepository.saveAndFlush(movie);
+        return Optional.of(newMovie);
     }
 
     @Override

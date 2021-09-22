@@ -9,8 +9,6 @@ import javax.validation.constraints.Min;
 @Data
 public class ScheduledMovieForm {
 
-    private int sales;
-
     @NotNull
     private MovieTime startTime;
 

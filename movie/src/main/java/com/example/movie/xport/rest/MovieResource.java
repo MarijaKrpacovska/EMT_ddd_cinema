@@ -6,6 +6,7 @@ import com.example.movie.domain.models.MovieId;
 import com.example.movie.domain.models.ScheduledMovie;
 import com.example.movie.services.MovieService;
 import com.example.movie.services.forms.MovieForm;
+import com.example.movie.services.forms.ScheduledMovieForm;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,13 +55,12 @@ public class MovieResource {
     }
 
 
-//    @GetMapping("/edit/{id}")
-//    public Movie save(@PathVariable String id, @RequestBody MovieForm movieForm) {
-//        return this.movieService.e(id, productDto)
-//                .map(product -> ResponseEntity.ok().body(product))
-//                .orElseGet(() -> ResponseEntity.badRequest().build());
-//
-//    }
+    @PostMapping("/scheduleMovie/{id}")
+    public ResponseEntity<Movie> save(@PathVariable String id, @RequestBody ScheduledMovieForm scheduledMovieForm) {
+        return this.movieService.addScheduledMovie(new MovieId(id),scheduledMovieForm)
+                .map(movie -> ResponseEntity.ok().body(movie))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
 
 }
 
