@@ -1,8 +1,9 @@
 package com.example.movie.domain.models;
 
 import com.example.movie.domain.valueobjects.Money;
-import com.example.movie.domain.valueobjects.MovieLength;
 import com.example.sharedkernel.domain.base.AbstractEntity;
+import com.example.sharedkernel.domain.genre.Genre;
+import com.example.sharedkernel.domain.time.MovieLength;
 import com.example.sharedkernel.domain.time.MovieTime;
 import lombok.Getter;
 import lombok.NonNull;

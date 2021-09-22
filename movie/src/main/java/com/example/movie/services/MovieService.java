@@ -24,7 +24,7 @@ public interface MovieService {
 
     void deleteItem(MovieId movieId, ScheduledMovieId scheduledMovieId) throws MovieIdDoesNotExistException, ScheduledMovieIdDoesNotExistException;
 
-//    public Movie ticketAdded(MovieId movieId, MovieTime movieTime);
-//
-//    public Movie ticketRemoved(MovieId movieId, MovieTime movieTime);
+    public Movie ticketAdded(MovieId movieId, MovieTime movieTime);
+
+    public Movie ticketRemoved(MovieId movieId, MovieTime movieTime);
 }

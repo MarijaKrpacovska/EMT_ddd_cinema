@@ -1,6 +1,6 @@
 package com.example.ticketreservation.service.forms;
 
-import com.example.ticketreservation.domain.valueobjects.Currency;
+import com.example.sharedkernel.domain.money.Currency;
 import com.sun.istack.NotNull;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;

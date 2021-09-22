@@ -1,4 +1,5 @@
 package com.example.ticketreservation.xport.client;
+import com.example.ticketreservation.domain.valueobjects.Movie;
 import com.example.ticketreservation.domain.valueobjects.ScheduledMovie;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -29,16 +30,16 @@ public class MovieClient {
     }
 
 
-//    public List<Movie> findAll() {
-//        try {
-//            return restTemplate.exchange(uri().path("/api/movie")
-//                    .build().toUri(), HttpMethod.GET,null
-//                    , new ParameterizedTypeReference<List<Movie>>() {
-//            }).getBody();
-//        } catch (Exception e) {
-//            return Collections.emptyList();
-//        }
-//    }
+    public List<Movie> findAll() {
+        try {
+            return restTemplate.exchange(uri().path("/api/movie")
+                    .build().toUri(), HttpMethod.GET,null
+                    , new ParameterizedTypeReference<List<Movie>>() {
+            }).getBody();
+        } catch (Exception e) {
+            return Collections.emptyList();
+        }
+    }
 
     public List<ScheduledMovie> findAllScheduledMovies(String id) {
         try {

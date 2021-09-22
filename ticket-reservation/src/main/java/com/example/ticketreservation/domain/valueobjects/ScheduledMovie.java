@@ -1,6 +1,8 @@
 package com.example.ticketreservation.domain.valueobjects;
 
 import com.example.sharedkernel.domain.base.ValueObject;
+import com.example.sharedkernel.domain.money.Currency;
+import com.example.sharedkernel.domain.money.Money;
 import com.example.sharedkernel.domain.time.MovieTime;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

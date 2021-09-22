@@ -21,7 +21,7 @@ public class MovieEventListener {
     public void consumeOrderItemCreatedEvent(String jsonMessage) {
         try {
             TicketAdded event = DomainEvent.fromJson(jsonMessage,TicketAdded.class);
-            movieService.ticketAdded(new ScheduledMovieId(event.getScheduledMovieId()));
+            movieService.ticketAdded(new MovieId(event.getMovieId()),event.getMovieTime());
         } catch (Exception e){
 
         }
@@ -32,7 +32,7 @@ public class MovieEventListener {
     public void consumeOrderItemRemovedEvent(String jsonMessage) {
         try {
             TicketRemoved event = DomainEvent.fromJson(jsonMessage,TicketRemoved.class);
-            movieService.ticketRemoved(new ScheduledMovieId(event.getScheduledMovieId())));
+            movieService.ticketRemoved(new MovieId(event.getMovieId()),event.getMovieTime());
         } catch (Exception e){
 
         }

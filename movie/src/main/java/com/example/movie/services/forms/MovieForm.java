@@ -1,7 +1,6 @@
 package com.example.movie.services.forms;
-
-import com.example.movie.domain.models.Genre;
-import com.example.movie.domain.valueobjects.MovieLength;
+import com.example.sharedkernel.domain.genre.Genre;
+import com.example.sharedkernel.domain.time.MovieLength;
 import lombok.Data;
 import lombok.NonNull;
 

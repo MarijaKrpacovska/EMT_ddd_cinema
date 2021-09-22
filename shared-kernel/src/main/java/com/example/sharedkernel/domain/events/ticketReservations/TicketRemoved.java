@@ -8,15 +8,17 @@ import lombok.Getter;
 @Getter
 public class TicketRemoved extends DomainEvent {
 
-    private String scheduledMovieId;
+    private String movieId;
+    private MovieTime movieTime;
 
     public TicketRemoved(String topic) {
         super(TopicHolder.TOPIC_TICKET_REMOVED);
     }
 
-    public TicketRemoved(String scheduledMovieId) {
+    public TicketRemoved(String movieId,MovieTime movieTime) {
         super(TopicHolder.TOPIC_TICKET_REMOVED);
-        this.scheduledMovieId = scheduledMovieId;
+        this.movieId = movieId;
+        this.movieTime = movieTime;
     }
 }
 

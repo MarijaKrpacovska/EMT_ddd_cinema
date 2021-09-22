@@ -65,19 +65,19 @@ public class MovieServiceImpl implements MovieService {
         movieRepository.saveAndFlush(movie);
     }
 
-//    @Override
-//    public ScheduledMovie ticketAdded(ScheduledMovieId scheduledMovieId) {
-//        ScheduledMovie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-//        movie.addSales();
-//        return movie;
-//    }
-//
-//    @Override
-//    public ScheduledMovie ticketRemoved(ScheduledMovieId scheduledMovieId) {
-//        ScheduledMovie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-//        movie.removeSales();
-//        return movie;
-//    }
+    @Override
+    public Movie ticketAdded(MovieId movieId,MovieTime movieTime) {
+        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+        movie.increaseSales(movieTime);
+        return movie;
+    }
+
+    @Override
+    public Movie ticketRemoved(MovieId movieId,MovieTime movieTime ) {
+        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+        movie.decreaseSales(movieTime);
+        return movie;
+    }
 
 
 

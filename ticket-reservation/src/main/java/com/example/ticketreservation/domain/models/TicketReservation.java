@@ -1,8 +1,9 @@
 package com.example.ticketreservation.domain.models;
 
 import com.example.sharedkernel.domain.base.AbstractEntity;
-import com.example.ticketreservation.domain.valueobjects.Currency;
-import com.example.ticketreservation.domain.valueobjects.Money;
+import com.example.sharedkernel.domain.money.Currency;
+import com.example.sharedkernel.domain.money.Money;
+import com.example.ticketreservation.domain.valueobjects.Movie;
 import com.example.ticketreservation.domain.valueobjects.ScheduledMovie;
 import com.example.ticketreservation.domain.valueobjects.SeatNumber;
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
         super(TicketReservationId.randomId(TicketReservationId.class));
     }
 
-    public TicketReservation(Instant now, com.example.ticketreservation.domain.valueobjects.Currency currency) {
+    public TicketReservation(Instant now, Currency currency) {
         super(TicketReservationId.randomId(TicketReservationId.class));
         this.reservationTime = now;
         this.currency = currency;
@@ -45,9 +46,9 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
         return tickets.stream().map(Ticket::subtotal).reduce(new Money(currency, 0), Money::add);
     }
 
-    public Ticket addTicket(@NonNull ScheduledMovie scheduledMovie) {
-        Objects.requireNonNull(scheduledMovie,"scheduled movie must not be null");
-        var ticket  = new Ticket(scheduledMovie.getId(), scheduledMovie.getTicketPrice(), new SeatNumber());
+    public Ticket addTicket(@NonNull Movie movie) {
+        Objects.requireNonNull(movie,"movie must not be null");
+        var ticket  = new Ticket(movie.getMovieId(), new Money(Currency.MKD,40), new SeatNumber());
         tickets.add(ticket);
         return ticket;
     }
