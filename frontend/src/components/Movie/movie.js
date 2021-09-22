@@ -11,13 +11,21 @@ const movies = (props) => {
                         <thead>
                         <tr>
                             <th scope={"col"}>Name</th>
+                            <th scope={"col"}>Description</th>
+                            <th scope={"col"}>Genre</th>
+                            <th scope={"col"}>PublishDate</th>
+                            <th scope={"col"}>Length</th>
                         </tr>
                         </thead>
                         <tbody>
                         {props.movies.map((term) => {
                             return (
                                 <tr>
-                                    <td>{term.id.id}</td>
+                                    <td>{term.name}</td>
+                                    <td>{term.description}</td>
+                                    <td>{term.genre}</td>
+                                    <td>{term.publishDate}</td>
+                                    <td>{term.movieLength.length} {term.movieLength.unitOfTime}</td>
                                     <Link className={"btn btn-info ml-2"}
                                        onClick={() => props.onDetails(term.id.id)}
                                        to={`/movie/findById/${term.id.id}`}>
@@ -26,7 +34,7 @@ const movies = (props) => {
                                     <Link className={"btn btn-info ml-2"}
                                           onClick={() => props.onScheduleMovie(term.id.id)}
                                           to={`/movie/scheduleMovie/${term.id.id}`}>
-                                        Details
+                                        Schedule movie
                                     </Link>
                                 </tr>
                             );
@@ -47,7 +55,7 @@ const movies = (props) => {
             <div className="col mb-3">
                 <div className="row">
                     <div className="col-sm-12 col-md-12">
-                        <Link className={"btn btn-block btn-dark"} to={"/ticket/makeReservation"}>Add new product</Link>
+                        <Link className={"btn btn-block btn-dark"} to={"/ticket/makeReservation"}>Make Reservation</Link>
                     </div>
                 </div>
             </div>
