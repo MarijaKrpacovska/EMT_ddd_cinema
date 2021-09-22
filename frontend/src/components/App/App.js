@@ -9,6 +9,7 @@ import ScheduleMovie from "../Movie/scheduleMovie";
 import TicketReservationAdd from "../Ticket/ticketreservationAdd";
 import TicketService from "../../repository/ticketRepository";
 import AddTicketToReservation from "../Ticket/addTicketToReservation";
+import TicketReservationDetails from "../Ticket/ticketReservationDetails";
 
 class App extends Component {
 
@@ -32,8 +33,11 @@ class App extends Component {
                             <MovieAdd onAddMovie={this.addMovie}/>}/>
 
                         <Route path={"/ticket/addTicketToReservation/:id"} exact render={() =>
-                            <AddTicketToReservation onTicketReservationAdd={this.addTicketToReservation}
+                            <AddTicketToReservation onAddTicketToReservation={this.addTicketToReservation}
                                                     ticketReservation={this.state.ticketReservation}/>}/>
+
+                        <Route path={"/ticket/getTicketReservation/:id"} exact render={() =>
+                            <TicketReservationDetails ticketReservation={this.state.ticketReservation}/>}/>
 
                         <Route path={"/ticket/makeReservation"} exact render={() =>
                             <TicketReservationAdd onTicketReservationAdd={this.addTicketReservation}/>}/>

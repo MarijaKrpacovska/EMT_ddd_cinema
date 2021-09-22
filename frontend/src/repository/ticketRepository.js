@@ -8,12 +8,12 @@ const TicketService = {
         });
     },
     addTicketToReservation: (id, quantity, movie) => {
-        return axios.post("/ticket/addTicketToReservation/${id}", {
+        return axios.post(`/ticket/addTicketToReservation/${id}`, {
             "quantity" : quantity,
             "movie" : movie
         });
     },
-    getTicketReservation: (id) => {return axios.post("/ticket/findTicketReservation/${id}");}
+    getTicketReservation: (id) => {return axios.post("/ticket/findReservation/${id}");}
 }
 
 export default TicketService;

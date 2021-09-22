@@ -38,7 +38,7 @@ const AddTicketToReservation = (props) => {
             "scheduledMovies": []
         }
 
-        props.onAddTicketToReservation(props.ticketReservation.id, quantity,movie);
+        props.onAddTicketToReservation(props.ticketReservation.id.id, quantity,movie);
         history.push("/movie");
     }
 
