@@ -41,7 +41,7 @@ public class TicketReservationServiceImpl implements TicketReservationService {
             throw new ConstraintViolationException("The order reservation form is not valid", constraintViolations);
         }
         var newTicketReservation = ticketReservationRepository.saveAndFlush(toDomainObject(ticketReservationForm));
-        newTicketReservation.getTickets().forEach(item -> domainEventPublisher.publish(new TicketAdded(item.getMovieId().getId(),new MovieTime(10,10))));
+      //  newTicketReservation.getTickets().forEach(item -> domainEventPublisher.publish(new TicketAdded(item.getMovieId().getId(),new MovieTime(10,10))));
         return newTicketReservation.getId();
 
     }
@@ -61,7 +61,7 @@ public class TicketReservationServiceImpl implements TicketReservationService {
         TicketReservation ticketReservation = ticketReservationRepository.findById(ticketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
         ticketReservation.addTicket(ticketForm.getMovie());
         ticketReservationRepository.saveAndFlush(ticketReservation);
-        domainEventPublisher.publish(new TicketAdded(ticketForm.getMovie().getMovieId().getId(),new MovieTime(4,30)));
+      //  domainEventPublisher.publish(new TicketAdded(ticketForm.getMovie().getMovieId().getId(),new MovieTime(4,30)));
 
     }
 
@@ -70,7 +70,7 @@ public class TicketReservationServiceImpl implements TicketReservationService {
         TicketReservation ticketReservation = ticketReservationRepository.findById(ticketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
         ticketReservation.removeTicket(ticketId);
         ticketReservationRepository.saveAndFlush(ticketReservation);
-        domainEventPublisher.publish(new TicketRemoved(ticketId.getId(),new MovieTime(4,30)));
+     //   domainEventPublisher.publish(new TicketRemoved(ticketId.getId(),new MovieTime(4,30)));
     }
 
     private TicketReservation toDomainObject(TicketReservationForm ticketReservationForm) {
