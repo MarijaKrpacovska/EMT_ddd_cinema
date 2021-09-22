@@ -20,6 +20,33 @@ public class MovieLength implements ValueObject {
         length=0;
     }
 
+    public double toMin(){
+        if(unitOfTime.equals(UnitOfTime.min))
+            return length;
+        else if(unitOfTime.equals(UnitOfTime.hour))
+            return length/60;
+        else
+            return length*60;
+    }
+
+    public double toHour(){
+        if(unitOfTime.equals(UnitOfTime.min))
+            return length*60;
+        else if(unitOfTime.equals(UnitOfTime.hour))
+            return length;
+        else
+            return length*3600;
+    }
+
+    public double toSec(){
+        if(unitOfTime.equals(UnitOfTime.min))
+            return length/60;
+        else if(unitOfTime.equals(UnitOfTime.hour))
+            return length/3600;
+        else
+            return length;
+    }
+
     public MovieLength(double length, UnitOfTime unitOfTime) {
         this.length = length;
         this.unitOfTime = unitOfTime;

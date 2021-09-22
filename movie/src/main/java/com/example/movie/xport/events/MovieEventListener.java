@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class MovieEventListener {
 
-    private final MovieService movieService;
-
+//    private final MovieService movieService;
+//
 //    @KafkaListener(topics= TopicHolder.TOPIC_TICKET_ADDED, groupId = "movie")
 //    public void consumeOrderItemCreatedEvent(String jsonMessage) {
 //        try {

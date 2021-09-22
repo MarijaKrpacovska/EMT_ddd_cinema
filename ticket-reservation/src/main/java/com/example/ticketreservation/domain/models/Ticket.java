@@ -14,14 +14,11 @@ import javax.persistence.*;
 @Getter
 public class Ticket extends AbstractEntity<TicketId> {
 
-    //private boolean isBooked;
-
+    //price e od tipot Money so cel da se zapazi seprisutniot jazik
     private Money price;
 
     @Column(name = "qty", nullable = false)
     private int quantity;
-
-    //private SeatNumber seatNumber;
 
     @AttributeOverride(name = "id", column = @Column(name = "movie_id", nullable = false))
     private MovieId movieId;
@@ -35,7 +32,6 @@ public class Ticket extends AbstractEntity<TicketId> {
         this.movieId = movieId;
         this.price = price;
         this.quantity=qty;
-        //this.seatNumber = seatNumber;
     }
 
     public Money subtotal() {

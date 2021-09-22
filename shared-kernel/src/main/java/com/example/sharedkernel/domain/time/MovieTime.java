@@ -22,6 +22,11 @@ public class MovieTime implements ValueObject {
         this.minutes = minutes;
     }
 
+    //metod koj go prikazhuva vremetraenjeto na filmot vo minuti
+    public int toMinutes() {
+       return this.hour * 60 + minutes;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
