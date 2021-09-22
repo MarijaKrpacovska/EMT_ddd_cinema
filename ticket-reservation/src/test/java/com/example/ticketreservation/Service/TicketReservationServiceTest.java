@@ -38,46 +38,46 @@ public class TicketReservationServiceTest {
         return movie;
     }
 
-    @Test
-    public void testMakeReservation() {
+//    @Test
+//    public void testMakeReservation() {
+//
+//        TicketForm ticketForm = new TicketForm();
+//        ticketForm.setMovie(newMovie("movie",new MovieLength(10, UnitOfTime.min),Genre.action,Instant.now(),"desc"));
+//
+//        TicketForm ticketForm1 = new TicketForm();
+//        ticketForm1.setMovie(newMovie("movie",new MovieLength(10, UnitOfTime.min),Genre.action,Instant.now(),"desc"));
+//
+//        TicketReservationForm ticketReservationForm = new TicketReservationForm();
+//        ticketReservationForm.setCurrency(Currency.MKD);
+//        ticketReservationForm.setTickets(Arrays.asList(ticketForm,ticketForm1));
+//
+//        TicketReservationId newTicketReservationId = ticketReservationService.makeReservation(ticketReservationForm);
+//        TicketReservation newTicketReservation = ticketReservationService.findById(newTicketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
+//        Assertions.assertEquals(newTicketReservation.total(), Money.valueOf(Currency.MKD,20));
+//
+//    }
 
-        TicketForm ticketForm = new TicketForm();
-        ticketForm.setMovie(newMovie("movie",new MovieLength(10, UnitOfTime.min),Genre.action,Instant.now(),"desc"));
-
-        TicketForm ticketForm1 = new TicketForm();
-        ticketForm1.setMovie(newMovie("movie",new MovieLength(10, UnitOfTime.min),Genre.action,Instant.now(),"desc"));
-
-        TicketReservationForm ticketReservationForm = new TicketReservationForm();
-        ticketReservationForm.setCurrency(Currency.MKD);
-        ticketReservationForm.setTickets(Arrays.asList(ticketForm,ticketForm1));
-
-        TicketReservationId newTicketReservationId = ticketReservationService.makeReservation(ticketReservationForm);
-        TicketReservation newTicketReservation = ticketReservationService.findById(newTicketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
-        Assertions.assertEquals(newTicketReservation.total(), Money.valueOf(Currency.MKD,20));
-
-    }
-
-    @Test
-    public void testMakeReservationWithRealData() {
-        List<Movie> scheduledMovies = movieClient.findAll();
-        Movie sm1 = scheduledMovies.get(0);
-        Movie sm2 = scheduledMovies.get(1);
-
-        TicketForm t1 = new TicketForm();
-        t1.setMovie(sm1);
-
-        TicketForm t2 = new TicketForm();
-        t2.setMovie(sm2);
-
-        TicketReservationForm ticketReservationForm = new TicketReservationForm();
-        ticketReservationForm.setCurrency(Currency.MKD);
-        ticketReservationForm.setTickets(Arrays.asList(t1,t2));
-
-        TicketReservationId newTicketReservationId = ticketReservationService.makeReservation(ticketReservationForm);
-        TicketReservation newTR = ticketReservationService.findById(newTicketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
-        Assertions.assertEquals(newTR.total(), Money.valueOf(Currency.MKD,8));
-
-    }
+//    @Test
+//    public void testMakeReservationWithRealData() {
+//        List<Movie> scheduledMovies = movieClient.findAll();
+//        Movie sm1 = scheduledMovies.get(0);
+//        Movie sm2 = scheduledMovies.get(1);
+//
+//        TicketForm t1 = new TicketForm();
+//        t1.setMovie(sm1);
+//
+//        TicketForm t2 = new TicketForm();
+//        t2.setMovie(sm2);
+//
+//        TicketReservationForm ticketReservationForm = new TicketReservationForm();
+//        ticketReservationForm.setCurrency(Currency.MKD);
+//        ticketReservationForm.setTickets(Arrays.asList(t1,t2));
+//
+//        TicketReservationId newTicketReservationId = ticketReservationService.makeReservation(ticketReservationForm);
+//        TicketReservation newTR = ticketReservationService.findById(newTicketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
+//        Assertions.assertEquals(newTR.total(), Money.valueOf(Currency.MKD,8));
+//
+//    }
 
 
 

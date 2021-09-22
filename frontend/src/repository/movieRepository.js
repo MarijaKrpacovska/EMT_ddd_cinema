@@ -18,6 +18,13 @@ const MovieService = {
     getMovie: (id) => {
         console.log("vleguva vo getMovie")
         return axios.get(`/movie/findById/${id}`);
+    },
+    scheduleMovie: (id,startTime,endTime) => {
+        console.log("vleguva vo schedule")
+        return axios.post(`/movie/scheduleMovie/${id}`, {
+            "startTime" : startTime,
+            "endTime" : endTime
+        });
     }
 
 }

@@ -56,7 +56,7 @@ public class MovieResource {
 
 
     @PostMapping("/scheduleMovie/{id}")
-    public ResponseEntity<Movie> save(@PathVariable String id, @RequestBody ScheduledMovieForm scheduledMovieForm) {
+    public ResponseEntity<Movie> scheduleMovie(@PathVariable String id, @RequestBody ScheduledMovieForm scheduledMovieForm) {
         return this.movieService.addScheduledMovie(new MovieId(id),scheduledMovieForm)
                 .map(movie -> ResponseEntity.ok().body(movie))
                 .orElseGet(() -> ResponseEntity.badRequest().build());

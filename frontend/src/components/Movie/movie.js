@@ -23,6 +23,11 @@ const movies = (props) => {
                                        to={`/movie/findById/${term.id.id}`}>
                                         Details
                                     </Link>
+                                    <Link className={"btn btn-info ml-2"}
+                                          onClick={() => props.onScheduleMovie(term.id.id)}
+                                          to={`/movie/scheduleMovie/${term.id.id}`}>
+                                        Details
+                                    </Link>
                                 </tr>
                             );
                         })}

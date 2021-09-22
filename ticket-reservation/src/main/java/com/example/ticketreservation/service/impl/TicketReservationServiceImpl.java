@@ -34,7 +34,7 @@ public class TicketReservationServiceImpl implements TicketReservationService {
     private final Validator validator;
 
     @Override
-    public TicketReservationId makeReservation(TicketReservationForm ticketReservationForm) {
+    public Optional<TicketReservation> makeReservation(TicketReservationForm ticketReservationForm) {
         Objects.requireNonNull(ticketReservationForm,"ticket reservation must not be null.");
         var constraintViolations = validator.validate(ticketReservationForm);
         if (constraintViolations.size()>0) {
@@ -42,7 +42,7 @@ public class TicketReservationServiceImpl implements TicketReservationService {
         }
         var newTicketReservation = ticketReservationRepository.saveAndFlush(toDomainObject(ticketReservationForm));
       //  newTicketReservation.getTickets().forEach(item -> domainEventPublisher.publish(new TicketAdded(item.getMovieId().getId(),new MovieTime(10,10))));
-        return newTicketReservation.getId();
+        return Optional.of(newTicketReservation);
 
     }
 

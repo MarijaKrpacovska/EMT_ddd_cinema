@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TicketReservationService {
-    TicketReservationId makeReservation(TicketReservationForm ticketReservationForm);
+    Optional<TicketReservation>  makeReservation(TicketReservationForm ticketReservationForm);
 
     List<TicketReservation> findAll();
 
