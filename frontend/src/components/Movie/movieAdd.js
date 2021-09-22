@@ -33,14 +33,14 @@ const MovieAdd = (props) => {
         const publishDate = formData.publishDate;
         const description = formData.description;
         const movieLength = {
-                length: 0.0,
+                length: formData.movieLength,
                 unitOfTime: "min"
             };
-        const genre= "action";
+        const genre= formData.genre;
 
         const ticketPrice= {
             currency: "MKD",
-                amount: 0.0
+                amount: formData.ticketPrice
         };
         const scheduledMovies= []
 
@@ -86,45 +86,32 @@ const MovieAdd = (props) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="genre">genre</label>
-                        <input type="text"
-                               className="form-control"
-                               id="genre"
-                               name="genre"
-                               required
-                               placeholder="Enter Movie name"
-                               onChange={handleChange}
-                        />
+                        <label>genre</label>
+                        <select name="genre" className="form-control" onChange={handleChange}>
+                            <option value="action">action</option>
+                            <option value="romance">romance</option>
+                            <option value="horror">horror</option>
+                        </select>
                     </div>
+
                     <div className="form-group">
-                        <label htmlFor="movieLength">movieLength</label>
-                        <input type="text"
+                        <label htmlFor="movieLength">Movie Length</label>
+                        <input type="number"
                                className="form-control"
                                id="movieLength"
                                name="movieLength"
-                               placeholder="movieLength"
+                               placeholder="[min]"
                                required
                                onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="ticketPrice">ticketPrice</label>
-                        <input type="text"
+                        <label htmlFor="ticketPrice">Price</label>
+                        <input type="number"
                                className="form-control"
                                id="ticketPrice"
                                name="ticketPrice"
                                placeholder="ticketPrice"
-                               required
-                               onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="scheduledMovies">scheduledMovies</label>
-                        <input type="text"
-                               className="form-control"
-                               id="scheduledMovies"
-                               name="scheduledMovies"
-                               placeholder="scheduledMovies"
                                required
                                onChange={handleChange}
                         />

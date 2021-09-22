@@ -47,7 +47,7 @@ const movies = (props) => {
             <div className="col mb-3">
                 <div className="row">
                     <div className="col-sm-12 col-md-12">
-                        <Link className={"btn btn-block btn-dark"} to={"/movie/add"}>Add new product</Link>
+                        <Link className={"btn btn-block btn-dark"} to={"/movie/add"}>Add new Movie</Link>
                     </div>
                 </div>
             </div>
