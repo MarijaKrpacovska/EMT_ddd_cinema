@@ -8,6 +8,7 @@ import MovieAdd from "../Movie/movieAdd";
 import ScheduleMovie from "../Movie/scheduleMovie";
 import TicketReservationAdd from "../Ticket/ticketreservationAdd";
 import TicketService from "../../repository/ticketRepository";
+import AddTicketToReservation from "../Ticket/addTicketToReservation";
 
 class App extends Component {
 
@@ -15,7 +16,8 @@ class App extends Component {
         super(props);
         this.state = {
             movies: [],
-            selectedMovie: {}
+            selectedMovie: {},
+            ticketReservation: {}
         }
     }
 
@@ -28,6 +30,10 @@ class App extends Component {
 
                         <Route path={"/movie/add"} exact render={() =>
                             <MovieAdd onAddMovie={this.addMovie}/>}/>
+
+                        <Route path={"/ticket/addTicketToReservation/:id"} exact render={() =>
+                            <AddTicketToReservation onTicketReservationAdd={this.addTicketToReservation}
+                                                    ticketReservation={this.state.ticketReservation}/>}/>
 
                         <Route path={"/ticket/makeReservation"} exact render={() =>
                             <TicketReservationAdd onTicketReservationAdd={this.addTicketReservation}/>}/>
@@ -68,6 +74,16 @@ class App extends Component {
                 })
             })
     }
+    getTicketReservation = (id) => {
+        // console.log("vo getMovie"+id)
+        TicketService.getTicketReservation(id)
+            .then((data) => {
+                console.log("vo getMovie"+typeof (data.data))
+                this.setState({
+                    ticketReservation: data.data
+                })
+            })
+    }
     addMovie = (name, movieLength, genre, publishDate, description,ticketPrice,scheduledMovies) => {
         MovieService.addMovie(name, movieLength, genre, publishDate, description,ticketPrice,scheduledMovies)
             .then(() => {
@@ -76,6 +92,13 @@ class App extends Component {
     }
     addTicketReservation = (currency,tickets) => {
         TicketService.makeReservation(currency,tickets)
+            .then(() => {
+                this.loadMovies();
+            });
+    }
+
+    addTicketToReservation = (id,quantity,movie) => {
+        TicketService.addTicketToReservation(id,quantity,movie)
             .then(() => {
                 this.loadMovies();
             });

@@ -1,12 +1,12 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 
-const TicketReservationAdd = (props) => {
+const AddTicketToReservation = (props) => {
 
     const history = useHistory();
     const [formData, updateFormData] = React.useState({
-        currency: "",
-        tickets: []
+        movie: {},
+        quantity: 1
     })
 
     const handleChange = (e) => {
@@ -18,30 +18,27 @@ const TicketReservationAdd = (props) => {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        const currency = formData.currency;
-        const tickets = [{
-            "movie": {
-                "id": {
-                    "id": "6551c5ef-192a-43db-93d1-d045b016631e"
-                },
-                "name": "movie1",
-                "movieLength": {
-                    "length": 10.0,
-                    "unitOfTime": "min"
-                },
-                "genre": "action",
-                "publishDate": "2021-09-22T10:07:11.243557Z",
-                "description": "desc",
-                "ticketPrice": {
-                    "currency": "MKD",
-                    "amount": 4.0
-                },
-                "scheduledMovies": []
+        const quantity = formData.quantity;
+        const movie = {
+            "id": {
+                "id": "7f4d8d50-11bc-4ce5-984b-48551bfeb89a"
             },
-            "qty": 10
-        }];
+            "name": "movie",
+            "movieLength": {
+                "length": 10.0,
+                "unitOfTime": "min"
+            },
+            "genre": "action",
+            "publishDate": "2021-09-22T10:07:11.243557Z",
+            "description": "desc",
+            "ticketPrice": {
+                "currency": "MKD",
+                "amount": 4.0
+            },
+            "scheduledMovies": []
+        }
 
-        props.onTicketReservationAdd(currency,tickets);
+        props.onAddTicketToReservation(props.ticketReservation.id, quantity,movie);
         history.push("/movie");
     }
 
@@ -50,24 +47,23 @@ const TicketReservationAdd = (props) => {
             <div className="col-md-5">
                 <form onSubmit={onFormSubmit}>
                     <div className="form-group">
-                        <label htmlFor="currency">currency</label>
+                        <label htmlFor="quantity">quantity</label>
                         <input type="text"
                                className="form-control"
-                               id="currency"
-                               name="currency"
-                               required
-                               placeholder="currency"
+                               id="quantity"
+                               name="quantity"
+                               placeholder="quantity"
                                onChange={handleChange}
                         />
                     </div>
+
                     <div className="form-group">
-                        <label htmlFor="tickets">tickets</label>
+                        <label htmlFor="movie">movie</label>
                         <input type="text"
                                className="form-control"
-                               id="tickets"
-                               name="tickets"
-                               placeholder="tickets"
-                               required
+                               id="movie"
+                               name="movie"
+                               placeholder="movie"
                                onChange={handleChange}
                         />
                     </div>
@@ -78,4 +74,4 @@ const TicketReservationAdd = (props) => {
     )
 }
 
-export default TicketReservationAdd;
+export default AddTicketToReservation;

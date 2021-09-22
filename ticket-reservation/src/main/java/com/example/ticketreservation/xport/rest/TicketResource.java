@@ -34,6 +34,13 @@ public class TicketResource {
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
+    @GetMapping("/findReservation/{id}")
+    public ResponseEntity<TicketReservation> findReservation(@PathVariable String id){
+        return this.ticketReservationService.findById(new TicketReservationId(id))
+                .map(movie -> ResponseEntity.ok().body(movie))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
 //    @PostMapping("/makeReservetionForMovie")
 //    public ResponseEntity<TicketReservation> saveReservation(@RequestBody TicketReservationForm ticketReservationForm) {
 //        return this.ticketReservationService.makeReservation(ticketReservationForm)

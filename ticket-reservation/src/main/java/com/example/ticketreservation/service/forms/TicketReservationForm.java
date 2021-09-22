@@ -23,7 +23,6 @@ public class TicketReservationForm {
     private Currency currency;
 
     @Valid
-    @NotEmpty
     private Set<TicketForm> tickets = new HashSet<>();
 
     @JsonCreator
