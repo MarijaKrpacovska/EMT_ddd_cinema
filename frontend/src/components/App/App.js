@@ -40,7 +40,8 @@ class App extends Component {
                             <TicketReservationDetails ticketReservation={this.state.ticketReservation}/>}/>
 
                         <Route path={"/ticket/makeReservation"} exact render={() =>
-                            <TicketReservationAdd onTicketReservationAdd={this.addTicketReservation}/>}/>
+                            <TicketReservationAdd onTicketReservationAdd={this.addTicketReservation}
+                                                  movies={this.state.movies}/>}/>
 
                         <Route path={"/movie/scheduleMovie/:id"} exact render={() =>
                             <ScheduleMovie onScheduleMovie={this.scheduleMovie}

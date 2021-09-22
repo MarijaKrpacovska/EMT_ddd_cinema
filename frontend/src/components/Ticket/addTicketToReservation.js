@@ -58,15 +58,14 @@ const AddTicketToReservation = (props) => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="movie">movie</label>
-                        <input type="text"
-                               className="form-control"
-                               id="movie"
-                               name="movie"
-                               placeholder="movie"
-                               onChange={handleChange}
-                        />
+                        <label>Category</label>
+                        <select name="movie" className="form-control" onChange={handleChange}>
+                            {props.movies.map((term) =>
+                                <option value={term.id}>{term.name}</option>
+                            )}
+                        </select>
                     </div>
+
                     <button id="submit" type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>

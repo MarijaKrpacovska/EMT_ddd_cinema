@@ -50,27 +50,22 @@ const TicketReservationAdd = (props) => {
             <div className="col-md-5">
                 <form onSubmit={onFormSubmit}>
                     <div className="form-group">
-                        <label htmlFor="currency">currency</label>
-                        <input type="text"
-                               className="form-control"
-                               id="currency"
-                               name="currency"
-                               required
-                               placeholder="currency"
-                               onChange={handleChange}
-                        />
+                        <label>currency</label>
+                        <select name="currency" className="form-control" onChange={handleChange}>
+                            <option value="MKD">MKD</option>
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                        </select>
                     </div>
                     <div className="form-group">
-                        <label htmlFor="tickets">tickets</label>
-                        <input type="text"
-                               className="form-control"
-                               id="tickets"
-                               name="tickets"
-                               placeholder="tickets"
-                               required
-                               onChange={handleChange}
-                        />
+                        <label>Category</label>
+                        <select name="movie" className="form-control" onChange={handleChange}>
+                            {props.movies.map((term) =>
+                                <option value={term.id}>{term.name}</option>
+                            )}
+                        </select>
                     </div>
+
                     <button id="submit" type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
