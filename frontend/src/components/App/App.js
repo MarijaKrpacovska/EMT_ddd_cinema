@@ -6,6 +6,8 @@ import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom'
 import MovieService from "../../repository/movieRepository";
 import MovieAdd from "../Movie/movieAdd";
 import ScheduleMovie from "../Movie/scheduleMovie";
+import TicketReservationAdd from "../Ticket/ticketreservationAdd";
+import TicketService from "../../repository/ticketRepository";
 
 class App extends Component {
 
@@ -26,6 +28,9 @@ class App extends Component {
 
                         <Route path={"/movie/add"} exact render={() =>
                             <MovieAdd onAddMovie={this.addMovie}/>}/>
+
+                        <Route path={"/ticket/makeReservation"} exact render={() =>
+                            <TicketReservationAdd onTicketReservationAdd={this.addTicketReservation}/>}/>
 
                         <Route path={"/movie/scheduleMovie/:id"} exact render={() =>
                             <ScheduleMovie onScheduleMovie={this.scheduleMovie}
@@ -65,6 +70,12 @@ class App extends Component {
     }
     addMovie = (name, movieLength, genre, publishDate, description,ticketPrice,scheduledMovies) => {
         MovieService.addMovie(name, movieLength, genre, publishDate, description,ticketPrice,scheduledMovies)
+            .then(() => {
+                this.loadMovies();
+            });
+    }
+    addTicketReservation = (currency,tickets) => {
+        TicketService.makeReservation(currency,tickets)
             .then(() => {
                 this.loadMovies();
             });
