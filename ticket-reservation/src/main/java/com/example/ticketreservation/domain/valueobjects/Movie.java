@@ -30,6 +30,8 @@ public class Movie implements ValueObject {
 
     private String description;
 
+    private String url;
+
     @NonNull
     private Money ticketPrice;
 
@@ -51,6 +53,7 @@ public class Movie implements ValueObject {
                  @JsonProperty("publishDate") Instant publishDate,
                  @JsonProperty("description") String description,
                  @JsonProperty("ticketPrice") Money ticketPrice,
+                 @JsonProperty("url") String url,
                  @JsonProperty("scheduledMovies") Set<ScheduledMovie> scheduledMovies) {
         this.movieId = movieId;
         this.name = name;

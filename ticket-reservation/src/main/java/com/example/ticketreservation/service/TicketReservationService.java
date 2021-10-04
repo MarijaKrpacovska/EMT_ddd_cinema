@@ -2,6 +2,7 @@ package com.example.ticketreservation.service;
 
 import com.example.ticketreservation.domain.exceptions.TicketIdDoesNotExist;
 import com.example.ticketreservation.domain.exceptions.TicketReservationIdDoesNotExist;
+import com.example.ticketreservation.domain.models.ReservationStatus;
 import com.example.ticketreservation.domain.models.TicketId;
 import com.example.ticketreservation.domain.models.TicketReservation;
 import com.example.ticketreservation.domain.models.TicketReservationId;
@@ -22,5 +23,8 @@ public interface TicketReservationService {
 
     void deleteTicket(TicketReservationId ticketReservationId, TicketId ticketId) throws TicketReservationIdDoesNotExist, TicketIdDoesNotExist;
 
+    Optional<TicketReservation> findByReservationStatus(ReservationStatus reservationStatus);
+
+//    Optional<TicketReservation> makeReservation(TicketReservationForm ticketReservationForm, TicketForm ticketForm);
 
 }

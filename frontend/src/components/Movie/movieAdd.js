@@ -17,6 +17,7 @@ const MovieAdd = (props) => {
             currency: "MKD",
             amount: 0.0
         },
+        url: "",
         scheduledMovies: []
     })
 
@@ -43,8 +44,9 @@ const MovieAdd = (props) => {
                 amount: formData.ticketPrice
         };
         const scheduledMovies= []
+        const url=formData.url
 
-        props.onAddMovie(name,movieLength,genre, publishDate,description,ticketPrice,scheduledMovies);
+        props.onAddMovie(name,movieLength,genre, publishDate,description,ticketPrice,url,scheduledMovies);
         history.push("/movie");
     }
 
@@ -113,6 +115,17 @@ const MovieAdd = (props) => {
                                name="ticketPrice"
                                placeholder="ticketPrice"
                                required
+                               onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="url">url</label>
+                        <input type="text"
+                               className="form-control"
+                               id="url"
+                               name="url"
+                               required
+                               placeholder="Enter Movie url"
                                onChange={handleChange}
                         />
                     </div>

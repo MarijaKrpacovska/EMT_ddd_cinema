@@ -1,5 +1,4 @@
 package com.example.movie.services.forms;
-import com.example.movie.domain.models.ScheduledMovie;
 import com.example.sharedkernel.domain.genre.Genre;
 import com.example.sharedkernel.domain.money.Money;
 import com.example.sharedkernel.domain.time.MovieLength;
@@ -33,7 +32,9 @@ public class MovieForm {
     @NonNull
     private Money ticketPrice;
 
-    private Set<ScheduledMovieForm> scheduledMovies = new HashSet<>();
+    private String url;
+
+//    private Set<ScheduledMovieForm> scheduledMovies = new HashSet<>();
 
 //    @JsonCreator
 //    public MovieForm(@JsonProperty("name") String name,

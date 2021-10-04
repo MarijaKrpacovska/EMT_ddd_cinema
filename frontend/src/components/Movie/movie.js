@@ -10,6 +10,7 @@ const movies = (props) => {
                     <table className={"table table-striped"}>
                         <thead>
                         <tr>
+                            <th scope={"col"}>url</th>
                             <th scope={"col"}>Name</th>
                             <th scope={"col"}>Description</th>
                             <th scope={"col"}>Genre</th>
@@ -21,16 +22,20 @@ const movies = (props) => {
                         {props.movies.map((term) => {
                             return (
                                 <tr>
-                                    <td>{term.name}</td>
+                                    <img src={term.url} height={"140px"}></img>
+                                    <td>
+                                        <Link
+                                              onClick={() => props.onDetails(term.id.id)}
+                                              to={`/movie/findById/${term.id.id}`}>
+                                            {term.name}
+                                        </Link>
+                                    </td>
                                     <td>{term.description}</td>
                                     <td>{term.genre}</td>
                                     <td>{term.publishDate}</td>
                                     <td>{term.movieLength.length} {term.movieLength.unitOfTime}</td>
-                                    <Link className={"btn btn-info ml-2"}
-                                       onClick={() => props.onDetails(term.id.id)}
-                                       to={`/movie/findById/${term.id.id}`}>
-                                        Details
-                                    </Link>
+
+
                                     <Link className={"btn btn-info ml-2"}
                                           onClick={() => props.onScheduleMovie(term.id.id)}
                                           to={`/movie/scheduleMovie/${term.id.id}`}>

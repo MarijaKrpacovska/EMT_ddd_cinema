@@ -4,7 +4,7 @@ const MovieService = {
     fetchMovies: () => {
         return axios.get("/movie");
     },
-    addMovie: (name, movieLength, genre, publishDate, description,ticketPrice,scheduledMovies) => {
+    addMovie: (name, movieLength, genre, publishDate, description,ticketPrice,url,scheduledMovies) => {
         return axios.post("/movie/add", {
             "name" : name,
             "movieLength" : movieLength,
@@ -12,6 +12,7 @@ const MovieService = {
             "publishDate" : publishDate,
             "description" : description,
             "ticketPrice" : ticketPrice,
+            "url" : url,
             "scheduledMovies" : scheduledMovies
         });
     },

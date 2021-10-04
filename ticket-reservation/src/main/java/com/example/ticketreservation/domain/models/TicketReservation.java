@@ -4,6 +4,7 @@ import com.example.sharedkernel.domain.base.AbstractEntity;
 import com.example.sharedkernel.domain.money.Currency;
 import com.example.sharedkernel.domain.money.Money;
 import com.example.ticketreservation.domain.valueobjects.Movie;
+import com.example.ticketreservation.domain.valueobjects.ScheduledMovie;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -47,9 +48,9 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
         return tickets.stream().map(Ticket::subtotal).reduce(new Money(currency, 0), Money::add);
     }
 
-    public Ticket addTicket(@NonNull Movie movie, int qty) {
-        Objects.requireNonNull(movie,"movie must not be null");
-        var ticket  = new Ticket(movie.getMovieId(), movie.getTicketPrice(),qty);
+    public Ticket addTicket(@NonNull ScheduledMovie scheduledMovie, int qty) {
+        Objects.requireNonNull(scheduledMovie,"movie must not be null");
+        var ticket  = new Ticket(scheduledMovie.getId(), scheduledMovie.getTicketPrice(),qty);
         tickets.add(ticket);
         return ticket;
     }

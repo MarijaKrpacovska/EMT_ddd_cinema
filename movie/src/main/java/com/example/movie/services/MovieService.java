@@ -1,12 +1,9 @@
 package com.example.movie.services;
 
 import com.example.movie.domain.exceptions.MovieIdDoesNotExistException;
-import com.example.movie.domain.exceptions.ScheduledMovieIdDoesNotExistException;
 import com.example.movie.domain.models.Movie;
 import com.example.movie.domain.models.MovieId;
-import com.example.movie.domain.models.ScheduledMovieId;
 import com.example.movie.services.forms.MovieForm;
-import com.example.movie.services.forms.ScheduledMovieForm;
 import com.example.sharedkernel.domain.time.MovieTime;
 
 import java.util.List;
@@ -20,11 +17,15 @@ public interface MovieService {
 
     Optional<Movie> findById(MovieId id);
 
-    Optional<Movie> addScheduledMovie(MovieId movieId, ScheduledMovieForm scheduledMovieForm) throws MovieIdDoesNotExistException;
+//    Optional<Movie> editMovie(MovieId id, MovieForm movieForm);
 
-    void deleteItem(MovieId movieId, ScheduledMovieId scheduledMovieId) throws MovieIdDoesNotExistException, ScheduledMovieIdDoesNotExistException;
+//    Optional<Movie> addScheduledMovie(MovieId movieId, ScheduledMovieForm scheduledMovieForm) throws MovieIdDoesNotExistException;
+//
+//    void deleteItem(MovieId movieId, ScheduledMovieId scheduledMovieId) throws MovieIdDoesNotExistException, ScheduledMovieIdDoesNotExistException;
+//
+//    public Movie ticketAdded(MovieId movieId, MovieTime movieTime);
+//
+//    public Movie ticketRemoved(MovieId movieId, MovieTime movieTime);
 
-    public Movie ticketAdded(MovieId movieId, MovieTime movieTime);
-
-    public Movie ticketRemoved(MovieId movieId, MovieTime movieTime);
+    
 }

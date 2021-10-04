@@ -23,7 +23,7 @@ public class Money implements ValueObject {
         this.currency = null;
     }
 
-    public Money(@NonNull Currency currency, @NonNull double amount) {
+    public Money(Currency currency, double amount) {
         this.currency = currency;
         this.amount = amount;
     }

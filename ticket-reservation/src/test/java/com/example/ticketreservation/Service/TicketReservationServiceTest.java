@@ -34,7 +34,7 @@ public class TicketReservationServiceTest {
 
 
     private static Movie newMovie(String name, MovieLength movieLength, Genre genre, Instant publishDate, String description) {
-        Movie movie = new Movie(MovieId.randomId(MovieId.class),name,movieLength,genre,publishDate,description, new Money(Currency.MKD,10),null);
+        Movie movie = new Movie(MovieId.randomId(MovieId.class),name,movieLength,genre,publishDate,description, new Money(Currency.MKD,10),"url",null);
         return movie;
     }
 

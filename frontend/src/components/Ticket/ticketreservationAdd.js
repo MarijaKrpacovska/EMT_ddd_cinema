@@ -6,7 +6,10 @@ const TicketReservationAdd = (props) => {
     const history = useHistory();
     const [formData, updateFormData] = React.useState({
         currency: "",
-        tickets: []
+        tickets: [],
+        reservationTime : "2021-10-04T12:56:06.188568Z",
+        reservationStatus : "ACTIVE",
+        paymentMethod : "CASH"
     })
 
     const handleChange = (e) => {
@@ -18,30 +21,38 @@ const TicketReservationAdd = (props) => {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        const currency = formData.currency;
-        const tickets = [{
-            "movie": {
-                "id": {
-                    "id": "6551c5ef-192a-43db-93d1-d045b016631e"
-                },
-                "name": "movie1",
-                "movieLength": {
-                    "length": 10.0,
-                    "unitOfTime": "min"
-                },
-                "genre": "action",
-                "publishDate": "2021-09-22T10:07:11.243557Z",
-                "description": "desc",
-                "ticketPrice": {
-                    "currency": "MKD",
-                    "amount": 4.0
-                },
-                "scheduledMovies": []
-            },
-            "qty": 10
-        }];
+        const currency = "MKD";
+        const tickets = [
+            {
+                quantity: 3,
+                scheduledMovie: {
+                    id: {
+                        id: "4d219a3f-12de-4630-8fa5-86f23804627b"
+                    },
+                    sales: 10,
+                    startTime: {
+                        hour: 10,
+                        minutes: 10
+                    },
+                    endTime: {
+                        hour: 10,
+                        minutes: 10
+                    },
+                    ticketPrice: {
+                        currency: "MKD",
+                        amount: 30.0
+                    },
+                    movieId: {
+                        id: "9a78fd3e-9caf-490a-a1d4-c91852494c05"
+                    }
+                }
+            }
+        ];
 
-        props.onTicketReservationAdd(currency,tickets);
+        const reservationTime = formData.reservationTime;
+        const reservationStatus = "ACTIVE";
+        const paymentMethod = "CASH"
+        props.onTicketReservationAdd(reservationTime,currency,reservationStatus,paymentMethod,tickets);
         history.push("/movie");
     }
 
@@ -56,6 +67,17 @@ const TicketReservationAdd = (props) => {
                             <option value="USD">USD</option>
                             <option value="EUR">EUR</option>
                         </select>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="reservationTime">reservationTime</label>
+                        <input type="text"
+                               className="form-control"
+                               id="reservationTime"
+                               name="reservationTime"
+                               placeholder="reservationTime"
+                               required
+                               onChange={handleChange}
+                        />
                     </div>
                     <div className="form-group">
                         <label>Category</label>

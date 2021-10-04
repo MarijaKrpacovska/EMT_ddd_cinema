@@ -10,6 +10,8 @@ import TicketReservationAdd from "../Ticket/ticketreservationAdd";
 import TicketService from "../../repository/ticketRepository";
 import AddTicketToReservation from "../Ticket/addTicketToReservation";
 import TicketReservationDetails from "../Ticket/ticketReservationDetails";
+import ScheduledMovieService from "../../repository/scheduledMovieRepository";
+import ScheduledMovie from "../ScheduledMovie/scheduledMovie"
 
 class App extends Component {
 
@@ -17,6 +19,7 @@ class App extends Component {
         super(props);
         this.state = {
             movies: [],
+            scheduledMovies: [],
             selectedMovie: {},
             ticketReservation: {}
         }
@@ -47,11 +50,15 @@ class App extends Component {
                             <ScheduleMovie onScheduleMovie={this.scheduleMovie}
                             movie = {this.state.selectedMovie}/>}/>
 
-                        <Route path={"/movie"}
+                        <Route path={["/movie",""]}
                                exact render={() =>
                             <Movies movies={this.state.movies}
                                     onDetails={this.getMovie}
                                     onScheduleMovie={this.getMovie}/> } />
+
+                        <Route path={["/scheduledMovies"]}
+                               exact render={() =>
+                            <ScheduledMovie scheduledMovies={this.state.scheduledMovies} /> } />
                     </div>
                 </Router>
         );
@@ -59,6 +66,7 @@ class App extends Component {
 
     componentDidMount() {
         this.loadMovies();
+        this.loadScheduledMovies();
     }
 
     loadMovies = () => {
@@ -69,6 +77,16 @@ class App extends Component {
                 })
             });
     }
+
+    loadScheduledMovies = () => {
+        ScheduledMovieService.fetchScheduledMovies()
+            .then((data) => {
+                this.setState({
+                    scheduledMovies: data.data
+                })
+            });
+    }
+
     getMovie = (id) => {
        // console.log("vo getMovie"+id)
         MovieService.getMovie(id)
@@ -89,14 +107,14 @@ class App extends Component {
                 })
             })
     }
-    addMovie = (name, movieLength, genre, publishDate, description,ticketPrice,scheduledMovies) => {
-        MovieService.addMovie(name, movieLength, genre, publishDate, description,ticketPrice,scheduledMovies)
+    addMovie = (name, movieLength, genre, publishDate, description,ticketPrice,url,scheduledMovies) => {
+        MovieService.addMovie(name, movieLength, genre, publishDate, description,ticketPrice,url,scheduledMovies)
             .then(() => {
                 this.loadMovies();
             });
     }
-    addTicketReservation = (currency,tickets) => {
-        TicketService.makeReservation(currency,tickets)
+    addTicketReservation = (reservationTime,currency,reservationStatus,paymentMethod,tickets) => {
+        TicketService.makeReservation(reservationTime,currency,reservationStatus,paymentMethod,tickets)
             .then(() => {
                 this.loadMovies();
             });

@@ -1,4 +1,4 @@
-package com.example.movie.domain.exceptions;
-
-public class ScheduledMovieIdDoesNotExistException extends RuntimeException{
-}
+//package com.example.movie.domain.exceptions;
+//
+//public class ScheduledMovieIdDoesNotExistException extends RuntimeException{
+//}

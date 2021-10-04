@@ -1,6 +1,8 @@
 package com.example.sharedkernel.domain.time;
 
 import com.example.sharedkernel.domain.base.ValueObject;
+import com.example.sharedkernel.domain.money.Currency;
+import com.example.sharedkernel.domain.money.Money;
 import lombok.Getter;
 
 import javax.persistence.Embeddable;
@@ -22,10 +24,14 @@ public class MovieTime implements ValueObject {
         this.minutes = minutes;
     }
 
-    //metod koj go prikazhuva vremetraenjeto na filmot vo minuti
-    public int toMinutes() {
-       return this.hour * 60 + minutes;
+    public static MovieTime valueOf(int hour, int minutes) {
+        return new MovieTime(hour,minutes);
     }
+
+    //metod koj go prikazhuva vremetraenjeto na filmot vo minuti
+//    public int toMinutes() {
+//       return this.hour * 60 + minutes;
+//    }
 
     @Override
     public boolean equals(Object o) {

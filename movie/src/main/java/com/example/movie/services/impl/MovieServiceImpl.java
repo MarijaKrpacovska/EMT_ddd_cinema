@@ -1,16 +1,11 @@
 package com.example.movie.services.impl;
 
 import com.example.movie.domain.exceptions.MovieIdDoesNotExistException;
-import com.example.movie.domain.exceptions.ScheduledMovieIdDoesNotExistException;
 import com.example.movie.domain.models.Movie;
 import com.example.movie.domain.models.MovieId;
-import com.example.movie.domain.models.ScheduledMovie;
-import com.example.movie.domain.models.ScheduledMovieId;
 import com.example.movie.domain.repositories.MovieRepository;
 import com.example.movie.services.MovieService;
 import com.example.movie.services.forms.MovieForm;
-import com.example.movie.services.forms.ScheduledMovieForm;
-import com.example.sharedkernel.domain.time.MovieTime;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -52,41 +47,49 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.findById(id);
     }
 
-    @Override
-    public Optional<Movie> addScheduledMovie(MovieId movieId, ScheduledMovieForm scheduledMovieForm) throws MovieIdDoesNotExistException {
-        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-        movie.addScheduledMovie(scheduledMovieForm.getStartTime(), scheduledMovieForm.getEndTime());
-        var newMovie =movieRepository.saveAndFlush(movie);
-        return Optional.of(newMovie);
-    }
+//    @Override
+//    public Optional<Movie> editMovie(MovieId id, MovieForm movieForm) {
+//        Movie movie = this.movieRepository.findById(id).orElseThrow(MovieIdDoesNotExistException::new);
+//        Movie.build(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(),
+//                movieForm.getDescription(),movieForm.getTicketPrice(),movieForm.getUrl());
+//        return Optional.empty();
+//    }
 
-    @Override
-    public void deleteItem(MovieId movieId, ScheduledMovieId scheduledMovieId) throws MovieIdDoesNotExistException, ScheduledMovieIdDoesNotExistException {
-        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-        movie.deleteScheduledMovie(scheduledMovieId);
-        movieRepository.saveAndFlush(movie);
-    }
-
-    @Override
-    public Movie ticketAdded(MovieId movieId,MovieTime movieTime) {
-        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-        movie.increaseSales(movieTime);
-        return movie;
-    }
-
-    @Override
-    public Movie ticketRemoved(MovieId movieId,MovieTime movieTime ) {
-        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-        movie.decreaseSales(movieTime);
-        return movie;
-    }
+//    @Override
+//    public Optional<Movie> addScheduledMovie(MovieId movieId, ScheduledMovieForm scheduledMovieForm) throws MovieIdDoesNotExistException {
+//        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+//        movie.addScheduledMovie(scheduledMovieForm.getStartTime(), scheduledMovieForm.getEndTime());
+//        var newMovie =movieRepository.saveAndFlush(movie);
+//        return Optional.of(newMovie);
+//    }
+//
+//    @Override
+//    public void deleteItem(MovieId movieId, ScheduledMovieId scheduledMovieId) throws MovieIdDoesNotExistException, ScheduledMovieIdDoesNotExistException {
+//        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+//        movie.deleteScheduledMovie(scheduledMovieId);
+//        movieRepository.saveAndFlush(movie);
+//    }
+//
+//    @Override
+//    public Movie ticketAdded(MovieId movieId,MovieTime movieTime) {
+//        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+//        movie.increaseSales(movieTime);
+//        return movie;
+//    }
+//
+//    @Override
+//    public Movie ticketRemoved(MovieId movieId,MovieTime movieTime ) {
+//        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+//        movie.decreaseSales(movieTime);
+//        return movie;
+//    }
 
 
     private Movie toDomainObject(MovieForm movieForm) {
-        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(), movieForm.getDescription(),movieForm.getTicketPrice());
-        Set<ScheduledMovieForm> scheduledMoviesList = movieForm.getScheduledMovies();
+        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(), movieForm.getDescription(),movieForm.getTicketPrice(),movieForm.getUrl());
+      //  Set<ScheduledMovieForm> scheduledMoviesList = movieForm.getScheduledMovies();
 
-        movieForm.getScheduledMovies().forEach(item->movie.addScheduledMovie(item.getStartTime(),item.getEndTime()));
+      //  movieForm.getScheduledMovies().forEach(item->movie.addScheduledMovie(item.getStartTime(),item.getEndTime()));
         return movie;
     }
 

@@ -1,5 +1,5 @@
 package com.example.ticketreservation.domain.models;
 
 public enum ReservationStatus {
-    CANCELED, CONFIRMED, DENIED;
+    CANCELED, CONFIRMED, DENIED, ACTIVE;
 }

@@ -11,7 +11,7 @@ import javax.validation.constraints.Min;
 public class TicketForm {
 
     @NotNull
-    private Movie movie;
+    private ScheduledMovie scheduledMovie;
 
     @Min(1)
     private int qty=1;

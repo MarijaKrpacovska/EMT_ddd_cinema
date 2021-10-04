@@ -10,6 +10,7 @@
         <option value="$PROJECT_DIR$/TicketReservation/pom.xml" />
         <option value="$PROJECT_DIR$/ticket-reservation/pom.xml" />
         <option value="$PROJECT_DIR$/shared-kernel/pom.xml" />
+        <option value="$PROJECT_DIR$/scheduled-movie/pom.xml" />
       </list>
     </option>
   </component>
