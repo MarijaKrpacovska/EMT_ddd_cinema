@@ -16,16 +16,16 @@ public class ScheduledMovieEventListener {
 
     private final ScheduledMovieService movieService;
 
-//    @KafkaListener(topics= TopicHolder.TOPIC_RESERVATION_CONFIRMED, groupId = "cinema")
-//    public void consumeReservationConfrmedEvent(String jsonMessage) {
-//        try {
-//            ReservationConfirmed event = DomainEvent.fromJson(jsonMessage,ReservationConfirmed.class);
-//            movieService.reservationConfirmed(new ScheduledMovieId(event.getScheduledMovieId()),event.getQuantity());
-//        } catch (Exception e){
-//
-//        }
-//
-//    }
+    @KafkaListener(topics= TopicHolder.TOPIC_RESERVATION_CONFIRMED, groupId = "cinema")
+    public void consumeReservationConfrmedEvent(String jsonMessage) {
+        try {
+            ReservationConfirmed event = DomainEvent.fromJson(jsonMessage,ReservationConfirmed.class);
+            movieService.reservationConfirmed(new ScheduledMovieId(event.getScheduledMovieId()),event.getQuantity());
+        } catch (Exception e){
+
+        }
+
+    }
 
 //    @KafkaListener(topics= TopicHolder.TOPIC_RESERVATION_CANCELED, groupId = "cinema")
 //    public void consumeReservationCanceledEvent(String jsonMessage) {
