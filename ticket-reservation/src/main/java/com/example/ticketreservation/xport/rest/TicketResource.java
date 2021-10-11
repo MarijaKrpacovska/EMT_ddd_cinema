@@ -2,9 +2,11 @@ package com.example.ticketreservation.xport.rest;
 
 import com.example.sharedkernel.domain.money.Currency;
 import com.example.ticketreservation.domain.models.*;
+import com.example.ticketreservation.domain.valueobjects.ScheduledMovie;
 import com.example.ticketreservation.service.TicketReservationService;
 import com.example.ticketreservation.service.forms.TicketForm;
 import com.example.ticketreservation.service.forms.TicketReservationForm;
+import com.example.ticketreservation.xport.client.ScheduledMovieClient;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import java.util.List;
 public class TicketResource {
 
     private final TicketReservationService ticketReservationService;
+    private final ScheduledMovieClient scheduledMovieClient;
 
     @GetMapping("/allReservations")
     public List<TicketReservation> allReservations() {
@@ -41,7 +44,7 @@ public class TicketResource {
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
-    @PostMapping("/findActiveReservation")
+    @GetMapping("/findActiveReservation")
     public ResponseEntity<TicketReservation> findActiveReservation(){
 
         if(ticketReservationService.findByReservationStatus(ReservationStatus.ACTIVE).isPresent()) {
@@ -50,12 +53,54 @@ public class TicketResource {
                     .orElseGet(() -> ResponseEntity.badRequest().build());
         }
         else {
-            TicketReservationForm ticketReservationForm = new TicketReservationForm(Currency.MKD,null, Instant.now(),ReservationStatus.ACTIVE, PaymentMethod.CASH);
-            return this.ticketReservationService.makeReservation(ticketReservationForm)
+            return null;
+        }
+    }
+
+    @PostMapping("/cancelActiveReservation")
+    public ResponseEntity<TicketReservation> cancelActiveReservation(){
+        if(ticketReservationService.findByReservationStatus(ReservationStatus.ACTIVE).isPresent()) {
+            TicketReservation activeReservation = ticketReservationService.findByReservationStatus(ReservationStatus.ACTIVE).get();
+            ticketReservationService.cancelReservation(activeReservation.getId());
+            return this.ticketReservationService.findById(activeReservation.getId())
                     .map(movie -> ResponseEntity.ok().body(movie))
                     .orElseGet(() -> ResponseEntity.badRequest().build());
         }
+        else {
+            return null;
+        }
     }
+
+    @PostMapping("/confirmActiveReservation")
+    public ResponseEntity<TicketReservation> confirmActiveReservation(){
+        if(ticketReservationService.findByReservationStatus(ReservationStatus.ACTIVE).isPresent()) {
+            TicketReservation activeReservation = ticketReservationService.findByReservationStatus(ReservationStatus.ACTIVE).get();
+            ticketReservationService.confirmReservation(activeReservation.getId());
+            return this.ticketReservationService.findById(activeReservation.getId())
+                    .map(movie -> ResponseEntity.ok().body(movie))
+                    .orElseGet(() -> ResponseEntity.badRequest().build());
+        }
+        else {
+            return null;
+        }
+    }
+
+    @GetMapping("/scheduledMovie/{id}")
+    public ResponseEntity<ScheduledMovie> scheduledMovieTicket(@PathVariable String id){
+
+        return scheduledMovieClient.findScheduledMovieById(id).map(movie -> ResponseEntity.ok().body(movie))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+
+    }
+
+//    @PostMapping("/makeReservetionForScheduledMovie/{id}")
+//    public ResponseEntity<TicketReservation> saveForScheduledMovie(@PathVariable String id, @RequestBody TicketReservationForm ticketReservationForm) {
+//        ScheduledMovie scheduledMovie = scheduledMovieClient.findScheduledMovieById(id);
+//
+//        return this.ticketReservationService.makeReservation(ticketReservationForm)
+//                .map(movie -> ResponseEntity.ok().body(movie))
+//                .orElseGet(() -> ResponseEntity.badRequest().build());
+//    }
 
 //    @PostMapping("/makeReservetionForMovie")
 //    public ResponseEntity<TicketReservation> saveReservation(@RequestBody TicketReservationForm ticketReservationForm) {

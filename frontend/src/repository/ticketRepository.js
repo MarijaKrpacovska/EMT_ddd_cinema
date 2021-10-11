@@ -16,7 +16,10 @@ const TicketService = {
             "movie" : movie
         });
     },
-    getTicketReservation: (id) => {return axios.post("/ticket/findReservation/${id}");}
+    getTicketReservation: (id) => {return axios.post("/ticket/findReservation/${id}");},
+    getActiveReservation: () => {return axios.get("/ticket/findActiveReservation");},
+    cancelActiveReservation: () => {return axios.post("/ticket/cancelActiveReservation");},
+    confirmActiveReservation: () => {return axios.post("/ticket/confirmActiveReservation");}
 }
 
 export default TicketService;

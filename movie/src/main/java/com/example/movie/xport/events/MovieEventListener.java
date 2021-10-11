@@ -4,8 +4,6 @@ import com.example.movie.domain.models.MovieId;
 import com.example.movie.services.MovieService;
 import com.example.sharedkernel.domain.config.TopicHolder;
 import com.example.sharedkernel.domain.events.DomainEvent;
-import com.example.sharedkernel.domain.events.ticketReservations.TicketAdded;
-import com.example.sharedkernel.domain.events.ticketReservations.TicketRemoved;
 import lombok.AllArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;

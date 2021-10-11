@@ -55,40 +55,40 @@ const MovieAdd = (props) => {
             <div className="col-md-5">
                 <form onSubmit={onFormSubmit}>
                     <div className="form-group">
-                        <label htmlFor="name">Movie name</label>
+                        <label htmlFor="name">Name</label>
                         <input type="text"
                                className="form-control"
                                id="name"
                                name="name"
                                required
-                               placeholder="Enter Movie name"
+                               placeholder="Enter movie name"
                                onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="publishDate">Publish date</label>
+                        <label htmlFor="publishDate">Publish Date (in format: 2021-09-22T10:07:11.243557Z)</label>
                         <input type="text"
                                className="form-control"
                                id="publishDate"
                                name="publishDate"
-                               placeholder="publishDate"
+                               placeholder="Enter movie publish date"
                                required
                                onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="description">description</label>
+                        <label htmlFor="description">Description</label>
                         <input type="text"
                                className="form-control"
                                id="description"
                                name="description"
-                               placeholder="description"
+                               placeholder="Enter short movie description"
                                required
                                onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label>genre</label>
+                        <label>Genre</label>
                         <select name="genre" className="form-control" onChange={handleChange}>
                             <option value="action">action</option>
                             <option value="romance">romance</option>
@@ -97,7 +97,7 @@ const MovieAdd = (props) => {
                     </div>
 
                     <div className="form-group">
-                        <label htmlFor="movieLength">Movie Length</label>
+                        <label htmlFor="movieLength">Length</label>
                         <input type="number"
                                className="form-control"
                                id="movieLength"
@@ -108,29 +108,30 @@ const MovieAdd = (props) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="ticketPrice">Price</label>
+                        <label htmlFor="ticketPrice">Ticket Price</label>
                         <input type="number"
                                className="form-control"
                                id="ticketPrice"
                                name="ticketPrice"
-                               placeholder="ticketPrice"
+                               placeholder="Enter ticket price"
                                required
                                onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="url">url</label>
+                        <label htmlFor="url">Movie poster url</label>
                         <input type="text"
                                className="form-control"
                                id="url"
                                name="url"
                                required
-                               placeholder="Enter Movie url"
+                               placeholder="Enter image url"
                                onChange={handleChange}
                         />
                     </div>
-                    <button id="submit" type="submit" className="btn btn-primary">Submit</button>
-                </form>
+                    <button id="submit" type="submit" className="btn btn-dark align-self-md-center">Submit</button>
+
+                    </form>
             </div>
         </div>
     )

@@ -49,13 +49,13 @@ public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
     }
 
     //se koristi za zgolemuvanje na prodazhbite za ova prikazhuvanje na film.
-    public void addSales() {
-        this.sales = this.sales + 1;
+    public void addSales(int qty) {
+        this.sales = this.sales + qty;
     }
 
     //se koristi za namaluvanje na prodazhbite za ova prikazhuvanje na film.
-    public void removeSales() {
-        this.sales -= 1;
+    public void removeSales(int qty) {
+        this.sales -= qty;
     }
 
     public MovieTime scheduledFor(){

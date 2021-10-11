@@ -1,5 +1,6 @@
 import React from "react";
 import movies from "../Movie/movie";
+import {Link} from 'react-router-dom';
 
 const scheduledMovie = (props) => {
     //console.log("SELECTED MOVIE" +props.movies(0).id.id)
@@ -14,6 +15,7 @@ const scheduledMovie = (props) => {
                             <th scope={"col"}>time</th>
                             <th scope={"col"}>ticket price</th>
                             <th scope={"col"}>movie id</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -25,6 +27,13 @@ const scheduledMovie = (props) => {
                                     <td>{term.startTime.hour}:{term.startTime.minutes} - {term.endTime.hour}:{term.endTime.minutes}</td>
                                     <td>{term.ticketsPrice.amount} {term.ticketsPrice.currency}</td>
                                     <td>{term.movieId.id}</td>
+                                    <td>
+                                        <Link
+                                            onClick={() => props.onBookTickets(term.id.id)}
+                                            to={`/ticket/makeNewReservation/${term.id.id}`}>
+                                            Book tickets
+                                        </Link>
+                                    </td>
                                 </tr>
                             );
                         })}

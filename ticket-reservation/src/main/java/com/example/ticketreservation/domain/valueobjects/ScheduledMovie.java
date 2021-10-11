@@ -16,7 +16,7 @@ import javax.persistence.Column;
 public class ScheduledMovie implements ValueObject {
 
     private ScheduledMovieId id;
-    private Money ticketPrice;
+    private Money ticketsPrice;
     private int sales;
     private MovieTime startTime;
     private MovieTime endTime;
@@ -25,7 +25,7 @@ public class ScheduledMovie implements ValueObject {
     private ScheduledMovie() {
         this.id= ScheduledMovieId.randomId(ScheduledMovieId.class);
         this.sales= 0;
-        this.ticketPrice = Money.valueOf(Currency.MKD,0);
+        this.ticketsPrice = Money.valueOf(Currency.MKD,0);
         this.startTime= MovieTime.valueOf(0,0);
         this.endTime= MovieTime.valueOf(0,0);
         this.movieId=MovieId.randomId(MovieId.class);
@@ -33,13 +33,13 @@ public class ScheduledMovie implements ValueObject {
 
     @JsonCreator
     public ScheduledMovie(@JsonProperty("id") ScheduledMovieId id,
-                          @JsonProperty("ticketPrice") Money ticketPrice,
+                          @JsonProperty("ticketsPrice") Money ticketsPrice,
                           @JsonProperty("sales") int sales,
                           @JsonProperty("startTime") MovieTime startTime,
                           @JsonProperty("endTime") MovieTime endTime,
                           @JsonProperty("movieId") MovieId movieId) {
         this.id = id;
-        this.ticketPrice = ticketPrice;
+        this.ticketsPrice = ticketsPrice;
         this.sales=sales;
         this.endTime=endTime;
         this.startTime=startTime;

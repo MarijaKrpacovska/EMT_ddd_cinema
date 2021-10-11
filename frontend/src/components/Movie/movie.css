@@ -1,0 +1,25 @@
+.movieGenre{
+    font-weight: lighter;
+    font-size: large;
+}
+.firstTd{
+    margin-left: -100px;
+}
+.buttonDiv{
+    text-align: center;
+}
+.scheduleMovieButton{
+    background-color: #61dafb;
+}
+.imgDiv{
+    position: relative;
+    overflow: hidden;
+}
+.imgImg{
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    right: -9999px;
+    bottom: -9999px;
+    margin: auto;
+}

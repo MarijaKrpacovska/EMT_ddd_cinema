@@ -38,10 +38,12 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
         super(TicketReservationId.randomId(TicketReservationId.class));
     }
 
-    public TicketReservation(Instant now, Currency currency) {
+    public TicketReservation(Instant now, Currency currency, ReservationStatus reservationStatus, PaymentMethod paymentMethod) {
         super(TicketReservationId.randomId(TicketReservationId.class));
         this.reservationTime = now;
         this.currency = currency;
+        this.reservationStatus = reservationStatus;
+        this.paymentMethod = paymentMethod;
     }
 
     public Money total() {
@@ -50,7 +52,7 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
 
     public Ticket addTicket(@NonNull ScheduledMovie scheduledMovie, int qty) {
         Objects.requireNonNull(scheduledMovie,"movie must not be null");
-        var ticket  = new Ticket(scheduledMovie.getId(), scheduledMovie.getTicketPrice(),qty);
+        var ticket  = new Ticket(scheduledMovie.getId(), scheduledMovie.getTicketsPrice(),qty);
         tickets.add(ticket);
         return ticket;
     }
@@ -58,6 +60,14 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
     public void removeTicket(@NonNull TicketId ticketId) {
         Objects.requireNonNull(ticketId,"Ticket must not be null");
         tickets.removeIf(v->v.getId().equals(ticketId));
+    }
+
+    public void cancel() {
+        reservationStatus = ReservationStatus.CANCELED;
+    }
+
+    public void confirm() {
+        reservationStatus = ReservationStatus.CONFIRMED;
     }
 
 }

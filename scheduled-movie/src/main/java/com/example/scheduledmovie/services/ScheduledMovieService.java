@@ -20,7 +20,7 @@ public interface ScheduledMovieService {
 //
 //    void deleteItem(MovieId movieId, ScheduledMovieId scheduledMovieId) throws MovieIdDoesNotExistException, ScheduledMovieIdDoesNotExistException;
 //
-    ScheduledMovie ticketAdded(ScheduledMovieId scheduledMovieId);
+    ScheduledMovie reservationConfirmed(ScheduledMovieId scheduledMovieId, int quantity);
 
-    ScheduledMovie ticketRemoved(ScheduledMovieId scheduledMovieId);
+    ScheduledMovie reservationCanceled(ScheduledMovieId scheduledMovieId, int quantity);
 }

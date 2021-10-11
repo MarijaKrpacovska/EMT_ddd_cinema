@@ -31,7 +31,7 @@ public class Ticket extends AbstractEntity<TicketId> {
         super(DomainObjectId.randomId(TicketId.class));
     }
 
-    public Ticket(@NonNull ScheduledMovieId scheduledMovieId, @NonNull Money price, int qty) {
+    public Ticket(@NonNull ScheduledMovieId scheduledMovieId, Money price, int qty) {
         super(DomainObjectId.randomId(TicketId.class));
         this.scheduledMovieId = scheduledMovieId;
         this.price = price;

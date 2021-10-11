@@ -49,16 +49,16 @@ public class ScheduledMovieServiceImpl implements ScheduledMovieService {
     }
 
     @Override
-    public ScheduledMovie ticketAdded(ScheduledMovieId scheduledMovieId) {
+    public ScheduledMovie reservationConfirmed(ScheduledMovieId scheduledMovieId, int quantity) {
         ScheduledMovie scheduledMovie = scheduledMovieRepository.findById(scheduledMovieId).orElseThrow(ScheduledMovieIdDoesNotExistException::new);
-        scheduledMovie.addSales();
+        scheduledMovie.addSales(quantity);
         return scheduledMovie;
     }
 
     @Override
-    public ScheduledMovie ticketRemoved(ScheduledMovieId scheduledMovieId) {
+    public ScheduledMovie reservationCanceled(ScheduledMovieId scheduledMovieId, int quantity) {
         ScheduledMovie scheduledMovie = scheduledMovieRepository.findById(scheduledMovieId).orElseThrow(ScheduledMovieIdDoesNotExistException::new);
-        scheduledMovie.addSales();
+        scheduledMovie.removeSales(quantity);
         return scheduledMovie;
     }
 
