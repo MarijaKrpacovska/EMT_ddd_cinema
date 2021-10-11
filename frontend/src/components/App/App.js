@@ -27,6 +27,7 @@ class App extends Component {
             ticketReservation: {},
             scheduledMovie: {},
             activeReservation: {}
+            //big changes
         }
     }
 
