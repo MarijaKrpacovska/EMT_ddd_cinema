@@ -4,11 +4,15 @@ package com.example.scheduledmovie.services.impl;
 import com.example.scheduledmovie.domain.exceptions.ScheduledMovieIdDoesNotExistException;
 import com.example.scheduledmovie.domain.models.ScheduledMovie;
 import com.example.scheduledmovie.domain.models.ScheduledMovieId;
+import com.example.scheduledmovie.domain.models.ScheduledMovieStatus;
 import com.example.scheduledmovie.domain.repository.ScheduledMovieRepository;
 import com.example.scheduledmovie.domain.valueobjects.MovieId;
 import com.example.scheduledmovie.services.ScheduledMovieService;
 import com.example.scheduledmovie.services.forms.ScheduledMovieForm;
-import com.example.sharedkernel.domain.time.MovieTime;
+import com.example.sharedkernel.domain.events.schedulingMovie.MovieScheduled;
+import com.example.sharedkernel.domain.events.schedulingMovie.ScheduledMovieCanceled;
+import com.example.sharedkernel.domain.events.ticketReservations.ReservationCanceled;
+import com.example.sharedkernel.infra.DomainEventPublisher;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +29,7 @@ import java.util.Optional;
 public class ScheduledMovieServiceImpl implements ScheduledMovieService {
 
     private final Validator validator;
+    private final DomainEventPublisher domainEventPublisher;
     private final ScheduledMovieRepository scheduledMovieRepository;
 
     @Override
@@ -35,6 +40,7 @@ public class ScheduledMovieServiceImpl implements ScheduledMovieService {
             throw new ConstraintViolationException("The movie form is not valid", constraintViolations);
         }
         var newMovie = scheduledMovieRepository.saveAndFlush(toDomainObject(movieForm));
+        domainEventPublisher.publish(new MovieScheduled(movieForm.getMovieId()));
         return Optional.of(newMovie);
     }
 
@@ -46,6 +52,11 @@ public class ScheduledMovieServiceImpl implements ScheduledMovieService {
     @Override
     public Optional<ScheduledMovie> findById(ScheduledMovieId id) {
         return scheduledMovieRepository.findById(id);
+    }
+
+    @Override
+    public List<ScheduledMovie> findAllByMovieId(MovieId id) {
+        return scheduledMovieRepository.findAllByMovieId(id);
     }
 
     @Override
@@ -62,8 +73,16 @@ public class ScheduledMovieServiceImpl implements ScheduledMovieService {
         return scheduledMovie;
     }
 
+    @Override
+    public void cancelScheduledMovie(ScheduledMovieId scheduledMovieId){
+        ScheduledMovie scheduledMovie = scheduledMovieRepository.findById(scheduledMovieId).orElseThrow(ScheduledMovieIdDoesNotExistException::new);
+        scheduledMovie.cancelScheduledMovie();
+        domainEventPublisher.publish(new ScheduledMovieCanceled(scheduledMovie.getMovieId().getId()));
+        scheduledMovieRepository.saveAndFlush(scheduledMovie);
+    }
+
     private ScheduledMovie toDomainObject(ScheduledMovieForm scheduledMovieForm) {
-        var movie = new ScheduledMovie(scheduledMovieForm.getSales(),scheduledMovieForm.getStartTime(), scheduledMovieForm.getEndTime(), scheduledMovieForm.getTicketPrice(), new MovieId(scheduledMovieForm.getMovieId()));
+        var movie = new ScheduledMovie(scheduledMovieForm.getSales(),scheduledMovieForm.getStartTime(), scheduledMovieForm.getEndTime(), scheduledMovieForm.getTicketPrice(), new MovieId(scheduledMovieForm.getMovieId()), ScheduledMovieStatus.ACTIVE);
         return movie;
     }
 

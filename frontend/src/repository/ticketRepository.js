@@ -16,10 +16,14 @@ const TicketService = {
             "movie" : movie
         });
     },
+    getConfirmedReservations: () => {return axios.get("/ticket/allConfirmedReservations");},
+
     getTicketReservation: (id) => {return axios.post("/ticket/findReservation/${id}");},
     getActiveReservation: () => {return axios.get("/ticket/findActiveReservation");},
     cancelActiveReservation: () => {return axios.post("/ticket/cancelActiveReservation");},
-    confirmActiveReservation: () => {return axios.post("/ticket/confirmActiveReservation");}
+    confirmActiveReservation: () => {return axios.post("/ticket/confirmActiveReservation");},
+    cancelConfirmedReservation: (id) => {return axios.post(`/ticket/cancelConfirmedReservation/${id}`);},
+
 }
 
 export default TicketService;

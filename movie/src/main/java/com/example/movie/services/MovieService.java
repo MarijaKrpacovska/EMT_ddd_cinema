@@ -17,6 +17,10 @@ public interface MovieService {
 
     Optional<Movie> findById(MovieId id);
 
+    Movie scheduledMovieAdded(MovieId movieId);
+
+    Movie scheduledMovieRemoved(MovieId movieId);
+
 //    Optional<Movie> editMovie(MovieId id, MovieForm movieForm);
 
 //    Optional<Movie> addScheduledMovie(MovieId movieId, ScheduledMovieForm scheduledMovieForm) throws MovieIdDoesNotExistException;

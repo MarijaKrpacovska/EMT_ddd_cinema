@@ -19,6 +19,7 @@ public class MovieResource {
 
     private final MovieService movieService;
 
+    //TODO: add pagination
     @GetMapping
     public List<Movie> getAll() {
         return movieService.findAll();

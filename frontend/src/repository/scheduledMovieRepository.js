@@ -4,6 +4,9 @@ const ScheduledMovieService = {
     fetchScheduledMovies: () => {
         return axios.get("/scheduledMovie");
     },
+    fetchScheduledMoviesByMovieId: (id) => {
+        return axios.get(`/scheduledMovie/findAllByMovieId/${id}`);
+    },
     getScheduledMovie: (id) => {
         console.log("vleguva vo getScheduledMovie")
         return axios.get(`/scheduledMovie/findById/${id}`);
@@ -16,6 +19,10 @@ const ScheduledMovieService = {
             "ticketPrice" : ticketPrice,
             "movieId" : movieId
         });
+    },
+    cancelScheduledMovie: (id) => {
+        console.log("vleguva vo cancelScheduledMovie")
+        return axios.post(`/scheduledMovie/cancelScheduledMovie/${id}`);
     },
 }
 

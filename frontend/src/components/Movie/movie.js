@@ -8,22 +8,29 @@ import {Link} from 'react-router-dom';
 //     Shopping Cart
 // </Link>
 
-var image = document.getElementsByClassName("imgImg");
-var currentPos = 0;
-var images = ["https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg",
-    "https://assets.mubicdn.net/images/notebook/post_images/33421/images-w1400.jpg?1625400709"]
 
-function volgendefoto() {
-    if (++currentPos >= images.length)
-        currentPos = 0;
-
-    image.src = images[currentPos];
-}
-
-setInterval(volgendefoto, 1);
 
 const movies = (props) => {
-    //console.log("SELECTED MOVIE" +props.movies(0).id.id)
+
+    // const image = document.getElementById("imgImg");
+    // const currentPos = 1;
+    // const images = ["https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg",
+    //     "https://assets.mubicdn.net/images/notebook/post_images/33421/images-w1400.jpg?1625400709"]
+    //
+    // //console.log("SELECTED MOVIE" +props.movies(0).id.id)
+    // function volgendefoto() {
+    //     const images = ["https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg",
+    //         "https://assets.mubicdn.net/images/notebook/post_images/33421/images-w1400.jpg?1625400709",
+    //         "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg"]
+    //
+    //     let index = Math.floor(Math.random() * (2 + 1));
+    //     console.log(index);
+    //
+    //     document.getElementById("imgImg").src = images[index];
+    // }
+    //
+    // setInterval(volgendefoto, 10000);
+
     return (
         <div className={"container mm-4 mt-5"}>
             <div className={"row"}>
@@ -65,6 +72,11 @@ const movies = (props) => {
                                                   to={`/scheduledMovies/add/${term.id.id}`}>
                                                 Schedule movie
                                             </Link>
+                                            <Link
+                                                onClick={() => { props.onDetails(term.id.id); props.onFetchScheduledMoviesByMovieId(term.id.id)}}
+                                                to={`/movie/fetchScheduledMoviesByMovieId/${term.id.id}`}>
+                                                Details with sm
+                                            </Link>
                                         </div>
                                     </td>
                                 </tr>
@@ -75,7 +87,7 @@ const movies = (props) => {
                     </table>
                     </div>
                     <div className={"col-md-4 imgDiv"}>
-                        <img className={"imgImg"} height={"1300px"} src={"https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg"}/>
+                        <img id={"imgImg"} className={"imgImg"} height={"1600px"} src={"https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg"}/>
                     </div>
                 </div>
                 </div>

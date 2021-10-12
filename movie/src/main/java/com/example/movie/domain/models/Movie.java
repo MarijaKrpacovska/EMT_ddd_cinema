@@ -7,8 +7,10 @@ import com.example.sharedkernel.domain.time.MovieLength;
 import com.example.sharedkernel.domain.time.MovieTime;
 import lombok.Getter;
 import lombok.NonNull;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 import java.time.Instant;
 import java.util.*;
 
@@ -33,6 +35,8 @@ public class Movie extends AbstractEntity<MovieId> {
 
     private String url;
 
+    private int numberOfTimesScheduled;
+
 //    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
 //    private Set<ScheduledMovie> scheduledMovies  = new HashSet<>();
 
@@ -40,7 +44,7 @@ public class Movie extends AbstractEntity<MovieId> {
         super(MovieId.randomId(MovieId.class));
     }
 
-    public Movie(String name, MovieLength movieLength, Genre genre, Instant publishDate, String description, Money ticketPrice, String url) {
+    public Movie(String name, MovieLength movieLength, Genre genre, Instant publishDate, String description, Money ticketPrice, String url, int numberOfTimesScheduled) {
         super(MovieId.randomId(MovieId.class));
         this.name = name;
         this.movieLength = movieLength;
@@ -49,9 +53,10 @@ public class Movie extends AbstractEntity<MovieId> {
         this.description= description;
         this.url=url;
         this.ticketPrice=ticketPrice;
+        this.numberOfTimesScheduled=numberOfTimesScheduled;
     }
 
-    public static Movie build(String name, MovieLength movieLength, Genre genre, Instant publishDate, String description, Money ticketPrice, String url) {// Set<ScheduledMovie> scheduledMovieSet
+    public static Movie build(String name, MovieLength movieLength, Genre genre, Instant publishDate, String description, Money ticketPrice, String url, int numberOfTimesScheduled) {// Set<ScheduledMovie> scheduledMovieSet
         Movie m = new Movie();
         m.name=name;
         m.movieLength=movieLength;
@@ -61,7 +66,16 @@ public class Movie extends AbstractEntity<MovieId> {
      //   m.scheduledMovies=scheduledMovieSet;
         m.url=url;
         m.ticketPrice=ticketPrice;
+        m.numberOfTimesScheduled=numberOfTimesScheduled;
         return m;
+    }
+
+    public void addTimesScheduled() {
+        this.numberOfTimesScheduled = this.numberOfTimesScheduled + 1;
+    }
+
+    public void decreaseTimesScheduled() {
+        this.numberOfTimesScheduled = this.numberOfTimesScheduled - 1;
     }
 
 

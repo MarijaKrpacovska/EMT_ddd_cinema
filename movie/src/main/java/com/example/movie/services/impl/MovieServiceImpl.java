@@ -6,6 +6,7 @@ import com.example.movie.domain.models.MovieId;
 import com.example.movie.domain.repositories.MovieRepository;
 import com.example.movie.services.MovieService;
 import com.example.movie.services.forms.MovieForm;
+import com.example.sharedkernel.domain.events.schedulingMovie.MovieScheduled;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -84,9 +85,22 @@ public class MovieServiceImpl implements MovieService {
 //        return movie;
 //    }
 
+    public Movie scheduledMovieAdded(MovieId movieId){
+        Movie movie = this.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+        movie.addTimesScheduled();
+        return movie;
+    }
+
+    @Override
+    public Movie scheduledMovieRemoved(MovieId movieId){
+        Movie movie = this.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+        movie.decreaseTimesScheduled();
+        return movie;
+    }
+
 
     private Movie toDomainObject(MovieForm movieForm) {
-        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(), movieForm.getDescription(),movieForm.getTicketPrice(),movieForm.getUrl());
+        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(), movieForm.getDescription(),movieForm.getTicketPrice(),movieForm.getUrl(),0);
       //  Set<ScheduledMovieForm> scheduledMoviesList = movieForm.getScheduledMovies();
 
       //  movieForm.getScheduledMovies().forEach(item->movie.addScheduledMovie(item.getStartTime(),item.getEndTime()));

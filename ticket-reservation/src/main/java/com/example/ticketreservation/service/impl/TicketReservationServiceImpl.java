@@ -1,5 +1,7 @@
 package com.example.ticketreservation.service.impl;
 
+import com.example.sharedkernel.domain.events.ticketReservations.ReservationCanceled;
+import com.example.sharedkernel.domain.events.ticketReservations.ReservationConfirmed;
 import com.example.sharedkernel.domain.time.MovieTime;
 import com.example.sharedkernel.infra.DomainEventPublisher;
 import com.example.ticketreservation.domain.exceptions.TicketIdDoesNotExist;
@@ -64,6 +66,11 @@ public class TicketReservationServiceImpl implements TicketReservationService {
     }
 
     @Override
+    public List<TicketReservation> findAllConfirmedReservations() {
+        return ticketReservationRepository.findAllByReservationStatus(ReservationStatus.CONFIRMED);
+    }
+
+    @Override
     public Optional<TicketReservation> findById(TicketReservationId id) {
         return ticketReservationRepository.findById(id);
     }
@@ -98,9 +105,19 @@ public class TicketReservationServiceImpl implements TicketReservationService {
     }
 
     @Override
+    public void cancelConfirmedReservation(TicketReservationId ticketReservationId) throws TicketReservationIdDoesNotExist {
+        TicketReservation ticketReservation = ticketReservationRepository.findById(ticketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
+        ticketReservation.cancel();
+        ticketReservation.getTickets().forEach(item -> domainEventPublisher.publish(new ReservationCanceled(item.getScheduledMovieId().getId(),item.getQuantity())));
+        ticketReservationRepository.saveAndFlush(ticketReservation);
+    }
+
+    @Override
     public void confirmReservation(TicketReservationId ticketReservationId) throws TicketReservationIdDoesNotExist {
         TicketReservation ticketReservation = ticketReservationRepository.findById(ticketReservationId).orElseThrow(TicketReservationIdDoesNotExist::new);
         ticketReservation.confirm();
+      //  domainEventPublisher.publish(new ReservationConfirmed("3bbf217d-fb2b-44be-986c-fb3dadee4bef",1));
+        ticketReservation.getTickets().forEach(item -> domainEventPublisher.publish(new ReservationConfirmed(item.getScheduledMovieId().getId(),item.getQuantity())));
         ticketReservationRepository.saveAndFlush(ticketReservation);
     }
 

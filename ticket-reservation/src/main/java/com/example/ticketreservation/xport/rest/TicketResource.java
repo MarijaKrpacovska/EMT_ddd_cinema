@@ -1,6 +1,7 @@
 package com.example.ticketreservation.xport.rest;
 
 import com.example.sharedkernel.domain.money.Currency;
+import com.example.ticketreservation.domain.exceptions.TicketReservationIdDoesNotExist;
 import com.example.ticketreservation.domain.models.*;
 import com.example.ticketreservation.domain.valueobjects.ScheduledMovie;
 import com.example.ticketreservation.service.TicketReservationService;
@@ -30,6 +31,11 @@ public class TicketResource {
         return this.ticketReservationService.findAll();
     }
 
+    @GetMapping("/allConfirmedReservations")
+    public List<TicketReservation> allConfirmedReservations() {
+        return this.ticketReservationService.findAllConfirmedReservations();
+    }
+
     @PostMapping("/makeReservetion")
     public ResponseEntity<TicketReservation> save(@RequestBody TicketReservationForm ticketReservationForm) {
         return this.ticketReservationService.makeReservation(ticketReservationForm)
@@ -57,6 +63,7 @@ public class TicketResource {
         }
     }
 
+    //TODO: make simpler
     @PostMapping("/cancelActiveReservation")
     public ResponseEntity<TicketReservation> cancelActiveReservation(){
         if(ticketReservationService.findByReservationStatus(ReservationStatus.ACTIVE).isPresent()) {
@@ -69,6 +76,15 @@ public class TicketResource {
         else {
             return null;
         }
+    }
+
+    @PostMapping("/cancelConfirmedReservation/{id}")
+    public ResponseEntity<TicketReservation> cancelConfirmedReservation(@PathVariable String id){
+        TicketReservation reservation = ticketReservationService.findById(new TicketReservationId(id)).orElseThrow(TicketReservationIdDoesNotExist::new);
+        ticketReservationService.cancelConfirmedReservation(reservation.getId());
+        return this.ticketReservationService.findById(reservation.getId())
+                .map(movie -> ResponseEntity.ok().body(movie))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
     @PostMapping("/confirmActiveReservation")

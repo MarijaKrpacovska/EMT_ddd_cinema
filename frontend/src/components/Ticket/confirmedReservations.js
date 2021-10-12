@@ -20,26 +20,15 @@ const scheduledMovie = (props) => {
                         </thead>
                         <tbody>
 
-                        {props.scheduledMovies.map((term) => {
+                        {props.reservations.map((term) => {
                             return (
                                 <tr>
-                                    <td>{term.sales}</td>
-                                    <td>{term.startTime.hour}:{term.startTime.minutes} - {term.endTime.hour}:{term.endTime.minutes}</td>
-                                    <td>{term.ticketsPrice.amount} {term.ticketsPrice.currency}</td>
-                                    <td>{term.movieId.id}</td>
-                                    <td>{term.scheduledMovieStatus}</td>
+                                    <td>{term.id.id}</td>
                                     <td>
                                         <Link
-                                            onClick={() => props.onBookTickets(term.id.id)}
-                                            to={`/ticket/makeNewReservation/${term.id.id}`}>
-                                            Book tickets
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link
-                                            onClick={() => { props.onCancelScheduledMove(term.id.id)}}
-                                            to={`/scheduledMovies`}>
-                                            Cancel scheduled movie
+                                            onClick={() => { props.onCancelConfirmedReservation(term.id.id)}}
+                                            to={`/ticket/confirmedReservations`}>
+                                            Cancel reservation
                                         </Link>
                                     </td>
                                 </tr>

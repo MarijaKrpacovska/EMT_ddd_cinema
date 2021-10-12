@@ -20,6 +20,8 @@ public interface TicketReservationService {
 
     List<TicketReservation> findAll();
 
+    List<TicketReservation> findAllConfirmedReservations();
+
     Optional<TicketReservation> findById(TicketReservationId id);
 
     void addTicket(TicketReservationId ticketReservationId, TicketForm ticketForm) throws TicketReservationIdDoesNotExist;
@@ -27,6 +29,8 @@ public interface TicketReservationService {
     void deleteTicket(TicketReservationId ticketReservationId, TicketId ticketId) throws TicketReservationIdDoesNotExist, TicketIdDoesNotExist;
 
     void cancelReservation(TicketReservationId ticketReservationId) throws TicketReservationIdDoesNotExist;
+
+    void cancelConfirmedReservation(TicketReservationId ticketReservationId) throws TicketReservationIdDoesNotExist;
 
     void confirmReservation(TicketReservationId ticketReservationId) throws TicketReservationIdDoesNotExist;
 

@@ -35,17 +35,21 @@ public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
     @AttributeOverride(name = "id", column = @Column(name = "movie_id", nullable = false))
     private MovieId movieId;
 
+    @Enumerated(EnumType.STRING)
+    private ScheduledMovieStatus scheduledMovieStatus;
+
     private ScheduledMovie() {
         super(DomainObjectId.randomId(ScheduledMovieId.class));
     }
 
-    public ScheduledMovie(int sales,@NonNull MovieTime startTime, @NonNull MovieTime endTime, Money money, @NonNull MovieId movieId) {
+    public ScheduledMovie(int sales,@NonNull MovieTime startTime, @NonNull MovieTime endTime, Money money, @NonNull MovieId movieId, ScheduledMovieStatus scheduledMovieStatus) {
         super(DomainObjectId.randomId(ScheduledMovieId.class));
         this.sales = sales;
         this.startTime=startTime;
         this.endTime=endTime;
         this.ticketsPrice = money;
         this.movieId=movieId;
+        this.scheduledMovieStatus=scheduledMovieStatus;
     }
 
     //se koristi za zgolemuvanje na prodazhbite za ova prikazhuvanje na film.
@@ -56,6 +60,10 @@ public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
     //se koristi za namaluvanje na prodazhbite za ova prikazhuvanje na film.
     public void removeSales(int qty) {
         this.sales -= qty;
+    }
+
+    public void cancelScheduledMovie(){
+        this.scheduledMovieStatus=ScheduledMovieStatus.CANCELED;
     }
 
     public MovieTime scheduledFor(){

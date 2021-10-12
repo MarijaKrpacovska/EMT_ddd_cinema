@@ -9,7 +9,7 @@ public class ReservationConfirmed extends DomainEvent {
     private String scheduledMovieId;
     private int quantity;
 
-    public ReservationConfirmed(String topic) {
+    public ReservationConfirmed() {
         super(TopicHolder.TOPIC_RESERVATION_CONFIRMED);
     }
 

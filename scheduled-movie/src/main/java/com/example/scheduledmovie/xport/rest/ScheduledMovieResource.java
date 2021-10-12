@@ -1,5 +1,6 @@
 package com.example.scheduledmovie.xport.rest;
 
+import com.example.scheduledmovie.domain.exceptions.ScheduledMovieIdDoesNotExistException;
 import com.example.scheduledmovie.domain.models.ScheduledMovie;
 import com.example.scheduledmovie.domain.models.ScheduledMovieId;
 import com.example.scheduledmovie.domain.valueobjects.MovieId;
@@ -35,6 +36,11 @@ public class ScheduledMovieResource {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/findAllByMovieId/{id}")
+    public List<ScheduledMovie> findAllByMovieId(@PathVariable String id) {
+        return this.scheduledMovieService.findAllByMovieId(new MovieId(id));
+    }
+
     @PostMapping("/add")
     public ResponseEntity<ScheduledMovie> save(@RequestBody ScheduledMovieForm scheduledMovieForm) {
         return this.scheduledMovieService.save(new ScheduledMovieForm(0, new MovieTime(0,0),new MovieTime(0,0), new Money(Currency.MKD,1), "9a78fd3e-9caf-490a-a1d4-c91852494c05"))
@@ -45,6 +51,16 @@ public class ScheduledMovieResource {
     @PostMapping("/addScheduledMovie")
     public ResponseEntity<ScheduledMovie> saveScheduledMovie(@RequestBody ScheduledMovieForm scheduledMovieForm) {
         return this.scheduledMovieService.save(scheduledMovieForm)
+                .map(movie -> ResponseEntity.ok().body(movie))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+    //TODO: simplify
+    @PostMapping("/cancelScheduledMovie/{id}")
+    public ResponseEntity<ScheduledMovie> cancelConfirmedReservation(@PathVariable String id){
+        ScheduledMovie scheduledMovie = scheduledMovieService.findById(new ScheduledMovieId(id)).orElseThrow(ScheduledMovieIdDoesNotExistException::new);
+        scheduledMovieService.cancelScheduledMovie(scheduledMovie.getId());
+        return this.scheduledMovieService.findById(scheduledMovie.getId())
                 .map(movie -> ResponseEntity.ok().body(movie))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }

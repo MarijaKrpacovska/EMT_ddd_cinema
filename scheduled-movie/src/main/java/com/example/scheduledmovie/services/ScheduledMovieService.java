@@ -2,6 +2,7 @@ package com.example.scheduledmovie.services;
 
 import com.example.scheduledmovie.domain.models.ScheduledMovie;
 import com.example.scheduledmovie.domain.models.ScheduledMovieId;
+import com.example.scheduledmovie.domain.valueobjects.MovieId;
 import com.example.scheduledmovie.services.forms.ScheduledMovieForm;
 import com.example.sharedkernel.domain.time.MovieTime;
 
@@ -15,6 +16,10 @@ public interface ScheduledMovieService {
     List<ScheduledMovie> findAll();
 
     Optional<ScheduledMovie> findById(ScheduledMovieId id);
+
+    List<ScheduledMovie> findAllByMovieId(MovieId id);
+
+    void cancelScheduledMovie(ScheduledMovieId scheduledMovieId);
 
 //    Optional<Movie> addScheduledMovie(MovieId movieId, ScheduledMovieForm scheduledMovieForm) throws MovieIdDoesNotExistException;
 //
