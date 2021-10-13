@@ -5,6 +5,9 @@ import com.example.movie.domain.models.Movie;
 import com.example.movie.domain.models.MovieId;
 import com.example.movie.services.forms.MovieForm;
 import com.example.sharedkernel.domain.time.MovieTime;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +23,9 @@ public interface MovieService {
     Movie scheduledMovieAdded(MovieId movieId);
 
     Movie scheduledMovieRemoved(MovieId movieId);
+
+    Page<Movie> findAllWithPagination(Pageable pageable);
+
 
 //    Optional<Movie> editMovie(MovieId id, MovieForm movieForm);
 

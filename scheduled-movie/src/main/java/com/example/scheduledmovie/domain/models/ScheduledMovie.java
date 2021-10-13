@@ -11,6 +11,8 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 
+//TODO: make the calculation of endTime automatic
+
 @Entity
 @Table(name="scheduled_movie")
 @Getter

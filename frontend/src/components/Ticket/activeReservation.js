@@ -24,18 +24,27 @@ const ActiveReservation = (props) => {
                         </tbody>
                     </table>
 
-                    <Link className={"btn btn-info ml-2"}
-                          onClick={() => props.onConfirmReservation()}
-                          to={`/movie`}>
-                        Confirm Reservation
-                    </Link>
+                    <div className={"row text-center"}>
+                        <div className="col buttonDiv">
+                        <Link className={"btn btn-success ml-2 mr-4"}
+                              onClick={() => props.onConfirmReservation()}
+                              to={`/movie`}>
+                            Confirm Reservation
+                        </Link>
+                        </div>
 
-                    <Link className={"btn btn-info ml-2"}
-                          onClick={() => props.onCancelReservation()}
-                          to={`/movie`}>
-                        Cancel Reservation
-                    </Link>
+                        <div className="col buttonDiv">
+                        <Link className={"btn btn-danger ml-2 mr-4"}
+                              onClick={() => props.onCancelReservation()}
+                              to={`/movie`}>
+                            Cancel Reservation
+                        </Link>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div className={"col-md-4 imgDiv"} hidden={"true"}>
+                <img id={"imgImg"} className={"imgImg"} height={"1130px"} src={"https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg"}/>
             </div>
         </div>
     );

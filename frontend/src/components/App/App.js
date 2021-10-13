@@ -30,7 +30,8 @@ class App extends Component {
             scheduledMovie: {},
             activeReservation: {},
             scheduledMoviesForMovie: [],
-            confirmedReservations: []
+            confirmedReservations: [],
+            moviesWithPagination: []
             //big changes
         }
     }
@@ -43,7 +44,8 @@ class App extends Component {
                     <div className="container">
                         <Route path={"/movie/fetchScheduledMoviesByMovieId/:id"} exact render={() =>
                             <MovieDetailsWithScheduledMovies selectedMovie={this.state.selectedMovie}
-                                                            scheduledMovies={this.state.scheduledMoviesForMovie}/>}/>
+                                                            scheduledMovies={this.state.scheduledMoviesForMovie}
+                                                             onBookTickets={this.getScheduledMovie}/>}/>
 
                         <Route path={"/movie/findById/:id"} exact render={() =>
                             <MovieDetails selectedMovie={this.state.selectedMovie}/>}/>
@@ -53,10 +55,11 @@ class App extends Component {
 
                         <Route path={["/movie",""]}
                                exact render={() =>
-                            <Movies movies={this.state.movies}
+                            <Movies movies={this.state.moviesWithPagination}
                                     onDetails={this.getMovie}
                                     onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
                                     onActiveReservation={this.getActiveReservation}
+                                    onPageChange={this.loadMoviesWithPagination}
                                     onScheduleMovie={this.getMovie}/> } />
 
 
@@ -117,6 +120,7 @@ class App extends Component {
         this.loadMovies();
         this.loadScheduledMovies();
         this.loadConfirmedReservations();
+        this.loadMoviesWithPagination(0,4);
     }
 
     loadMovies = () => {
@@ -124,6 +128,15 @@ class App extends Component {
             .then((data) => {
                 this.setState({
                     movies: data.data
+                })
+            });
+    }
+
+    loadMoviesWithPagination= (page,size) => {
+        MovieService.fetchMoviesWithPagination(page,size)
+            .then((data) => {
+                this.setState({
+                    moviesWithPagination: data.data
                 })
             });
     }
@@ -156,6 +169,7 @@ class App extends Component {
                 })
             })
     }
+
 
     getScheduledMovie = (id) => {
         // console.log("vo getMovie"+id)
@@ -233,6 +247,7 @@ class App extends Component {
                 this.loadMovies();
             });
     }
+
     addScheduledMovie = (sales, startTime, endTime, ticketPrice, movieId) => {
         ScheduledMovieService.addScheduledMovie(sales, startTime, endTime, ticketPrice, movieId)
             .then(() => {

@@ -8,6 +8,7 @@ import com.example.movie.services.forms.MovieForm;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -24,6 +25,12 @@ public class MovieResource {
     public List<Movie> getAll() {
         return movieService.findAll();
     }
+
+    @GetMapping("/pagination")
+    public List<Movie> findAllWithPagination(Pageable pageable) {
+        return this.movieService.findAllWithPagination(pageable).getContent();
+    }
+
 
 //    @GetMapping("/scheduledMovie/{id}")
 //    public ScheduledMovie getMovieAtCertainTime(@PathVariable MovieId id,

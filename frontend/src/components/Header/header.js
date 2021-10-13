@@ -16,16 +16,28 @@ const header = (props) => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarCollapse">
                         <ul className="navbar-nav mr-auto">
+
                             <li className="nav-item active">
                                 <Link className="nav-link" to={"/movie"}>Movies</Link>
                             </li>
                             <li className="nav-item active">
                                 <Link className="nav-link" to={"/scheduledMovies"}>Scheduled Movies</Link>
                             </li>
+                            <li className="nav-item my-lg-0 text-danger sredinaLi">
+                                <a className="nav-link" href="#">
+                                    <div className={"divZaProstor"}></div>
+                                </a>
+                            </li>
+
+                            <li className="nav-item active">
+                                <Link className="nav-link" to={"/ticket/confirmedReservations"}>My Reservations</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </nav>
+
+
 
         </header>
     )

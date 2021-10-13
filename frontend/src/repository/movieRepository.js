@@ -4,6 +4,11 @@ const MovieService = {
     fetchMovies: () => {
         return axios.get("/movie");
     },
+    fetchMoviesWithPagination: (page,size) => {
+        return axios.get("/movie/pagination",{params:{
+            page, size
+            }});
+    },
     addMovie: (name, movieLength, genre, publishDate, description,ticketPrice,url,scheduledMovies) => {
         return axios.post("/movie/add", {
             "name" : name,
