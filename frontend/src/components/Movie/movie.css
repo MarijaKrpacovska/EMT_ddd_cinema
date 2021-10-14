@@ -24,3 +24,10 @@
     bottom: -9999px;
     margin: auto;
 }
+.pagination {
+    margin-left: auto;
+    margin-right: auto;
+}
+.page-link{
+    color: black;
+}

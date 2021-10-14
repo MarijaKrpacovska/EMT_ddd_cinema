@@ -106,38 +106,36 @@ const movies = (props) => {
                         </tbody>
                     </table>
                         <div className="col mb-3">
+                            <nav aria-label="Page navigation example">
+                                <ul className="pagination justify-content-center">
+                                    <li className="page-item"><a className="page-link" href="#">Previous</a></li>
+                                    <li className="page-item">
+                                        <Link className="page-link"
+                                              onClick={() => { props.onPageChange(0,4)}}
+                                              to={`/movie`}>
+                                            {props.moviesPage.totalElements}
+                                        </Link>
+                                    </li>
+                                    <li className="page-item">
+                                        <Link
+                                            className="page-link"
+                                            onClick={() => { props.onPageChange(1,4)}}
+                                            to={`/movie`}>
+                                            2
+                                        </Link>
+                                    </li>
+                                    <li className="page-item">
+                                        <Link
+                                            className="page-link"
+                                            onClick={() => { props.onPageChange(2,4)}}
+                                            to={`/movie`}>
+                                            3
+                                        </Link>
+                                    </li>
+                                    <li className="page-item"><a className="page-link" href="#">Next</a></li>
 
-                            <div className={"row text-center align-content-center"}>
-                                <nav className={"m-auto"} aria-label="Page navigation example">
-                                    <ul className="pagination">
-                                        <li className="page-item"><a className="page-link" href="#">Previous</a></li>
-                                        <li className="page-item">
-                                            <Link className="page-link"
-                                                onClick={() => { props.onPageChange(0,4)}}
-                                                to={`/movie`}>
-                                                1
-                                            </Link>
-                                        </li>
-                                        <li className="page-item">
-                                            <Link
-                                                className="page-link"
-                                                onClick={() => { props.onPageChange(1,4)}}
-                                                to={`/movie`}>
-                                                2
-                                            </Link>
-                                        </li>
-                                        <li className="page-item">
-                                            <Link
-                                                className="page-link"
-                                                onClick={() => { props.onPageChange(2,4)}}
-                                                to={`/movie`}>
-                                                3
-                                            </Link>
-                                        </li>
-                                        <li className="page-item"><a className="page-link" href="#">Next</a></li>
-                                    </ul>
-                                </nav>
-                            </div>
+                                </ul>
+                            </nav>
                         </div>
 
                     </div>

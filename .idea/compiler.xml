@@ -16,6 +16,7 @@
     <bytecodeTargetLevel>
       <module name="SharedKernel" target="16" />
       <module name="TicketReservation" target="16" />
+      <module name="user" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -26,6 +27,7 @@
       <module name="scheduled-movie" options="-parameters" />
       <module name="shared-kernel" options="-parameters" />
       <module name="ticket-reservation" options="-parameters" />
+      <module name="user" options="-parameters" />
     </option>
   </component>
 </project>

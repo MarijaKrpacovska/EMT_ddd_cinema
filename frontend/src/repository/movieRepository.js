@@ -5,7 +5,7 @@ const MovieService = {
         return axios.get("/movie");
     },
     fetchMoviesWithPagination: (page,size) => {
-        return axios.get("/movie/pagination",{params:{
+        return axios.get("/movie/moviePagination",{params:{
             page, size
             }});
     },

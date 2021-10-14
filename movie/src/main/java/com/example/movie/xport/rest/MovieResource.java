@@ -6,6 +6,7 @@ import com.example.movie.domain.models.MovieId;
 import com.example.movie.services.MovieService;
 import com.example.movie.services.forms.MovieForm;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +21,6 @@ public class MovieResource {
 
     private final MovieService movieService;
 
-    //TODO: add pagination
     @GetMapping
     public List<Movie> getAll() {
         return movieService.findAll();
@@ -29,6 +29,11 @@ public class MovieResource {
     @GetMapping("/pagination")
     public List<Movie> findAllWithPagination(Pageable pageable) {
         return this.movieService.findAllWithPagination(pageable).getContent();
+    }
+
+    @GetMapping("/moviePagination")
+    public Page<Movie> findAllPagination(Pageable pageable) {
+        return this.movieService.findAllWithPagination(pageable);
     }
 
 

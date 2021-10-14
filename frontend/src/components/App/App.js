@@ -31,7 +31,8 @@ class App extends Component {
             activeReservation: {},
             scheduledMoviesForMovie: [],
             confirmedReservations: [],
-            moviesWithPagination: []
+            moviesWithPagination: [],
+            moviesPage: {}
             //big changes
         }
     }
@@ -56,6 +57,7 @@ class App extends Component {
                         <Route path={["/movie",""]}
                                exact render={() =>
                             <Movies movies={this.state.moviesWithPagination}
+                                    moviesPage={this.state.moviesPage}
                                     onDetails={this.getMovie}
                                     onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
                                     onActiveReservation={this.getActiveReservation}
@@ -136,7 +138,8 @@ class App extends Component {
         MovieService.fetchMoviesWithPagination(page,size)
             .then((data) => {
                 this.setState({
-                    moviesWithPagination: data.data
+                    moviesWithPagination: data.data.content,
+                    moviesPage: data.data
                 })
             });
     }
