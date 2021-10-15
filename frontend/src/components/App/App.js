@@ -1,22 +1,24 @@
 import './App.css';
-import React, {Component} from "react";
-import Movies from '../Movie/movie';
-import MovieDetails from '../Movie/movieDetails'
+
 import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom'
+import React, {Component} from "react";
+
 import MovieService from "../../repository/movieRepository";
-import MovieAdd from "../Movie/movieAdd";
-import ScheduleMovie from "../unused/scheduleMovie";
-import TicketReservationAdd from "../Ticket/ticketreservationAdd";
-import TicketService from "../../repository/ticketRepository";
-import AddTicketToReservation from "../unused/addTicketToReservation";
-import TicketReservationDetails from "../Ticket/ticketReservationDetails";
 import ScheduledMovieService from "../../repository/scheduledMovieRepository";
-import ScheduledMovie from "../ScheduledMovie/scheduledMovie"
-import ActiveReservation from "../Ticket/activeReservation";
-import ScheduledMovieAdd from "../ScheduledMovie/scheduleMovieAdd";
+import TicketService from "../../repository/ticketRepository";
+
 import Header from "../Header/header"
-import MovieDetailsWithScheduledMovies from "../Movie/movieDetailsWithScheduledMovies"
-import ConfirmedReservations from "../Ticket/confirmedReservations"
+import Footer from "../Footer/footer"
+import HomePage from "../Home/homePage"
+import Movies from '../Movie/MovieList/movie';
+import MovieAdd from "../Movie/MovieAdd/movieAdd";
+import MovieDetailsWithScheduledMovies from "../Movie/MovieDetails/movieDetailsWithScheduledMovies"
+import ScheduledMovie from "../ScheduledMovie/ScheduledMovieList/scheduledMovie"
+import ScheduledMovieAdd from "../ScheduledMovie/ScheduledMovieAdd/scheduleMovieAdd";
+import TicketReservationAdd from "../Ticket/TicketReservationAdd/ticketreservationAdd";
+import TicketReservationDetails from "../Ticket/TicketDetails/ticketReservationDetails";
+import ActiveReservation from "../Ticket/TicketDetails/activeReservation";
+import ConfirmedReservations from "../Ticket/ConfirmedReservationsList/confirmedReservations"
 
 class App extends Component {
 
@@ -33,7 +35,6 @@ class App extends Component {
             confirmedReservations: [],
             moviesWithPagination: [],
             moviesPage: {}
-            //big changes
         }
     }
 
@@ -41,79 +42,84 @@ class App extends Component {
         return (
                 <Router>
                     <Header/>
-                    <main>
-                    <div className="container">
-                        <Route path={"/movie/fetchScheduledMoviesByMovieId/:id"} exact render={() =>
-                            <MovieDetailsWithScheduledMovies selectedMovie={this.state.selectedMovie}
-                                                            scheduledMovies={this.state.scheduledMoviesForMovie}
-                                                             onBookTickets={this.getScheduledMovie}/>}/>
+                        <main>
+                        <div className="container">
 
-                        <Route path={"/movie/findById/:id"} exact render={() =>
-                            <MovieDetails selectedMovie={this.state.selectedMovie}/>}/>
+                            <Route path={"/home"} exact render={() =>
+                                <HomePage/>}/>
 
-                        <Route path={"/movie/add"} exact render={() =>
-                            <MovieAdd onAddMovie={this.addMovie}/>}/>
+                            <Route path={"/movie/fetchScheduledMoviesByMovieId/:id"} exact render={() =>
+                                <MovieDetailsWithScheduledMovies selectedMovie={this.state.selectedMovie}
+                                                                scheduledMovies={this.state.scheduledMoviesForMovie}
+                                                                 onBookTickets={this.getScheduledMovie}/>}/>
 
-                        <Route path={["/movie",""]}
-                               exact render={() =>
-                            <Movies movies={this.state.moviesWithPagination}
-                                    moviesPage={this.state.moviesPage}
-                                    onDetails={this.getMovie}
-                                    onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
-                                    onActiveReservation={this.getActiveReservation}
-                                    onPageChange={this.loadMoviesWithPagination}
-                                    onScheduleMovie={this.getMovie}/> } />
+                            <Route path={"/movie/add"} exact render={() =>
+                                <MovieAdd onAddMovie={this.addMovie}/>}/>
 
-
-                        <Route path={"/ticket/getTicketReservation/:id"} exact render={() =>
-                            <TicketReservationDetails ticketReservation={this.state.ticketReservation}/>}/>
-
-                        <Route path={"/ticket/makeNewReservation/:id"} exact render={() =>
-                            <TicketReservationAdd onTicketReservationAdd={this.addTicketReservation}
-                                                  scheduledMovie={this.state.scheduledMovie}/>}/>
-
-                        <Route path={["/ticket/activeReservation"]}
-                               exact render={() =>
-                            <ActiveReservation activeReservation={this.state.activeReservation}
-                                               onCancelReservation={this.cancelActiveReservation}
-                                               onConfirmReservation={this.confirmActiveReservation}/>}/>
-
-                        <Route path={["/ticket/confirmedReservations"]}
-                               exact render={() =>
-                            <ConfirmedReservations reservations={this.state.confirmedReservations}
-                                                   onCancelConfirmedReservation={this.cancelConfirmedReservation}/> } />
+                            <Route path={["/movie",""]}
+                                   exact render={() =>
+                                <Movies movies={this.state.moviesWithPagination}
+                                        moviesPage={this.state.moviesPage}
+                                        onDetails={this.getMovie}
+                                        onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
+                                        onActiveReservation={this.getActiveReservation}
+                                        onPageChange={this.loadMoviesWithPagination}
+                                        onScheduleMovie={this.getMovie}/> } />
 
 
-                        <Route path={"/scheduledMovies/add/:id"} exact render={() =>
-                            <ScheduledMovieAdd onAddScheduledMovie={this.addScheduledMovie}
-                                               selectedMovie={this.state.selectedMovie}/>}/>
+                            <Route path={"/ticket/getTicketReservation/:id"} exact render={() =>
+                                <TicketReservationDetails ticketReservation={this.state.ticketReservation}/>}/>
 
-                        <Route path={"/scheduledMovies/add"} exact render={() =>
-                            <ScheduledMovieAdd onAddScheduledMovie={this.addScheduledMovie}/>}/>
+                            <Route path={"/ticket/makeNewReservation/:id"} exact render={() =>
+                                <TicketReservationAdd onTicketReservationAdd={this.addTicketReservation}
+                                                      scheduledMovie={this.state.scheduledMovie}/>}/>
 
-                        <Route path={["/scheduledMovies"]}
-                               exact render={() =>
-                            <ScheduledMovie scheduledMovies={this.state.scheduledMovies}
-                                            onBookTickets={this.getScheduledMovie}
-                                            onCancelScheduledMove={this.cancelScheduledMovie}/> } />
+                            <Route path={["/ticket/activeReservation"]}
+                                   exact render={() =>
+                                <ActiveReservation activeReservation={this.state.activeReservation}
+                                                   onCancelReservation={this.cancelActiveReservation}
+                                                   onConfirmReservation={this.confirmActiveReservation}/>}/>
 
-                        {/*<Route path={"/ticket/makeReservation"} exact render={() =>*/}
-                        {/*    <TicketReservationAdd onTicketReservationAdd={this.addTicketReservation}*/}
-                        {/*                          movies={this.state.movies}/>}/>*/}
-
-
-
-                        {/*<Route path={"/movie/scheduleMovie/:id"} exact render={() =>*/}
-                        {/*    <ScheduleMovie onScheduleMovie={this.scheduleMovie}*/}
-                        {/*    movie = {this.state.selectedMovie}/>}/>*/}
+                            <Route path={["/ticket/confirmedReservations"]}
+                                   exact render={() =>
+                                <ConfirmedReservations reservations={this.state.confirmedReservations}
+                                                       onCancelConfirmedReservation={this.cancelConfirmedReservation}/> } />
 
 
-                        {/*<Route path={"/ticket/addTicketToReservation/:id"} exact render={() =>*/}
-                        {/*    <AddTicketToReservation onAddTicketToReservation={this.addTicketToReservation}*/}
-                        {/*                            ticketReservation={this.state.ticketReservation}/>}/>*/}
+                            <Route path={"/scheduledMovies/add/:id"} exact render={() =>
+                                <ScheduledMovieAdd onAddScheduledMovie={this.addScheduledMovie}
+                                                   selectedMovie={this.state.selectedMovie}/>}/>
 
-                    </div>
+                            <Route path={"/scheduledMovies/add"} exact render={() =>
+                                <ScheduledMovieAdd onAddScheduledMovie={this.addScheduledMovie}/>}/>
+
+                            <Route path={["/scheduledMovies"]}
+                                   exact render={() =>
+                                <ScheduledMovie scheduledMovies={this.state.scheduledMovies}
+                                                onBookTickets={this.getScheduledMovie}
+                                                onCancelScheduledMove={this.cancelScheduledMovie}/> } />
+
+                            {/*<Route path={"/ticket/makeReservation"} exact render={() =>*/}
+                            {/*    <TicketReservationAdd onTicketReservationAdd={this.addTicketReservation}*/}
+                            {/*                          movies={this.state.movies}/>}/>*/}
+
+
+
+                            {/*<Route path={"/movie/scheduleMovie/:id"} exact render={() =>*/}
+                            {/*    <ScheduleMovie onScheduleMovie={this.scheduleMovie}*/}
+                            {/*    movie = {this.state.selectedMovie}/>}/>*/}
+
+
+                            {/*<Route path={"/ticket/addTicketToReservation/:id"} exact render={() =>*/}
+                            {/*    <AddTicketToReservation onAddTicketToReservation={this.addTicketToReservation}*/}
+                            {/*                            ticketReservation={this.state.ticketReservation}/>}/>*/}
+
+                            {/*<Route path={"/movie/findById/:id"} exact render={() =>*/}
+                            {/*    <MovieDetails selectedMovie={this.state.selectedMovie}/>}/>*/}
+
+                        </div>
                     </main>
+                <Footer/>
                 </Router>
         );
     }

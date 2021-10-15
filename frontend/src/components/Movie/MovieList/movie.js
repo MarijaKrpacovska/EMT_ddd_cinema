@@ -1,35 +1,25 @@
 import './movie.css';
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from 'react-router-dom';
-//
-// <Link className={"btn btn-info ml-2"}
-//       onClick={() => props.onActiveReservation()}
-//       to={`/ticket/activeReservation`}>
-//     Shopping Cart
-// </Link>
 
+const Movies = (props) => {
 
+    useEffect(() => {
+        // const images = ["https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg",
+        //     "https://assets.mubicdn.net/images/notebook/post_images/33421/images-w1400.jpg?1625400709",
+        //     "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg"]
+        if(props.movies.length === 0){
+            console.log("null"+props.movies.length)
+        }
+        else {
+            const interval = setInterval(() => {
+                let index = Math.floor(Math.random() * (props.movies.length));
+                document.getElementById("imgImg").src = props.movies[index].url;
+            }, 4000);
+            return () => clearInterval(interval);
+        }
 
-const movies = (props) => {
-
-    const image = document.getElementById("imgImg");
-    const currentPos = 1;
-    const images = ["https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg",
-        "https://assets.mubicdn.net/images/notebook/post_images/33421/images-w1400.jpg?1625400709"]
-
-    //console.log("SELECTED MOVIE" +props.movies(0).id.id)
-    function volgendefoto() {
-        const images = ["https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg",
-            "https://assets.mubicdn.net/images/notebook/post_images/33421/images-w1400.jpg?1625400709",
-            "https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_.jpg"]
-
-        let index = Math.floor(Math.random() * (2 + 1));
-        console.log(index);
-
-        document.getElementById("imgImg").src = images[index];
-    }
-
-    setInterval(volgendefoto, 12000);
+    },[props]);
 
     return (
         <div className={"container mm-4"}>
@@ -69,35 +59,42 @@ const movies = (props) => {
                                         <img className={"mt-1 mb-1"} src={term.url} height={"200px"} width={"136px"}></img>
                                     </Link>
                                     <td className={"firstTd"}>
-                                        <h3 className={"mb-3"}>
-                                        {term.name} <small className={"font-weight-light movieGenre"}>({term.genre})</small>
-                                        </h3>
-                                        {term.description}
-                                        <br/>
-                                        <b>Length:</b> {term.movieLength.length} {term.movieLength.unitOfTime}
-                                        <br/>
-                                        <b>Released on:</b> {myDate.toString().substr(0,15)}
-                                        <br/>
-                                        <br/>
-                                        <div className={"row text-center"}>
+                                        <Link
+                                            className={"text-black detailsLink"}
+                                            onClick={() => { props.onDetails(term.id.id); props.onFetchScheduledMoviesByMovieId(term.id.id)}}
+                                            to={`/movie/fetchScheduledMoviesByMovieId/${term.id.id}`}>
+                                        <div>
+                                            <h3 className={"mb-3"}>
+                                            {term.name} <small className={"font-weight-light movieGenre"}>({term.genre})</small>
+                                            </h3>
+                                            {term.description}
+                                            <br/>
+                                            <b>Length:</b> {term.movieLength.length} {term.movieLength.unitOfTime}
+                                            <br/>
+                                            <b>Released on:</b> {myDate.toString().substr(0,15)}
+                                            <br/>
+                                            <br/>
+                                            <div className={"row text-center"}>
 
-                                            <div className={"col-sm-6 col-md-6"}></div>
-                                            <div className="col-sm-3 col-md-3 buttonDiv">
-                                                <Link className={"btn btn-sm btn-block btn-dark scheduleMovieButton"}
-                                                      onClick={() => props.onScheduleMovie(term.id.id)}
-                                                      to={`/scheduledMovies/add/${term.id.id}`}>
-                                                    Schedule movie
-                                                </Link>
+                                                <div className={"col-sm-6 col-md-6"}></div>
+                                                <div className="col-sm-3 col-md-3 buttonDiv">
+                                                    <Link className={"btn btn-sm btn-block btn-dark scheduleMovieButton"}
+                                                          onClick={() => props.onScheduleMovie(term.id.id)}
+                                                          to={`/scheduledMovies/add/${term.id.id}`}>
+                                                        Schedule movie
+                                                    </Link>
+                                                </div>
+                                                <div className="col-sm-3 col-md-3 text-sm">
+                                                    <i>Currently scheduled {term.numberOfTimesScheduled} times</i>
+                                                </div>
+                                                {/*<Link*/}
+                                                {/*    onClick={() => { props.onDetails(term.id.id); props.onFetchScheduledMoviesByMovieId(term.id.id)}}*/}
+                                                {/*    to={`/movie/fetchScheduledMoviesByMovieId/${term.id.id}`}>*/}
+                                                {/*    Details with sm*/}
+                                                {/*</Link>*/}
                                             </div>
-                                            <div className="col-sm-3 col-md-3 text-sm">
-                                                <i>Currently scheduled {term.numberOfTimesScheduled} times</i>
-                                            </div>
-                                            {/*<Link*/}
-                                            {/*    onClick={() => { props.onDetails(term.id.id); props.onFetchScheduledMoviesByMovieId(term.id.id)}}*/}
-                                            {/*    to={`/movie/fetchScheduledMoviesByMovieId/${term.id.id}`}>*/}
-                                            {/*    Details with sm*/}
-                                            {/*</Link>*/}
                                         </div>
+                                        </Link>
                                     </td>
                                 </tr>
                             );
@@ -153,4 +150,4 @@ const movies = (props) => {
     );
 }
 
-export default movies;
+export default Movies;

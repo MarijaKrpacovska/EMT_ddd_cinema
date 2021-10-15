@@ -24,6 +24,7 @@ public class Movie extends AbstractEntity<MovieId> {
     //Za atributot movieLength, definirav nov tip, MovieLength, so cel da se zapazi seprisutniot jazik
     private MovieLength movieLength;
 
+    //Todo: smeni vo frontend
     @Enumerated(EnumType.STRING)
     private Genre genre;
 

@@ -7,3 +7,19 @@
 .divZaProstor{
     width: 700px;
 }
+.homePageLink{
+    text-decoration: none;
+}
+.cinemaText{
+    margin-top: 100px;
+}
+.homePageLinkText{
+    margin-left: -20px;
+    margin-bottom: -40px;
+    margin-top: 20px;
+    padding-top: 9px;
+    margin-right: 6px;
+}
+.homePageLinkDiv{
+    margin-top: 20px;
+}

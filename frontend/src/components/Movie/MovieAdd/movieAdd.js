@@ -130,9 +130,6 @@ const MovieAdd = (props) => {
                         />
                     </div>
 
-                    <div className={"col-md-4 imgDiv"} hidden={"true"}>
-                        <img id={"imgImg"} className={"imgImg"} height={"1130px"} src={"https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg"}/>
-                    </div>
 
                     <button id="submit" type="submit" className="btn btn-dark align-self-md-center">Submit</button>
 
