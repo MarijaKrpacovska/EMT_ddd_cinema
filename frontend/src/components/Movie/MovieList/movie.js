@@ -15,7 +15,7 @@ const Movies = (props) => {
             const interval = setInterval(() => {
                 let index = Math.floor(Math.random() * (props.movies.length));
                 document.getElementById("imgImg").src = props.movies[index].url;
-            }, 4000);
+            }, 2000);
             return () => clearInterval(interval);
         }
 
@@ -101,14 +101,16 @@ const Movies = (props) => {
                         })}
                         <tr></tr>
                         </tbody>
+
                     </table>
                         <div className="col mb-3">
                             <nav aria-label="Page navigation example">
                                 <ul className="pagination justify-content-center">
                                     <li className="page-item"><a className="page-link" href="#">Previous</a></li>
+
                                     <li className="page-item">
                                         <Link className="page-link"
-                                              onClick={() => { props.onPageChange(0,4)}}
+                                              onClick={() => { props.onPageChange(0,3)}}
                                               to={`/movie`}>
                                             {props.moviesPage.totalElements}
                                         </Link>
@@ -116,7 +118,7 @@ const Movies = (props) => {
                                     <li className="page-item">
                                         <Link
                                             className="page-link"
-                                            onClick={() => { props.onPageChange(1,4)}}
+                                            onClick={() => { props.onPageChange(1,3)}}
                                             to={`/movie`}>
                                             2
                                         </Link>
@@ -124,7 +126,7 @@ const Movies = (props) => {
                                     <li className="page-item">
                                         <Link
                                             className="page-link"
-                                            onClick={() => { props.onPageChange(2,4)}}
+                                            onClick={() => { props.onPageChange(2,3)}}
                                             to={`/movie`}>
                                             3
                                         </Link>
@@ -137,8 +139,9 @@ const Movies = (props) => {
 
                     </div>
                     <div className={"col-md-1"}></div>
-                    <div className={"col-md-3 ml-2 imgDiv"}>
-                        <img id={"imgImg"} className={"imgImg"} height={"1130px"} src={"https://movies.universalpictures.com/media/us-adv1sheet-rgb-2-small-5c1c422026bb0-1-5d3a4e5f87325-1.jpg"}/>
+                    <div className={"col-md-3 ml-2 imgDiv mb-0"}>
+                        {/*fix if empty*/}
+                        <img id={"imgImg"} className={"imgImg"} height={"860px"} src={""}/>
                     </div>
                 </div>
                 </div>
@@ -148,6 +151,9 @@ const Movies = (props) => {
 
         </div>
     );
+    return (<p>
+        bla
+    </p>);
 }
 
 export default Movies;

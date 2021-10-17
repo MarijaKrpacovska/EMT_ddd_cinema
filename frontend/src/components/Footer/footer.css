@@ -1,13 +1,23 @@
 Footer {
-    clear: both;
-    border: 1px groove #aaaaaa;
-    background: blue;
-    color: White;
-    padding: 0;
-    vertical-align: middle;
-    line-height: normal;
-    margin: 0;
-    position: fixed;
-    bottom: 0px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 4.6rem;            /* Footer height */
+    margin-top: 10px;
+}
+.rowClass{
     width: 100%;
 }
+/*.row{*/
+/*    color: #000; !* Fallback for older browsers *!*/
+/*    color: rgba(250, 246, 246, 0.74);*/
+/*}*/
+.facebookImg{
+    margin-left: 14px;
+    margin-top: -3px;
+    margin-right: 9px;
+}
+.secondCol{
+    text-align: right;
+}
+

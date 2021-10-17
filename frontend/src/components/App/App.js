@@ -41,7 +41,9 @@ class App extends Component {
     render() {
         return (
                 <Router>
-                    <Header/>
+                    <div id="page-container">
+                        <div id="content-wrap">
+                            <Header/>
                         <main>
                         <div className="container">
 
@@ -118,8 +120,10 @@ class App extends Component {
                             {/*    <MovieDetails selectedMovie={this.state.selectedMovie}/>}/>*/}
 
                         </div>
-                    </main>
-                <Footer/>
+                        </main>
+                    </div>
+                    <Footer/>
+                    </div>
                 </Router>
         );
     }
@@ -128,7 +132,7 @@ class App extends Component {
         this.loadMovies();
         this.loadScheduledMovies();
         this.loadConfirmedReservations();
-        this.loadMoviesWithPagination(0,4);
+        this.loadMoviesWithPagination(0,3);
     }
 
     loadMovies = () => {

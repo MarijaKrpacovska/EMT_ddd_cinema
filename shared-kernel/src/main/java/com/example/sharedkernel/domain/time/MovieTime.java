@@ -11,6 +11,8 @@ import java.util.Objects;
 @Embeddable
 @Getter
 public class MovieTime implements ValueObject {
+
+    //Todo: add days
     private final int hour;
     private final int minutes;
 

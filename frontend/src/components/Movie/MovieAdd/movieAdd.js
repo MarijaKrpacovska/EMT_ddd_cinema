@@ -1,6 +1,7 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 
+//todo: fix forms
 const MovieAdd = (props) => {
 
     const history = useHistory();

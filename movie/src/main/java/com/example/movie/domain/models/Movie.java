@@ -25,6 +25,7 @@ public class Movie extends AbstractEntity<MovieId> {
     private MovieLength movieLength;
 
     //Todo: smeni vo frontend
+    //todo: fix pagination
     @Enumerated(EnumType.STRING)
     private Genre genre;
 
