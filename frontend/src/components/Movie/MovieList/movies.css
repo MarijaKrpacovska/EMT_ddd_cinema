@@ -15,6 +15,7 @@
     position: relative;
     overflow: hidden;
     margin-bottom: -30px;
+    height: 900px;
 }
 .imgImg{
     position: absolute;
@@ -33,4 +34,25 @@
 }
 .detailsLink{
     text-decoration: none;
+}
+
+
+.pagination li:first-child {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.pagination li:last-child {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    color: #0d6efd;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }

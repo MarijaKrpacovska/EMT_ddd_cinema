@@ -2,6 +2,7 @@ import React from 'react';
 import {useHistory} from 'react-router-dom';
 
 //todo: fix forms
+//todo: fix warnings in console
 const MovieAdd = (props) => {
 
     const history = useHistory();

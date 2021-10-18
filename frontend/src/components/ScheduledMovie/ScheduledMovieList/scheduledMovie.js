@@ -1,5 +1,5 @@
 import React from "react";
-import movies from "../../Movie/MovieList/movie";
+import movies from "../../unused/movie";
 import {Link} from 'react-router-dom';
 
 const scheduledMovie = (props) => {

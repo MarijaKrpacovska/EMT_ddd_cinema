@@ -1,4 +1,4 @@
-import './movie.css';
+import '../Movie/MovieList/movies.css';
 import React, {useEffect} from "react";
 import {Link} from 'react-router-dom';
 
@@ -141,19 +141,13 @@ const Movies = (props) => {
                     <div className={"col-md-1"}></div>
                     <div className={"col-md-3 ml-2 imgDiv mb-0"}>
                         {/*fix if empty*/}
-                        <img id={"imgImg"} className={"imgImg"} height={"860px"} src={""}/>
+                        <img id={"imgImg"} className={"imgImg"} height={"1100px"} src={""}/>
                     </div>
                 </div>
                 </div>
             </div>
-
-
-
         </div>
     );
-    return (<p>
-        bla
-    </p>);
 }
 
 export default Movies;

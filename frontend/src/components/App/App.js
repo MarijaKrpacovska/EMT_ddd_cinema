@@ -10,7 +10,8 @@ import TicketService from "../../repository/ticketRepository";
 import Header from "../Header/header"
 import Footer from "../Footer/footer"
 import HomePage from "../Home/homePage"
-import Movies from '../Movie/MovieList/movie';
+import Movies from '../unused/movie';
+import MoviesList from '../Movie/MovieList/movies'
 import MovieAdd from "../Movie/MovieAdd/movieAdd";
 import MovieDetailsWithScheduledMovies from "../Movie/MovieDetails/movieDetailsWithScheduledMovies"
 import ScheduledMovie from "../ScheduledMovie/ScheduledMovieList/scheduledMovie"
@@ -50,6 +51,7 @@ class App extends Component {
                             <Route path={"/home"} exact render={() =>
                                 <HomePage/>}/>
 
+
                             <Route path={"/movie/fetchScheduledMoviesByMovieId/:id"} exact render={() =>
                                 <MovieDetailsWithScheduledMovies selectedMovie={this.state.selectedMovie}
                                                                 scheduledMovies={this.state.scheduledMoviesForMovie}
@@ -58,15 +60,11 @@ class App extends Component {
                             <Route path={"/movie/add"} exact render={() =>
                                 <MovieAdd onAddMovie={this.addMovie}/>}/>
 
-                            <Route path={["/movie",""]}
-                                   exact render={() =>
-                                <Movies movies={this.state.moviesWithPagination}
-                                        moviesPage={this.state.moviesPage}
-                                        onDetails={this.getMovie}
-                                        onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
-                                        onActiveReservation={this.getActiveReservation}
-                                        onPageChange={this.loadMoviesWithPagination}
-                                        onScheduleMovie={this.getMovie}/> } />
+                            <Route path={["/movie",""]} exact render={() =>
+                                <MoviesList movies={this.state.movies}
+                                            onDetails={this.getMovie}
+                                            onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
+                                            onScheduleMovie={this.getMovie}/>}/>
 
 
                             <Route path={"/ticket/getTicketReservation/:id"} exact render={() =>
@@ -118,6 +116,16 @@ class App extends Component {
 
                             {/*<Route path={"/movie/findById/:id"} exact render={() =>*/}
                             {/*    <MovieDetails selectedMovie={this.state.selectedMovie}/>}/>*/}
+
+                            {/*<Route path={["/movieList"]}*/}
+                            {/*       exact render={() =>*/}
+                            {/*    <Movies movies={this.state.moviesWithPagination}*/}
+                            {/*            moviesPage={this.state.moviesPage}*/}
+                            {/*            onDetails={this.getMovie}*/}
+                            {/*            onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}*/}
+                            {/*            onActiveReservation={this.getActiveReservation}*/}
+                            {/*            onPageChange={this.loadMoviesWithPagination}*/}
+                            {/*            onScheduleMovie={this.getMovie}/> } />*/}
 
                         </div>
                         </main>
