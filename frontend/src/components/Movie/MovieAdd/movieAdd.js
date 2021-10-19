@@ -47,6 +47,7 @@ const MovieAdd = (props) => {
         };
         const scheduledMovies= []
         const url=formData.url
+        //todo: error handle data
 
         props.onAddMovie(name,movieLength,genre, publishDate,description,ticketPrice,url,scheduledMovies);
         history.push("/movie");

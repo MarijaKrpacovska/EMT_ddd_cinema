@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import movies from "../../unused/movie";
 import {Link} from 'react-router-dom';
 
 const scheduledMovie = (props) => {
     //console.log("SELECTED MOVIE" +props.movies(0).id.id)
+
     return (
         <div className={"container mm-4 mt-5"}>
             <div className={"row"}>
@@ -20,7 +21,8 @@ const scheduledMovie = (props) => {
                         </thead>
                         <tbody>
 
-                        {props.scheduledMovies.map((term) => {
+                        {
+                            props.scheduledMovies.map((term) => {
                             return (
                                 <tr>
                                     <td>{term.sales}</td>
