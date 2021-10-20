@@ -69,8 +69,8 @@ const MovieAdd = (props) => {
     }
 
     return(
-        <div className="row mt-5">
-            <div className="col-md-5">
+        <div className="row mt-5 addRow">
+            <div className="col-md-6">
                 <form onSubmit={onFormSubmit}>
                     <div className="form-group">
                         <label htmlFor="name">Name</label>
@@ -177,11 +177,16 @@ const MovieAdd = (props) => {
                                onChange={handleChange}
                         />
                     </div>
+                    <br/>
 
-
+                    <div className={"text-center"}>
                     <button id="submit" type="submit" className="btn btn-dark align-self-md-center">Submit</button>
-
+                    </div>
+                    <br/>
                     </form>
+            </div>
+            <div className={"col-md-6"}>
+                <img height={"600px"} width={"600px"} src={"https://www.pngall.com/wp-content/uploads/2018/06/Cinema-Transparent.png"}/>
             </div>
 
         </div>

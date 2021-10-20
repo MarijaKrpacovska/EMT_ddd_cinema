@@ -39,7 +39,10 @@ const ScheduledMovieAdd = (props) => {
 
     return(
         <div className="row mt-5">
-            <div className="col-md-5">
+            <div className={"col-md-6"}>
+                <img src={"https://www.nicepng.com/png/full/912-9123453_cine-popcorn-cinema.png"}/>
+            </div>
+            <div className="col-md-6">
                 <form onSubmit={onFormSubmit}>
                     
                     <div className="form-group">
@@ -86,8 +89,11 @@ const ScheduledMovieAdd = (props) => {
                                onChange={handleChange}
                         />
                     </div>
+                    <br/>
+                    <div className={"text-center"}>
                     <button id="submit" type="submit" className="btn btn-dark">Submit</button>
-                </form>
+                    </div>
+                    </form>
             </div>
         </div>
     )
