@@ -1,5 +1,6 @@
 package com.example.movie.domain.models;
 
+import com.example.movie.domain.valueobjects.Image;
 import com.example.movie.domain.valueobjects.Rating;
 import com.example.sharedkernel.domain.base.AbstractEntity;
 import com.example.sharedkernel.domain.genre.Genre;
@@ -31,11 +32,22 @@ public class Movie extends AbstractEntity<MovieId> {
 
     private LocalDate publishDate;
 
+    @Column(name = "description", length = 1024)
     private String description;
 
     private Rating rating;
 
-    private String url;
+    @AttributeOverrides({
+            @AttributeOverride(name="imageUrl", column = @Column(name="moviePosterUrl")),
+            @AttributeOverride(name="imageType", column = @Column(name="moviePosterType"))
+    })
+    private Image moviePoster;
+
+    @AttributeOverrides({
+            @AttributeOverride(name="imageUrl", column = @Column(name="movieAdvertisementUrl")),
+            @AttributeOverride(name="imageType", column = @Column(name="movieAdvertisementType"))
+    })
+    private Image movieAdvertisementImage;
 
     private String trailerUrl;
 
@@ -48,20 +60,21 @@ public class Movie extends AbstractEntity<MovieId> {
         super(MovieId.randomId(MovieId.class));
     }
 
-    public Movie(String name, MovieLength movieLength, Genre genre, LocalDate publishDate, String description, String url, String trailerUrl, int numberOfTimesScheduled, Rating rating) {
+    public Movie(String name, MovieLength movieLength, Genre genre, LocalDate publishDate, String description, Image moviePoster, Image movieAdvertisementImage, String trailerUrl, int numberOfTimesScheduled, Rating rating) {
         super(MovieId.randomId(MovieId.class));
         this.name = name;
         this.movieLength = movieLength;
         this.genre=genre;
         this.publishDate=publishDate;
         this.description= description;
-        this.url=url;
+        this.moviePoster=moviePoster;
+        this.movieAdvertisementImage=movieAdvertisementImage;
         this.trailerUrl=trailerUrl;
         this.numberOfTimesScheduled=numberOfTimesScheduled;
         this.rating=rating;
     }
 
-    public static Movie build(String name, MovieLength movieLength, Genre genre, LocalDate publishDate, String description, String url, String trailerUrl, int numberOfTimesScheduled, Rating rating) {// Set<ScheduledMovie> scheduledMovieSet
+    public static Movie build(String name, MovieLength movieLength, Genre genre, LocalDate publishDate, String description, Image moviePoster, Image movieAdvertisementImage, String trailerUrl, int numberOfTimesScheduled, Rating rating) {// Set<ScheduledMovie> scheduledMovieSet
         Movie m = new Movie();
         m.name=name;
         m.movieLength=movieLength;
@@ -69,7 +82,8 @@ public class Movie extends AbstractEntity<MovieId> {
         m.publishDate=publishDate;
         m.description=description;
         m.trailerUrl=trailerUrl;
-        m.url=url;
+        m.moviePoster=moviePoster;
+        m.movieAdvertisementImage=movieAdvertisementImage;
         m.numberOfTimesScheduled=numberOfTimesScheduled;
         m.rating=rating;
         return m;

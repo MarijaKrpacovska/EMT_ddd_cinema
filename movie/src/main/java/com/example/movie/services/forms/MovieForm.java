@@ -1,4 +1,5 @@
 package com.example.movie.services.forms;
+import com.example.movie.domain.valueobjects.Image;
 import com.example.movie.domain.valueobjects.Rating;
 import com.example.sharedkernel.domain.genre.Genre;
 import com.example.sharedkernel.domain.money.Money;
@@ -30,7 +31,9 @@ public class MovieForm {
 
     private String description;
 
-    private String url;
+    private Image moviePoster;
+
+    private Image movieAdvertisementImage;
 
     private String trailerUrl;
 
@@ -43,14 +46,16 @@ public class MovieForm {
                  @JsonProperty("genre") Genre genre,
                  @JsonProperty("publishDate") String publishDate,
                  @JsonProperty("description") String description,
-                     @JsonProperty("url") String url,
+                     @JsonProperty("moviePoster") Image moviePoster,
+                     @JsonProperty("movieAdvertisementImage") Image movieAdvertisementImage,
                      @JsonProperty("trailerUrl") String trailerUrl) {
         this.name = name;
         this.movieLength = movieLength;
         this.genre=genre;
         this.publishDate=publishDate;
         this.description= description;
-        this.url=url;
+        this.moviePoster=moviePoster;
+        this.movieAdvertisementImage=movieAdvertisementImage;
         this.trailerUrl=trailerUrl;
     }
 

@@ -11,7 +11,6 @@ public class ScheduledMovieForm {
 
     private int sales;
 
-    //todo: fix input for videoTrailer url: kako da se vnese url shto raboti
     @NotNull
     private String startDate;
 

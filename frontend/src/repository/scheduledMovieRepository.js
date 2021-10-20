@@ -24,6 +24,12 @@ const ScheduledMovieService = {
         console.log("vleguva vo cancelScheduledMovie")
         return axios.post(`/scheduledMovie/cancelScheduledMovie/${id}`);
     },
+    rescheduleMovie: (id,time,date) => {
+        console.log("vleguva vo rescheduleMovie")
+        return axios.post(`/scheduledMovie/rescheduleMovie/${id}`,null, { params: {
+            time, date
+        }});
+    }
 }
 
 export default ScheduledMovieService;

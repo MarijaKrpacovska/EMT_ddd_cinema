@@ -23,6 +23,7 @@ import ConfirmedReservations from "../Ticket/ConfirmedReservationsList/confirmed
 import data from "bootstrap/js/src/dom/data";
 import ReservationDetails from "../Ticket/TicketDetails/reservationDetails";
 import MovieRate from "../Movie/MovieRate/movieRate";
+import RescheduleMovie from "../ScheduledMovie/RescheduleMovie/rescheduleMovie";
 
 class App extends Component {
 
@@ -51,10 +52,6 @@ class App extends Component {
                             <Header/>
                         <main>
                         <div className="container">
-
-                            <Route path={"/home"} exact render={() =>
-                                <HomePage/>}/>
-
 
                             <Route path={"/movie/fetchScheduledMoviesByMovieId/:id"} exact render={() =>
                                 <MovieDetailsWithScheduledMovies selectedMovie={this.state.selectedMovie}
@@ -109,6 +106,10 @@ class App extends Component {
                                                        onCancelConfirmedReservation={this.cancelConfirmedReservation}/> } />
 
 
+                            <Route path={"/scheduledMovies/reschedule/:id"} exact render={() =>
+                                <RescheduleMovie scheduledMovie={this.state.scheduledMovie}
+                                           onReschedule={this.rescheduleMovie}/>}/>
+
                             <Route path={"/scheduledMovies/add/:id"} exact render={() =>
                                 <ScheduledMovieAdd onAddScheduledMovie={this.addScheduledMovie}
                                                    selectedMovie={this.state.selectedMovie}/>}/>
@@ -121,6 +122,7 @@ class App extends Component {
                                 <ScheduledMovie scheduledMovies={this.state.scheduledMovies}
                                                 movies={this.state.movies}
                                                 onBookTickets={this.getScheduledMovie}
+                                                onRescheduleMovie={this.getScheduledMovie}
                                                 onCancelScheduledMove={this.cancelScheduledMovie}/> } />
 
                             {/*<Route path={"/ticket/makeReservation"} exact render={() =>*/}
@@ -144,6 +146,16 @@ class App extends Component {
 
 
                         </div>
+                            <div>
+                                <Route path={"/home"} exact render={() =>
+                                    <HomePage movies={this.state.movies}
+                                              onDetails={this.getMovie}
+                                              onRateMovie={this.getMovie}
+                                              onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
+                                              onActiveReservation={this.getActiveReservation}
+                                              onPageChange={this.loadMoviesWithPagination}
+                                              onScheduleMovie={this.getMovie}/>}/>
+                            </div>
                         </main>
                     </div>
                     <Footer/>
@@ -257,6 +269,13 @@ class App extends Component {
                 this.loadMovies();
             });
     }
+    rescheduleMovie = (id,time,date) => {
+        // console.log("vo getMovie"+id)
+        ScheduledMovieService.rescheduleMovie(id,time,date)
+            .then(() => {
+                this.loadScheduledMovies();
+            });
+    }
     getTicketReservation = (id) => {
         // console.log("vo getMovie"+id)
         TicketService.getTicketReservation(id)
@@ -321,8 +340,8 @@ class App extends Component {
                 this.loadMovies();
             });
     }
-    addMovie = (name, movieLength, genre, publishDate, description,ticketPrice,url,trailerUrl) => {
-        MovieService.addMovie(name, movieLength, genre, publishDate, description,ticketPrice,url,trailerUrl)
+    addMovie = (name, movieLength, genre, publishDate, description,ticketPrice,moviePoster,movieAdvertisementImage,trailerUrl) => {
+        MovieService.addMovie(name, movieLength, genre, publishDate, description,ticketPrice,moviePoster,movieAdvertisementImage,trailerUrl)
             .then(() => {
                 this.loadMovies();
             });

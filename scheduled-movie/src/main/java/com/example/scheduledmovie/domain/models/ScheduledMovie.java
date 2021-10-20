@@ -45,9 +45,6 @@ public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
         this.movieId=movieId;
         this.scheduledMovieStatus=scheduledMovieStatus;
     }
-    //todo: fix active ticket res
-    //todo: add rating to frontend
-
     //se koristi za zgolemuvanje na prodazhbite za ova prikazhuvanje na film.
     public void addSales(int qty) {
         this.sales = this.sales + qty;

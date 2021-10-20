@@ -12,7 +12,7 @@ const MovieService = {
             page, size
             }});
     },
-    addMovie: (name, movieLength, genre, publishDate, description,ticketPrice,url,trailerUrl) => {
+    addMovie: (name, movieLength, genre, publishDate, description,ticketPrice,moviePoster,movieAdvertisementImage,trailerUrl) => {
         return axios.post("/movie/add", {
             "name" : name,
             "movieLength" : movieLength,
@@ -20,7 +20,8 @@ const MovieService = {
             "publishDate" : publishDate,
             "description" : description,
             "ticketPrice" : ticketPrice,
-            "url" : url,
+            "moviePoster" : moviePoster,
+            "movieAdvertisementImage" : movieAdvertisementImage,
             "trailerUrl" : trailerUrl
         });
     },

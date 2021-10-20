@@ -17,9 +17,9 @@ const movieDetailsWithScheduledMovies = (props) => {
                             </h1>
                             <h5 className={"mt-3"}>{props.selectedMovie.description}</h5>
                             <br/>
-                            <div className={"col-md-4"}>
-                                <img src={props.selectedMovie.url} height={"540px"}></img>
-                            </div>
+                            {/*<div className={"col-md-4"}>*/}
+                            {/*    <img src={props.selectedMovie.movieAdvertisementImage.imageUrl} height={"540px"}></img>*/}
+                            {/*</div>*/}
                             <div className={"col-md-8"}>
                                 <p>{props.selectedMovie.trailerUrl}</p>
                                 <iframe width="900" height="300" src={props.selectedMovie.trailerUrl}>

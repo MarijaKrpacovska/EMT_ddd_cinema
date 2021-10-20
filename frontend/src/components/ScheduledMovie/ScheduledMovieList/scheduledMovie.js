@@ -14,7 +14,7 @@ const ScheduledMovie = (props) => {
     const handlePageChange = ({selected}) => {
         setPageNumber(selected);
     }
-//todo: addReschedule
+
     const displayScheduledMovies = props.scheduledMovies
         .slice(pageVisited, pageVisited + itemsPerPage)
         .map((term) => {
@@ -56,6 +56,15 @@ const ScheduledMovie = (props) => {
                             }}
                             to={`/scheduledMovies`}>
                             Cancel scheduled movie
+                        </Link>
+                    </td>
+                    <td>
+                        <Link
+                            onClick={() => {
+                                props.onRescheduleMovie(term.id.id)
+                            }}
+                            to={`/scheduledMovies/reschedule/${term.id.id}`}>
+                            Reschedule movie
                         </Link>
                     </td>
                 </tr>

@@ -1,8 +1,6 @@
 import React from 'react';
 import {useHistory} from 'react-router-dom';
 
-//todo: fix forms
-//todo: fix warnings in console
 const MovieRate = (props) => {
 
     const history = useHistory();
