@@ -56,7 +56,10 @@ class App extends Component {
                             <Route path={"/movie/fetchScheduledMoviesByMovieId/:id"} exact render={() =>
                                 <MovieDetailsWithScheduledMovies selectedMovie={this.state.selectedMovie}
                                                                 scheduledMovies={this.state.scheduledMoviesForMovie}
-                                                                 similarMovies={this.state.similarMovies}
+                                                                 similarMovies={this.state.moviesByGenre}
+                                                                 onDetails={this.getMovie}
+                                                                 onFindSimilarMovies={this.findSimilarMovies}
+                                                                 onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
                                                                  onBookTickets={this.getScheduledMovie}/>}/>
 
                             <Route path={"/movie/rateMovie/:id"} exact render={() =>
@@ -72,6 +75,7 @@ class App extends Component {
                                         moviesPage={this.state.moviesPage}
                                         onDetails={this.getMovie}
                                         onRateMovie={this.getMovie}
+                                        onFindSimilarMovies={this.findSimilarMovies}
                                         onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
                                         onActiveReservation={this.getActiveReservation}
                                         onPageChange={this.loadMoviesWithPagination}
@@ -180,14 +184,14 @@ class App extends Component {
             });
     }
 
-    // findSimilarMovies = (genre) => {
-    //     MovieService.fetchMoviesByGenre(genre)
-    //         .then((data) => {
-    //             this.setState({
-    //                 moviesByGenre: data.data
-    //             })
-    //         });
-    // }
+    findSimilarMovies = (genre) => {
+        MovieService.fetchMoviesByGenre(genre)
+            .then((data) => {
+                this.setState({
+                    moviesByGenre: data.data
+                })
+            });
+    }
 
     loadMoviesWithPagination= (page,size) => {
         MovieService.fetchMoviesWithPagination(page,size)
@@ -226,13 +230,6 @@ class App extends Component {
                     selectedMovie: data.data
                 })
             })
-        MovieService.fetchMoviesByGenre()
-            .then((data) => {
-            console.log("setting similar movies");
-            this.setState({
-                similarMovies: data.data
-            })
-        })
     }
 
 
@@ -340,8 +337,8 @@ class App extends Component {
                 this.loadMovies();
             });
     }
-    addMovie = (name, movieLength, genre, publishDate, description,ticketPrice,moviePoster,movieAdvertisementImage,trailerUrl) => {
-        MovieService.addMovie(name, movieLength, genre, publishDate, description,ticketPrice,moviePoster,movieAdvertisementImage,trailerUrl)
+    addMovie = (name, movieLength, genre, publishDate, description,moviePoster,movieAdvertisementImage,trailerUrl) => {
+        MovieService.addMovie(name, movieLength, genre, publishDate, description,moviePoster,movieAdvertisementImage,trailerUrl)
             .then(() => {
                 this.loadMovies();
             });
@@ -350,8 +347,8 @@ class App extends Component {
     addScheduledMovie = (sales, startDate, startTime, ticketPrice, movieId) => {
         ScheduledMovieService.addScheduledMovie(sales, startDate, startTime, ticketPrice, movieId)
             .then(() => {
-                this.loadScheduledMovies();
                 this.loadMovies();
+                this.loadScheduledMovies();
             });
     }
 

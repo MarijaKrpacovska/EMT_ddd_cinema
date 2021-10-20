@@ -14,6 +14,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="movie-schedule" target="11" />
       <module name="SharedKernel" target="16" />
       <module name="TicketReservation" target="16" />
       <module name="user" target="11" />
@@ -24,6 +25,7 @@
       <module name="SharedKernel" options="-parameters" />
       <module name="TicketReservation" options="-parameters" />
       <module name="movie" options="-parameters" />
+      <module name="movie-schedule" options="-parameters" />
       <module name="scheduled-movie" options="-parameters" />
       <module name="shared-kernel" options="-parameters" />
       <module name="ticket-reservation" options="-parameters" />

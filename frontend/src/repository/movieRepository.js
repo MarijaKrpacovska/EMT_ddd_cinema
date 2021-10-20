@@ -4,22 +4,21 @@ const MovieService = {
     fetchMovies: () => {
         return axios.get("/movie");
     },
-    fetchMoviesByGenre: () => {
-        return axios.get(`/movie/findByGenre/action`);
+    fetchMoviesByGenre: (genre) => {
+        return axios.get(`/movie/findByGenre/${genre}`);
     },
     fetchMoviesWithPagination: (page,size) => {
         return axios.get("/movie/moviePagination",{params:{
             page, size
             }});
     },
-    addMovie: (name, movieLength, genre, publishDate, description,ticketPrice,moviePoster,movieAdvertisementImage,trailerUrl) => {
+    addMovie: (name, movieLength, genre, publishDate, description,moviePoster,movieAdvertisementImage,trailerUrl) => {
         return axios.post("/movie/add", {
             "name" : name,
             "movieLength" : movieLength,
             "genre" : genre,
             "publishDate" : publishDate,
             "description" : description,
-            "ticketPrice" : ticketPrice,
             "moviePoster" : moviePoster,
             "movieAdvertisementImage" : movieAdvertisementImage,
             "trailerUrl" : trailerUrl

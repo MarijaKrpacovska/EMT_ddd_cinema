@@ -5,14 +5,14 @@ const ScheduledMovieAdd = (props) => {
 
     const history = useHistory();
     const [formData, updateFormData] = React.useState({
-        sales : 0,
-        startDate : "2021-01-01",
-        startTime : "00:00",
-        ticketPrice : {
+        sales: 0,
+        startDate: "2021-01-01",
+        startTime: "00:00",
+        ticketPrice: {
             ticketPriceCurrency: "MKD",
             ticketPriceAmount: 0.0
         },
-        movieId : "9a78fd3e-9caf-490a-a1d4-c91852494c05"
+        movieId: "9a78fd3e-9caf-490a-a1d4-c91852494c05"
     })
 
     const handleChange = (e) => {
@@ -28,27 +28,30 @@ const ScheduledMovieAdd = (props) => {
         const startDate = formData.startDate;
         const startTime = formData.startTime;
         const ticketPrice = {
-            "currency": "MKD",
+            "currency": formData.ticketPriceCurrency,
             "amount": formData.ticketPriceAmount
         };
-        const movieId= props.selectedMovie.id.id;
+        const movieId = props.selectedMovie.id.id;
 
         props.onAddScheduledMovie(sales, startDate, startTime, ticketPrice, movieId);
         history.push("/scheduledMovies");
     }
 
-    return(
+    return (
         <div className="row mt-5">
+
             <div className={"col-md-6"}>
                 <img src={"https://www.nicepng.com/png/full/912-9123453_cine-popcorn-cinema.png"}/>
             </div>
             <div className="col-md-6">
+                <h2 className={"text-danger text-center"}>
+                    Schedule Movie:
+                </h2>
                 <form onSubmit={onFormSubmit}>
-                    
                     <div className="form-group">
-                        <label htmlFor="startTime">Start time</label>
+                        <label htmlFor="startTime">Start time: </label>
                         <input type="time"
-                               className="form-control"
+                               className="form-control m-1"
                                id="startTime"
                                name="startTime"
                                required
@@ -57,9 +60,9 @@ const ScheduledMovieAdd = (props) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="startDate">Start date</label>
+                        <label htmlFor="startDate">Start date: </label>
                         <input type="date"
-                               className="form-control"
+                               className="form-control m-1"
                                id="startDate"
                                name="startDate"
                                required
@@ -67,33 +70,36 @@ const ScheduledMovieAdd = (props) => {
                                onChange={handleChange}
                         />
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="name">TicketPriceCurrency</label>
-                        <input type="text"
-                               className="form-control"
-                               id="ticketPriceCurrency"
-                               name="ticketPriceCurrency"
-                               required
-                               placeholder="Enter Movie ticketPriceCurrency"
-                               onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="name"> ticketPriceAmount</label>
-                        <input type="number"
-                               className="form-control"
-                               id="ticketPriceAmount"
-                               name="ticketPriceAmount"
-                               required
-                               placeholder="Enter Movie ticketPriceAmount"
-                               onChange={handleChange}
-                        />
+                    <div className={"row"}>
+                        <div className={"col-md-9"}>
+                            <div className="form-group">
+                                <label htmlFor="name"> Ticket price: </label>
+                                <input type="number"
+                                       className="form-control m-1"
+                                       id="ticketPriceAmount"
+                                       name="ticketPriceAmount"
+                                       required
+                                       placeholder="Enter price of tickets"
+                                       onChange={handleChange}
+                                />
+                            </div>
+                        </div>
+                        <div className={"col-md-3"}>
+                            <div className="form-group">
+                                <label htmlFor="name"> </label>
+                                <select name="ticketPriceCurrency" className="form-control mt-1" onChange={handleChange}>
+                                    <option value="MKD">MKD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="USD">USD</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <br/>
                     <div className={"text-center"}>
-                    <button id="submit" type="submit" className="btn btn-dark">Submit</button>
+                        <button id="submit" type="submit" className="btn btn-dark">Submit</button>
                     </div>
-                    </form>
+                </form>
             </div>
         </div>
     )

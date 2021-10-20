@@ -62,7 +62,6 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
         tickets.removeIf(v->v.getId().equals(ticketId));
     }
 
-    //TODO: add time logic
     public void cancel() {
         if(reservationStatus.equals(ReservationStatus.ACTIVE))
             reservationStatus = ReservationStatus.CANCELED;

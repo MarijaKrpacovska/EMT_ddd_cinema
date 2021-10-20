@@ -66,6 +66,7 @@ const Movies = (props) => {
                         onClick={() => {
                             props.onDetails(term.id.id);
                             props.onFetchScheduledMoviesByMovieId(term.id.id)
+                            props.onFindSimilarMovies(term.genre)
                         }}
                         to={`/movie/fetchScheduledMoviesByMovieId/${term.id.id}`}>
                         <img className={"mt-1 mb-1"} src={term.moviePoster.imageUrl} height={"200px"}
