@@ -52,7 +52,7 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
 
     public Ticket addTicket(@NonNull ScheduledMovie scheduledMovie, int qty) {
         Objects.requireNonNull(scheduledMovie,"movie must not be null");
-        var ticket  = new Ticket(scheduledMovie.getId(), scheduledMovie.getTicketsPrice(),qty);
+        var ticket  = new Ticket(scheduledMovie.getId(), scheduledMovie.getTicketPrice(),qty);
         tickets.add(ticket);
         return ticket;
     }

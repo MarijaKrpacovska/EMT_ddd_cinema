@@ -4,6 +4,7 @@ import com.example.movie.domain.exceptions.MovieIdDoesNotExistException;
 import com.example.movie.domain.models.Movie;
 import com.example.movie.domain.models.MovieId;
 import com.example.movie.services.forms.MovieForm;
+import com.example.sharedkernel.domain.genre.Genre;
 import com.example.sharedkernel.domain.time.MovieTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,14 +19,17 @@ public interface MovieService {
 
     List<Movie> findAll();
 
+    Page<Movie> findAllWithPagination(Pageable pageable);
+
+    List<Movie> findAllByGenre(Genre genre);
+
     Optional<Movie> findById(MovieId id);
 
     Movie scheduledMovieAdded(MovieId movieId);
 
     Movie scheduledMovieRemoved(MovieId movieId);
 
-    Page<Movie> findAllWithPagination(Pageable pageable);
-
+    Optional<Movie> addRating(double rating, MovieId movieId);
 
 //    Optional<Movie> editMovie(MovieId id, MovieForm movieForm);
 

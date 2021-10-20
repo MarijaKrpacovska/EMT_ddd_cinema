@@ -17,6 +17,8 @@ public interface ScheduledMovieService {
 
     Optional<ScheduledMovie> findById(ScheduledMovieId id);
 
+    Optional<ScheduledMovie> rescheduleMovie(ScheduledMovieId id, String time, String date);
+
     List<ScheduledMovie> findAllByMovieId(MovieId id);
 
     void cancelScheduledMovie(ScheduledMovieId scheduledMovieId);

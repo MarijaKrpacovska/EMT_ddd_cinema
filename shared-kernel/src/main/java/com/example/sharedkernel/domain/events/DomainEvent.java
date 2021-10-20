@@ -13,12 +13,9 @@ import java.time.Instant;
 @Getter
 public class DomainEvent {
 
-    //TODO: fix instant problem
     private String topic;
-   // private Instant occurredOn;
 
     public DomainEvent(String topic) {
-      //  this.occurredOn = Instant.now();
         this.topic = topic;
     }
 
@@ -40,7 +37,6 @@ public class DomainEvent {
     public static <E extends DomainEvent> E fromJson(String json, Class<E> eventClass) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-     //  objectMapper.registerModule(new JavaTimeModule());
 
         try {
             DomainEvent de = objectMapper.readValue(json, eventClass);

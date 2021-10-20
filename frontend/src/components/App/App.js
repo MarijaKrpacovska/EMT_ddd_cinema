@@ -10,7 +10,7 @@ import TicketService from "../../repository/ticketRepository";
 import Header from "../Header/header"
 import Footer from "../Footer/footer"
 import HomePage from "../Home/homePage"
-import Movies from '../unused/movie';
+import Movies from '../Movie/MovieList/movie';
 import MoviesList from '../Movie/MovieList/movies'
 import MovieAdd from "../Movie/MovieAdd/movieAdd";
 import MovieDetailsWithScheduledMovies from "../Movie/MovieDetails/movieDetailsWithScheduledMovies"
@@ -20,6 +20,9 @@ import TicketReservationAdd from "../Ticket/TicketReservationAdd/ticketreservati
 import TicketReservationDetails from "../Ticket/TicketDetails/ticketReservationDetails";
 import ActiveReservation from "../Ticket/TicketDetails/activeReservation";
 import ConfirmedReservations from "../Ticket/ConfirmedReservationsList/confirmedReservations"
+import data from "bootstrap/js/src/dom/data";
+import ReservationDetails from "../Ticket/TicketDetails/reservationDetails";
+import MovieRate from "../Movie/MovieRate/movieRate";
 
 class App extends Component {
 
@@ -35,7 +38,8 @@ class App extends Component {
             scheduledMoviesForMovie: [],
             confirmedReservations: [],
             moviesWithPagination: [],
-            moviesPage: {}
+            moviesPage: {},
+            similarMovies: []
         }
     }
 
@@ -55,12 +59,28 @@ class App extends Component {
                             <Route path={"/movie/fetchScheduledMoviesByMovieId/:id"} exact render={() =>
                                 <MovieDetailsWithScheduledMovies selectedMovie={this.state.selectedMovie}
                                                                 scheduledMovies={this.state.scheduledMoviesForMovie}
+                                                                 similarMovies={this.state.similarMovies}
                                                                  onBookTickets={this.getScheduledMovie}/>}/>
+
+                            <Route path={"/movie/rateMovie/:id"} exact render={() =>
+                                <MovieRate selectedMovie={this.state.selectedMovie}
+                                           onRateMovie={this.rateMovie}/>}/>
 
                             <Route path={"/movie/add"} exact render={() =>
                                 <MovieAdd onAddMovie={this.addMovie}/>}/>
 
-                            <Route path={["/movie",""]} exact render={() =>
+                            <Route path={["/movie",""]}
+                                   exact render={() =>
+                                <Movies movies={this.state.movies}
+                                        moviesPage={this.state.moviesPage}
+                                        onDetails={this.getMovie}
+                                        onRateMovie={this.getMovie}
+                                        onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
+                                        onActiveReservation={this.getActiveReservation}
+                                        onPageChange={this.loadMoviesWithPagination}
+                                        onScheduleMovie={this.getMovie}/> } />
+
+                            <Route path={["/movieList"]} exact render={() =>
                                 <MoviesList movies={this.state.movies}
                                             onDetails={this.getMovie}
                                             onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
@@ -68,10 +88,13 @@ class App extends Component {
 
 
                             <Route path={"/ticket/getTicketReservation/:id"} exact render={() =>
-                                <TicketReservationDetails ticketReservation={this.state.ticketReservation}/>}/>
+                                <ReservationDetails activeReservation={this.state.ticketReservation}
+                                                   onCancelReservation={this.cancelReservation}
+                                                   onConfirmReservation={this.confirmReservation}/>}/>
 
                             <Route path={"/ticket/makeNewReservation/:id"} exact render={() =>
                                 <TicketReservationAdd onTicketReservationAdd={this.addTicketReservation}
+                                                      ticketReservation={this.state.ticketReservation}
                                                       scheduledMovie={this.state.scheduledMovie}/>}/>
 
                             <Route path={["/ticket/activeReservation"]}
@@ -96,6 +119,7 @@ class App extends Component {
                             <Route path={["/scheduledMovies"]}
                                    exact render={() =>
                                 <ScheduledMovie scheduledMovies={this.state.scheduledMovies}
+                                                movies={this.state.movies}
                                                 onBookTickets={this.getScheduledMovie}
                                                 onCancelScheduledMove={this.cancelScheduledMovie}/> } />
 
@@ -117,15 +141,7 @@ class App extends Component {
                             {/*<Route path={"/movie/findById/:id"} exact render={() =>*/}
                             {/*    <MovieDetails selectedMovie={this.state.selectedMovie}/>}/>*/}
 
-                            {/*<Route path={["/movieList"]}*/}
-                            {/*       exact render={() =>*/}
-                            {/*    <Movies movies={this.state.moviesWithPagination}*/}
-                            {/*            moviesPage={this.state.moviesPage}*/}
-                            {/*            onDetails={this.getMovie}*/}
-                            {/*            onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}*/}
-                            {/*            onActiveReservation={this.getActiveReservation}*/}
-                            {/*            onPageChange={this.loadMoviesWithPagination}*/}
-                            {/*            onScheduleMovie={this.getMovie}/> } />*/}
+
 
                         </div>
                         </main>
@@ -151,6 +167,15 @@ class App extends Component {
                 })
             });
     }
+
+    // findSimilarMovies = (genre) => {
+    //     MovieService.fetchMoviesByGenre(genre)
+    //         .then((data) => {
+    //             this.setState({
+    //                 moviesByGenre: data.data
+    //             })
+    //         });
+    // }
 
     loadMoviesWithPagination= (page,size) => {
         MovieService.fetchMoviesWithPagination(page,size)
@@ -189,6 +214,13 @@ class App extends Component {
                     selectedMovie: data.data
                 })
             })
+        MovieService.fetchMoviesByGenre()
+            .then((data) => {
+            console.log("setting similar movies");
+            this.setState({
+                similarMovies: data.data
+            })
+        })
     }
 
 
@@ -211,6 +243,19 @@ class App extends Component {
                     scheduledMoviesForMovie: data.data
                 })
             })
+    }
+    rateMovie = (id,rating) => {
+        // console.log("vo getMovie"+id)
+        MovieService.rateMovie(id,rating)
+            .then((data) => {
+                console.log("vo rate"+typeof (data.data))
+                this.setState({
+                    selectedMovie: data.data
+                })
+            })
+            .then(() => {
+                this.loadMovies();
+            });
     }
     getTicketReservation = (id) => {
         // console.log("vo getMovie"+id)
@@ -248,6 +293,20 @@ class App extends Component {
                 this.loadConfirmedReservations();
             });
     }
+    confirmReservation = (id) => {
+        // console.log("vo getMovie"+id)
+        TicketService.confirmReservation(id)
+            .then(() => {
+                this.loadConfirmedReservations();
+            });
+    }
+    cancelReservation = (id) => {
+        // console.log("vo getMovie"+id)
+        TicketService.cancelReservation(id)
+            .then(() => {
+                this.loadConfirmedReservations();
+            });
+    }
     cancelScheduledMovie = (id) => {
         // console.log("vo getMovie"+id)
         ScheduledMovieService.cancelScheduledMovie(id)
@@ -262,25 +321,29 @@ class App extends Component {
                 this.loadMovies();
             });
     }
-    addMovie = (name, movieLength, genre, publishDate, description,ticketPrice,url,scheduledMovies) => {
-        MovieService.addMovie(name, movieLength, genre, publishDate, description,ticketPrice,url,scheduledMovies)
+    addMovie = (name, movieLength, genre, publishDate, description,ticketPrice,url,trailerUrl) => {
+        MovieService.addMovie(name, movieLength, genre, publishDate, description,ticketPrice,url,trailerUrl)
             .then(() => {
                 this.loadMovies();
             });
     }
 
-    addScheduledMovie = (sales, startTime, endTime, ticketPrice, movieId) => {
-        ScheduledMovieService.addScheduledMovie(sales, startTime, endTime, ticketPrice, movieId)
+    addScheduledMovie = (sales, startDate, startTime, ticketPrice, movieId) => {
+        ScheduledMovieService.addScheduledMovie(sales, startDate, startTime, ticketPrice, movieId)
             .then(() => {
                 this.loadScheduledMovies();
+                this.loadMovies();
             });
     }
 
     addTicketReservation = (reservationTime,currency,reservationStatus,paymentMethod,tickets) => {
         TicketService.makeReservation(reservationTime,currency,reservationStatus,paymentMethod,tickets)
-            .then(() => {
-                this.getActiveReservation();
-            });
+            .then((data) => {
+                console.log("vo getMovie"+typeof (data.data))
+                this.setState({
+                    ticketReservation: data.data
+                })
+            })
     }
 
     addTicketToReservation = (id,quantity,movie) => {

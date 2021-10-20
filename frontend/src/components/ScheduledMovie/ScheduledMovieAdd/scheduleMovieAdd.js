@@ -6,14 +6,8 @@ const ScheduledMovieAdd = (props) => {
     const history = useHistory();
     const [formData, updateFormData] = React.useState({
         sales : 0,
-        startTime : {
-            startingHour: 0,
-            startingMinutes : 0
-        },
-        endTime : {
-            endingHour: 0,
-            endingMinutes: 0
-        },
+        startDate : "2021-01-01",
+        startTime : "00:00",
         ticketPrice : {
             ticketPriceCurrency: "MKD",
             ticketPriceAmount: 0.0
@@ -31,21 +25,15 @@ const ScheduledMovieAdd = (props) => {
     const onFormSubmit = (e) => {
         e.preventDefault();
         const sales = 0;
-        const startTime = {
-            "hour": formData.startingHour,
-            "minutes": formData.startingMinutes
-        };
-        const endTime = {
-            "hour": formData.endingHour,
-            "minutes": formData.endingMinutes
-        };
+        const startDate = formData.startDate;
+        const startTime = formData.startTime;
         const ticketPrice = {
             "currency": "MKD",
             "amount": formData.ticketPriceAmount
         };
         const movieId= props.selectedMovie.id.id;
 
-        props.onAddScheduledMovie(sales, startTime, endTime, ticketPrice, movieId);
+        props.onAddScheduledMovie(sales, startDate, startTime, ticketPrice, movieId);
         history.push("/scheduledMovies");
     }
 
@@ -53,47 +41,26 @@ const ScheduledMovieAdd = (props) => {
         <div className="row mt-5">
             <div className="col-md-5">
                 <form onSubmit={onFormSubmit}>
+                    
                     <div className="form-group">
-                        <label htmlFor="name">Start hour</label>
-                        <input type="number"
+                        <label htmlFor="startTime">Start time</label>
+                        <input type="time"
                                className="form-control"
-                               id="startingHour"
-                               name="startingHour"
+                               id="startTime"
+                               name="startTime"
                                required
-                               placeholder="Enter Movie startingHour"
+                               placeholder="Enter Movie startTime"
                                onChange={handleChange}
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="name">Start minutes</label>
-                        <input type="number"
+                        <label htmlFor="startDate">Start date</label>
+                        <input type="date"
                                className="form-control"
-                               id="startingMinutes"
-                               name="startingMinutes"
+                               id="startDate"
+                               name="startDate"
                                required
-                               placeholder="Enter Movie startingMinutes"
-                               onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="name">Ending hour</label>
-                        <input type="number"
-                               className="form-control"
-                               id="endingHour"
-                               name="endingHour"
-                               required
-                               placeholder="Enter Movie endingHour"
-                               onChange={handleChange}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="name">Ending minutes</label>
-                        <input type="number"
-                               className="form-control"
-                               id="endingMinutes"
-                               name="endingMinutes"
-                               required
-                               placeholder="Enter Movie endingMinutes"
+                               placeholder="Enter Movie startDate"
                                onChange={handleChange}
                         />
                     </div>

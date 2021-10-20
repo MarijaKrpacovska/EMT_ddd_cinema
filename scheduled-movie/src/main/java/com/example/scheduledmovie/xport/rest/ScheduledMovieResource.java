@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -41,12 +42,12 @@ public class ScheduledMovieResource {
         return this.scheduledMovieService.findAllByMovieId(new MovieId(id));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<ScheduledMovie> save(@RequestBody ScheduledMovieForm scheduledMovieForm) {
-        return this.scheduledMovieService.save(new ScheduledMovieForm(0, new MovieTime(0,0),new MovieTime(0,0), new Money(Currency.MKD,1), "9a78fd3e-9caf-490a-a1d4-c91852494c05"))
-                .map(movie -> ResponseEntity.ok().body(movie))
-                .orElseGet(() -> ResponseEntity.badRequest().build());
-    }
+//    @PostMapping("/add")
+//    public ResponseEntity<ScheduledMovie> save(@RequestBody ScheduledMovieForm scheduledMovieForm) {
+//        return this.scheduledMovieService.save(new ScheduledMovieForm(0, new MovieTime(0,0, LocalDate.of(2021,1,1)),new MovieTime(0,0,LocalDate.of(2021,1,1)), new Money(Currency.MKD,1), "9a78fd3e-9caf-490a-a1d4-c91852494c05"))
+//                .map(movie -> ResponseEntity.ok().body(movie))
+//                .orElseGet(() -> ResponseEntity.badRequest().build());
+//    }
 
     @PostMapping("/addScheduledMovie")
     public ResponseEntity<ScheduledMovie> saveScheduledMovie(@RequestBody ScheduledMovieForm scheduledMovieForm) {
@@ -61,6 +62,13 @@ public class ScheduledMovieResource {
         ScheduledMovie scheduledMovie = scheduledMovieService.findById(new ScheduledMovieId(id)).orElseThrow(ScheduledMovieIdDoesNotExistException::new);
         scheduledMovieService.cancelScheduledMovie(scheduledMovie.getId());
         return this.scheduledMovieService.findById(scheduledMovie.getId())
+                .map(movie -> ResponseEntity.ok().body(movie))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
+    @PostMapping("/rescheduleMovie/{id}")
+    public ResponseEntity<ScheduledMovie> rescheduleConfirmedReservation(@PathVariable String id, @RequestParam String time, @RequestParam String date){
+        return this.scheduledMovieService.rescheduleMovie(new ScheduledMovieId(id),time,date)
                 .map(movie -> ResponseEntity.ok().body(movie))
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }

@@ -5,6 +5,7 @@ import com.example.movie.domain.models.Movie;
 import com.example.movie.domain.models.MovieId;
 import com.example.movie.services.MovieService;
 import com.example.movie.services.forms.MovieForm;
+import com.example.sharedkernel.domain.genre.Genre;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,11 @@ public class MovieResource {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/findByGenre/{genre}")
+    public List<Movie> findAllByGenre(@PathVariable Genre genre) {
+        return this.movieService.findAllByGenre(genre);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Movie> save(@RequestBody MovieForm movieForm) {
         return this.movieService.addMovie(movieForm)
@@ -65,13 +71,12 @@ public class MovieResource {
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
-
-//    @PostMapping("/scheduleMovie/{id}")
-//    public ResponseEntity<Movie> scheduleMovie(@PathVariable String id, @RequestBody ScheduledMovieForm scheduledMovieForm) {
-//        return this.movieService.addScheduledMovie(new MovieId(id),scheduledMovieForm)
-//                .map(movie -> ResponseEntity.ok().body(movie))
-//                .orElseGet(() -> ResponseEntity.badRequest().build());
-//    }
+    @PostMapping("/rateMovie/{id}")
+    public ResponseEntity<Movie> save(@PathVariable String id, @RequestParam double rating) {
+        return this.movieService.addRating(rating,new MovieId(id))
+                .map(movie -> ResponseEntity.ok().body(movie))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
 
 }
 

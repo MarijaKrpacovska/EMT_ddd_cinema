@@ -11,18 +11,30 @@ import java.util.Objects;
 @Getter
 public class Rating implements ValueObject {
 
-    private final double ratingNumber;
+    private final double rating;
 
-    private final int number;
+    private final int numberOfRatings;
 
     public Rating() {
-        ratingNumber=0.0;
-        number=0;
+        rating=0.0;
+        numberOfRatings=0;
     }
 
-    public Rating(double ratingNumber, int number) {
-        this.ratingNumber = ratingNumber;
-        this.number = number;
+    public Rating(double rating, int numberOfRatings) {
+        this.rating = rating;
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public Rating calculate(double newRating){
+        int finalNumberOfRatings = numberOfRatings + 1;
+        double finalRating = ((rating * numberOfRatings) + newRating) / finalNumberOfRatings;
+        return new Rating(finalRating,finalNumberOfRatings);
+    }
+
+    public Rating compare(Rating r){
+        if(r.rating > rating)
+            return r;
+        else return new Rating(rating,numberOfRatings);
     }
 
 
@@ -30,8 +42,8 @@ public class Rating implements ValueObject {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Rating rating = (Rating) o;
-            return ratingNumber == rating.ratingNumber && number == rating.number;
+        Rating ratingObj = (Rating) o;
+        return rating == ratingObj.rating && numberOfRatings == ratingObj.numberOfRatings;
     }
 
 //    @Override

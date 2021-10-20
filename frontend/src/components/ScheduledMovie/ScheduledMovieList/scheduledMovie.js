@@ -1,13 +1,75 @@
 import React, {useState} from "react";
-import movies from "../../unused/movie";
 import {Link} from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
+import scheduledMovie from "../../Ticket/ConfirmedReservationsList/confirmedReservations";
 
-const scheduledMovie = (props) => {
+const ScheduledMovie = (props) => {
     //console.log("SELECTED MOVIE" +props.movies(0).id.id)
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const itemsPerPage = 6;
+    const pageVisited = pageNumber * itemsPerPage;
+    const pageCount = Math.ceil(props.scheduledMovies.length / itemsPerPage);
+
+    const handlePageChange = ({selected}) => {
+        setPageNumber(selected);
+    }
+//todo: addReschedule
+    const displayScheduledMovies = props.scheduledMovies
+        .slice(pageVisited, pageVisited + itemsPerPage)
+        .map((term) => {
+            return (
+                // <div className={"row"}>
+                //     <div className={"col"}>
+                //         {term.startTime.hour}:
+                //         {term.startTime.minutes.toString().length === 1 ? "0"+term.startTime.minutes.toString() : term.startTime.minutes.toString()} - {term.endTime.hour}:
+                //         {term.endTime.minutes.toString().length === 1 ? "0"+term.endTime.minutes.toString() : term.endTime.minutes.toString()}
+                //     </div>
+                // </div>
+                <tr>
+                    <td>
+                        {term.dateAndTimeScheduled.hour}:
+                        {term.dateAndTimeScheduled.minutes.toString().length === 1 ? "0"+term.dateAndTimeScheduled.minutes.toString() : term.dateAndTimeScheduled.minutes.toString()}
+                    </td>
+                    <td>{props.movies.map((obj) => {
+                        if(obj.id.id === term.movieId.id){
+                            return (
+                                <p>{obj.name}</p>
+                            );
+                        }
+                    })}</td>
+                    <td>{term.sales}</td>
+                    <td>{term.ticketPrice.amount} {term.ticketPrice.currency}</td>
+                    <td>{term.movieId.id}</td>
+                    <td>{term.scheduledMovieStatus}</td>
+                    <td>
+                        <Link
+                            onClick={() => props.onBookTickets(term.id.id)}
+                            to={`/ticket/makeNewReservation/${term.id.id}`}>
+                            Book tickets
+                        </Link>
+                    </td>
+                    <td>
+                        <Link
+                            onClick={() => {
+                                props.onCancelScheduledMove(term.id.id)
+                            }}
+                            to={`/scheduledMovies`}>
+                            Cancel scheduled movie
+                        </Link>
+                    </td>
+                </tr>
+            );
+        });
 
     return (
         <div className={"container mm-4 mt-5"}>
             <div className={"row"}>
+                <h3 className={"text-danger"}>
+                    Movie Schedule:
+                </h3>
+                <hr/>
+                <br/>
                 <div className={"table-responsive"}>
                     <table className={"table table-striped"}>
                         <thead>
@@ -20,54 +82,33 @@ const scheduledMovie = (props) => {
                         </tr>
                         </thead>
                         <tbody>
-
-                        {
-                            props.scheduledMovies.map((term) => {
-                            return (
-                                <tr>
-                                    <td>{term.sales}</td>
-                                    <td>{term.startTime.hour}:{term.startTime.minutes} - {term.endTime.hour}:{term.endTime.minutes}</td>
-                                    <td>{term.ticketsPrice.amount} {term.ticketsPrice.currency}</td>
-                                    <td>{term.movieId.id}</td>
-                                    <td>{term.scheduledMovieStatus}</td>
-                                    <td>
-                                        <Link
-                                            onClick={() => props.onBookTickets(term.id.id)}
-                                            to={`/ticket/makeNewReservation/${term.id.id}`}>
-                                            Book tickets
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <Link
-                                            onClick={() => { props.onCancelScheduledMove(term.id.id)}}
-                                            to={`/scheduledMovies`}>
-                                            Cancel scheduled movie
-                                        </Link>
-                                    </td>
-                                </tr>
-                            );
-                        })}
+                        {displayScheduledMovies}
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div className="col mb-3">
-                <div className="row">
-                    <div className="col-sm-12 col-md-12">
-                    </div>
-                </div>
-            </div>
 
-            <div className="col mb-3">
-                <div className="row">
-                    <div className="col-sm-12 col-md-12">
-                    </div>
-                </div>
-            </div>
+            <ReactPaginate previousLabel={"back"}
+                           nextLabel={"next"}
+                           breakLabel={<a className={"page-link"} href="/#">...</a>}
+                           breakClassName={'page-item'}
+                           breakLinkClassName={'page-link'}
+                           containerClassName={'pagination m-4 justify-content-center'}
+                           pageClassName={'page-item'}
+                           pageLinkClassName={'page-link'}
+                           previousClassName={'page-item'}
+                           previousLinkClassName={'page-link'}
+                           nextClassName={'page-item'}
+                           nextLinkClassName={'page-link'}
+                           activeClassName={'active'}
+                           pageCount={pageCount}
+                           marginPagesDisplayed={3}
+                           pageRangeDisplayed={5}
+                           onPageChange={handlePageChange}/>
 
         </div>
     );
 }
 
-export default scheduledMovie;
+export default ScheduledMovie;

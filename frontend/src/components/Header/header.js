@@ -38,7 +38,7 @@ const header = (props) => {
                             </li>
 
                             <li className="nav-item active">
-                                <Link className="nav-link" to={"/ticket/confirmedReservations"}>My Reservations</Link>
+                                <Link className="nav-link" to={"/ticket/confirmedReservations"}>Reservations</Link>
                             </li>
                         </ul>
                     </div>

@@ -72,7 +72,7 @@ class MoviesList extends React.Component {
                             <div className={"col-md-1"}></div>
                             <div className={"col-md-3 ml-2 imgDiv mb-0"}>
                                 {/*fix if empty*/}
-                                <img id={"imgImg"} className={"imgImg"} height={"1100px"} src={""}/>
+                                <img id={"imgImg"} className={"imgImg"} height={"1100px"} src={"https://i.imgur.com/slvTRgF.png"}/>
                             </div>
                         </div>
                     </div>
@@ -83,6 +83,7 @@ class MoviesList extends React.Component {
 
     componentDidMount () {
         if(this.props.movies.length > 0) {
+            console.log("vleguva vo if")
             this.myInterval = setInterval(() => {
                 let index = Math.floor(Math.random() * (this.props.movies.length));
                 document.getElementById("imgImg").src = this.props.movies[index].url;

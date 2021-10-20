@@ -11,8 +11,6 @@ import lombok.NonNull;
 
 import javax.persistence.*;
 
-//TODO: make the calculation of endTime automatic
-
 @Entity
 @Table(name="scheduled_movie")
 @Getter
@@ -22,17 +20,12 @@ public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
 
     @AttributeOverrides({
             @AttributeOverride(name="hour", column = @Column(name="starting_hour")),
-            @AttributeOverride(name="minutes", column = @Column(name="starting_minutes"))
+            @AttributeOverride(name="minutes", column = @Column(name="starting_minutes")),
+            @AttributeOverride(name="date", column = @Column(name="starting_date"))
     })
-    private MovieTime startTime;
+    private MovieTime dateAndTimeScheduled;
 
-    @AttributeOverrides({
-            @AttributeOverride(name="hour", column = @Column(name="ending_hour")),
-            @AttributeOverride(name="minutes", column = @Column(name="ending_minutes"))
-    })
-    private MovieTime endTime;
-
-    private Money ticketsPrice;
+    private Money ticketPrice;
 
     @AttributeOverride(name = "id", column = @Column(name = "movie_id", nullable = false))
     private MovieId movieId;
@@ -44,15 +37,16 @@ public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
         super(DomainObjectId.randomId(ScheduledMovieId.class));
     }
 
-    public ScheduledMovie(int sales,@NonNull MovieTime startTime, @NonNull MovieTime endTime, Money money, @NonNull MovieId movieId, ScheduledMovieStatus scheduledMovieStatus) {
+    public ScheduledMovie(int sales,@NonNull MovieTime dateAndTimeScheduled, Money money, @NonNull MovieId movieId, ScheduledMovieStatus scheduledMovieStatus) {
         super(DomainObjectId.randomId(ScheduledMovieId.class));
         this.sales = sales;
-        this.startTime=startTime;
-        this.endTime=endTime;
-        this.ticketsPrice = money;
+        this.dateAndTimeScheduled=dateAndTimeScheduled;
+        this.ticketPrice = money;
         this.movieId=movieId;
         this.scheduledMovieStatus=scheduledMovieStatus;
     }
+    //todo: fix active ticket res
+    //todo: add rating to frontend
 
     //se koristi za zgolemuvanje na prodazhbite za ova prikazhuvanje na film.
     public void addSales(int qty) {
@@ -68,8 +62,12 @@ public class ScheduledMovie extends AbstractEntity<ScheduledMovieId> {
         this.scheduledMovieStatus=ScheduledMovieStatus.CANCELED;
     }
 
+    public void rescheduleMovie(MovieTime newDateAndTime){
+        this.dateAndTimeScheduled=newDateAndTime;
+    };
+
     public MovieTime scheduledFor(){
-        return startTime;
+        return dateAndTimeScheduled;
     }
 
 

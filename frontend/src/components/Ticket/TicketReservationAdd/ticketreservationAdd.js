@@ -55,7 +55,7 @@ const TicketReservationAdd = (props) => {
         const reservationStatus = "ACTIVE";
         const paymentMethod = "CASH"
         props.onTicketReservationAdd(reservationTime,currency,reservationStatus,paymentMethod,tickets);
-        history.push("/ticket/activeReservation");
+        history.push(`/ticket/getTicketReservation/id`);
     }
 
     return(

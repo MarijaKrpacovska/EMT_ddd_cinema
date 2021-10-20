@@ -1,5 +1,6 @@
 package com.example.movie.domain.models;
 
+import com.example.movie.domain.valueobjects.Rating;
 import com.example.sharedkernel.domain.base.AbstractEntity;
 import com.example.sharedkernel.domain.genre.Genre;
 import com.example.sharedkernel.domain.money.Money;
@@ -12,6 +13,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.Null;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -24,18 +26,18 @@ public class Movie extends AbstractEntity<MovieId> {
     //Za atributot movieLength, definirav nov tip, MovieLength, so cel da se zapazi seprisutniot jazik
     private MovieLength movieLength;
 
-    //Todo: smeni vo frontend
-    //todo: fix pagination
     @Enumerated(EnumType.STRING)
     private Genre genre;
 
-    private Instant publishDate;
+    private LocalDate publishDate;
 
     private String description;
 
-    private Money ticketPrice;
+    private Rating rating;
 
     private String url;
+
+    private String trailerUrl;
 
     private int numberOfTimesScheduled;
 
@@ -46,7 +48,7 @@ public class Movie extends AbstractEntity<MovieId> {
         super(MovieId.randomId(MovieId.class));
     }
 
-    public Movie(String name, MovieLength movieLength, Genre genre, Instant publishDate, String description, Money ticketPrice, String url, int numberOfTimesScheduled) {
+    public Movie(String name, MovieLength movieLength, Genre genre, LocalDate publishDate, String description, String url, String trailerUrl, int numberOfTimesScheduled, Rating rating) {
         super(MovieId.randomId(MovieId.class));
         this.name = name;
         this.movieLength = movieLength;
@@ -54,21 +56,22 @@ public class Movie extends AbstractEntity<MovieId> {
         this.publishDate=publishDate;
         this.description= description;
         this.url=url;
-        this.ticketPrice=ticketPrice;
+        this.trailerUrl=trailerUrl;
         this.numberOfTimesScheduled=numberOfTimesScheduled;
+        this.rating=rating;
     }
 
-    public static Movie build(String name, MovieLength movieLength, Genre genre, Instant publishDate, String description, Money ticketPrice, String url, int numberOfTimesScheduled) {// Set<ScheduledMovie> scheduledMovieSet
+    public static Movie build(String name, MovieLength movieLength, Genre genre, LocalDate publishDate, String description, String url, String trailerUrl, int numberOfTimesScheduled, Rating rating) {// Set<ScheduledMovie> scheduledMovieSet
         Movie m = new Movie();
         m.name=name;
         m.movieLength=movieLength;
         m.genre=genre;
         m.publishDate=publishDate;
         m.description=description;
-     //   m.scheduledMovies=scheduledMovieSet;
+        m.trailerUrl=trailerUrl;
         m.url=url;
-        m.ticketPrice=ticketPrice;
         m.numberOfTimesScheduled=numberOfTimesScheduled;
+        m.rating=rating;
         return m;
     }
 
@@ -79,6 +82,8 @@ public class Movie extends AbstractEntity<MovieId> {
     public void decreaseTimesScheduled() {
         this.numberOfTimesScheduled = this.numberOfTimesScheduled - 1;
     }
+
+    public void rate(double rating){ this.rating = this.rating.calculate(rating); }
 
 
 //    //sluzhi za zakazhuvanje na prikazhuvanje na film

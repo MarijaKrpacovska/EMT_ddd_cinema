@@ -11,11 +11,11 @@ const ScheduledMovieService = {
         console.log("vleguva vo getScheduledMovie")
         return axios.get(`/scheduledMovie/findById/${id}`);
     },
-    addScheduledMovie: (sales, startTime, endTime, ticketPrice, movieId) => {
+    addScheduledMovie: (sales, startDate, startTime, ticketPrice, movieId) => {
         return axios.post("/scheduledMovie/addScheduledMovie", {
             "sales" : sales,
+            "startDate" : startDate,
             "startTime" : startTime,
-            "endTime" : endTime,
             "ticketPrice" : ticketPrice,
             "movieId" : movieId
         });

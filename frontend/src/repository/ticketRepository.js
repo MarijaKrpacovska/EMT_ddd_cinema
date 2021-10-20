@@ -8,7 +8,7 @@ const TicketService = {
             "reservationStatus" : reservationStatus,
             "paymentMethod" : paymentMethod,
             "tickets" : tickets
-        }).then((data) => console.log(data)). catch((err) => console.log(err));
+        });
     },
     addTicketToReservation: (id, quantity, movie) => {
         return axios.post(`/ticket/addTicketToReservation/${id}`, {
@@ -23,6 +23,8 @@ const TicketService = {
     cancelActiveReservation: () => {return axios.post("/ticket/cancelActiveReservation");},
     confirmActiveReservation: () => {return axios.post("/ticket/confirmActiveReservation");},
     cancelConfirmedReservation: (id) => {return axios.post(`/ticket/cancelConfirmedReservation/${id}`);},
+    confirmReservation: (id) => {return axios.post(`/ticket/confirmReservation/${id}`);},
+    cancelReservation: (id) => {return axios.post(`/ticket/cancelReservation/${id}`);}
 
 }
 

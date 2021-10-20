@@ -12,6 +12,7 @@ import com.example.scheduledmovie.services.forms.ScheduledMovieForm;
 import com.example.sharedkernel.domain.events.schedulingMovie.MovieScheduled;
 import com.example.sharedkernel.domain.events.schedulingMovie.ScheduledMovieCanceled;
 import com.example.sharedkernel.domain.events.ticketReservations.ReservationCanceled;
+import com.example.sharedkernel.domain.time.MovieTime;
 import com.example.sharedkernel.infra.DomainEventPublisher;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -55,6 +58,14 @@ public class ScheduledMovieServiceImpl implements ScheduledMovieService {
     }
 
     @Override
+    public Optional<ScheduledMovie> rescheduleMovie(ScheduledMovieId id, String time, String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        ScheduledMovie scheduledMovie = scheduledMovieRepository.findById(id).orElseThrow(ScheduledMovieIdDoesNotExistException::new);
+        scheduledMovie.rescheduleMovie(MovieTime.valueOf(Integer.parseInt(time.split(":")[0]),Integer.parseInt(time.split(":")[1]),LocalDate.parse(date,formatter)));
+        return Optional.of(scheduledMovie);
+    }
+
+    @Override
     public List<ScheduledMovie> findAllByMovieId(MovieId id) {
         return scheduledMovieRepository.findAllByMovieId(id);
     }
@@ -82,7 +93,11 @@ public class ScheduledMovieServiceImpl implements ScheduledMovieService {
     }
 
     private ScheduledMovie toDomainObject(ScheduledMovieForm scheduledMovieForm) {
-        var movie = new ScheduledMovie(scheduledMovieForm.getSales(),scheduledMovieForm.getStartTime(), scheduledMovieForm.getEndTime(), scheduledMovieForm.getTicketPrice(), new MovieId(scheduledMovieForm.getMovieId()), ScheduledMovieStatus.ACTIVE);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        var mov = MovieTime.valueOf(Integer.parseInt(scheduledMovieForm.getStartTime().split(":")[0]),
+                Integer.parseInt(scheduledMovieForm.getStartTime().split(":")[1]),
+                            LocalDate.parse(scheduledMovieForm.getStartDate(),formatter));
+        var movie = new ScheduledMovie(scheduledMovieForm.getSales(),mov, scheduledMovieForm.getTicketPrice(), new MovieId(scheduledMovieForm.getMovieId()), ScheduledMovieStatus.ACTIVE);
         return movie;
     }
 

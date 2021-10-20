@@ -1,4 +1,5 @@
 package com.example.movie.services.forms;
+import com.example.movie.domain.valueobjects.Rating;
 import com.example.sharedkernel.domain.genre.Genre;
 import com.example.sharedkernel.domain.money.Money;
 import com.example.sharedkernel.domain.time.MovieLength;
@@ -23,34 +24,34 @@ public class MovieForm {
     @NonNull
     private MovieLength movieLength;
 
-    private Instant publishDate;
+    private String publishDate;
 
     private Genre genre;
 
     private String description;
 
-    @NonNull
-    private Money ticketPrice;
-
     private String url;
+
+    private String trailerUrl;
+
 
 //    private Set<ScheduledMovieForm> scheduledMovies = new HashSet<>();
 
-//    @JsonCreator
-//    public MovieForm(@JsonProperty("name") String name,
-//                 @JsonProperty("movieLength") MovieLength movieLength,
-//                 @JsonProperty("genre") Genre genre,
-//                 @JsonProperty("publishDate") Instant publishDate,
-//                 @JsonProperty("description") String description,
-//                 @JsonProperty("ticketPrice") Money ticketPrice,
-//                 @JsonProperty("scheduledMovies") Set<ScheduledMovieForm> scheduledMovies) {
-//        this.name = name;
-//        this.movieLength = movieLength;
-//        this.genre=genre;
-//        this.publishDate=publishDate;
-//        this.description= description;
-//        this.ticketPrice=ticketPrice;
-//        this.scheduledMovies=scheduledMovies;
-//    }
+    @JsonCreator
+    public MovieForm(@JsonProperty("name") String name,
+                 @JsonProperty("movieLength") MovieLength movieLength,
+                 @JsonProperty("genre") Genre genre,
+                 @JsonProperty("publishDate") String publishDate,
+                 @JsonProperty("description") String description,
+                     @JsonProperty("url") String url,
+                     @JsonProperty("trailerUrl") String trailerUrl) {
+        this.name = name;
+        this.movieLength = movieLength;
+        this.genre=genre;
+        this.publishDate=publishDate;
+        this.description= description;
+        this.url=url;
+        this.trailerUrl=trailerUrl;
+    }
 
 }

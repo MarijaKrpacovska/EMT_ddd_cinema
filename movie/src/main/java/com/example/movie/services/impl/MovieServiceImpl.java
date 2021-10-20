@@ -4,15 +4,21 @@ import com.example.movie.domain.exceptions.MovieIdDoesNotExistException;
 import com.example.movie.domain.models.Movie;
 import com.example.movie.domain.models.MovieId;
 import com.example.movie.domain.repositories.MovieRepository;
+import com.example.movie.domain.valueobjects.Rating;
 import com.example.movie.services.MovieService;
 import com.example.movie.services.forms.MovieForm;
 import com.example.sharedkernel.domain.events.schedulingMovie.MovieScheduled;
+import com.example.sharedkernel.domain.genre.Genre;
+import com.example.sharedkernel.domain.time.MovieTime;
 import lombok.AllArgsConstructor;
+import lombok.Generated;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -102,13 +108,26 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public Optional<Movie> addRating(double rating, MovieId movieId) {
+        Movie movie = this.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
+        movie.rate(rating);
+        return Optional.of(movie);
+    }
+
+    @Override
     public Page<Movie> findAllWithPagination(Pageable pageable) {
         return this.movieRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Movie> findAllByGenre(Genre genre) {
+        return this.movieRepository.findAllByGenre(genre);
+    }
+
 
     private Movie toDomainObject(MovieForm movieForm) {
-        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(), movieForm.getDescription(),movieForm.getTicketPrice(),movieForm.getUrl(),0);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),LocalDate.parse(movieForm.getPublishDate(),formatter), movieForm.getDescription() ,movieForm.getUrl(), movieForm.getTrailerUrl(),0, new Rating(0.0,0));
       //  Set<ScheduledMovieForm> scheduledMoviesList = movieForm.getScheduledMovies();
 
       //  movieForm.getScheduledMovies().forEach(item->movie.addScheduledMovie(item.getStartTime(),item.getEndTime()));

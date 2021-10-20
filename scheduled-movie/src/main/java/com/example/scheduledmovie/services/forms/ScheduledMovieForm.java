@@ -1,8 +1,4 @@
-package com.example.scheduledmovie.services.forms;//package com.example.movie.services.forms;
-
-import com.example.scheduledmovie.domain.valueobjects.Movie;
-import com.example.scheduledmovie.domain.valueobjects.MovieId;
-import com.example.sharedkernel.domain.money.Currency;
+package com.example.scheduledmovie.services.forms;
 import com.example.sharedkernel.domain.money.Money;
 import com.example.sharedkernel.domain.time.MovieTime;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -10,19 +6,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 import lombok.Data;
 
-import java.time.Instant;
-import java.util.Set;
-
 @Data
 public class ScheduledMovieForm {
 
     private int sales;
 
+    //todo: fix input for videoTrailer url: kako da se vnese url shto raboti
     @NotNull
-    private MovieTime startTime;
+    private String startDate;
 
     @NotNull
-    private MovieTime endTime;
+    private String startTime;
 
     @NotNull
     private Money ticketPrice;
@@ -32,14 +26,14 @@ public class ScheduledMovieForm {
 
     @JsonCreator
     public ScheduledMovieForm(@JsonProperty("sales") int sales,
-                                 @JsonProperty("startTime") MovieTime startTime,
-                                 @JsonProperty("endTime") MovieTime endTime,
+                              @JsonProperty("startTime") String startTime,
+                                @JsonProperty("startDate") String startDate,
                                  @JsonProperty("ticketPrice") Money ticketPrice,
                                  @JsonProperty("movieId") String movieId
     ){
         this.sales=sales;
         this.startTime=startTime;
-        this.endTime=endTime;
+        this.startDate=startDate;
         this.ticketPrice=ticketPrice;
         this.movieId=movieId;
     }

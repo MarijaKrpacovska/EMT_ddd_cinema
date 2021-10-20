@@ -13,13 +13,14 @@ const MovieAdd = (props) => {
             unitOfTime: "min"
         },
         genre: "action",
-        publishDate: "2021-09-22T10:07:11.243557Z",
+        publishDate: "2021-01-01",
         description: "desc",
         ticketPrice: {
             currency: "MKD",
             amount: 0.0
         },
         url: "",
+        trailerUrl: "",
         scheduledMovies: []
     })
 
@@ -45,11 +46,10 @@ const MovieAdd = (props) => {
             currency: "MKD",
                 amount: formData.ticketPrice
         };
-        const scheduledMovies= []
         const url=formData.url
-        //todo: error handle data
+        const trailerUrl = formData.trailerUrl
 
-        props.onAddMovie(name,movieLength,genre, publishDate,description,ticketPrice,url,scheduledMovies);
+        props.onAddMovie(name,movieLength,genre, publishDate,description,ticketPrice,url,trailerUrl);
         history.push("/movie");
     }
 
@@ -69,13 +69,13 @@ const MovieAdd = (props) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="publishDate">Publish Date (in format: 2021-09-22T10:07:11.243557Z)</label>
-                        <input type="text"
+                        <label htmlFor="publishDate">Publish date</label>
+                        <input type="date"
                                className="form-control"
                                id="publishDate"
                                name="publishDate"
-                               placeholder="Enter movie publish date"
                                required
+                               placeholder="Enter Movie publishDate"
                                onChange={handleChange}
                         />
                     </div>
@@ -129,6 +129,18 @@ const MovieAdd = (props) => {
                                name="url"
                                required
                                placeholder="Enter image url"
+                               onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label htmlFor="trailerUrl">Movie trailer video url</label>
+                        <input type="text"
+                               className="form-control"
+                               id="trailerUrl"
+                               name="trailerUrl"
+                               required
+                               placeholder="Enter trailer video url"
                                onChange={handleChange}
                         />
                     </div>

@@ -77,6 +77,7 @@ public class TicketResource {
             return null;
         }
     }
+    //todo: maybe add kafka for cancel scheduled movie and tickets
 
     @PostMapping("/cancelConfirmedReservation/{id}")
     public ResponseEntity<TicketReservation> cancelConfirmedReservation(@PathVariable String id){
@@ -100,6 +101,24 @@ public class TicketResource {
             return null;
         }
     }
+
+    @PostMapping("/confirmReservation/{id}")
+    public ResponseEntity<TicketReservation> confirmReservationById(@PathVariable String id){
+        TicketReservation reservation = ticketReservationService.findById(new TicketReservationId(id)).orElseThrow(TicketReservationIdDoesNotExist::new);
+        ticketReservationService.confirmReservation(reservation.getId());
+        return this.ticketReservationService.findById(reservation.getId())
+                .map(movie -> ResponseEntity.ok().body(movie))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+    @PostMapping("/cancelReservation/{id}")
+    public ResponseEntity<TicketReservation> cancelReservationById(@PathVariable String id){
+        TicketReservation reservation = ticketReservationService.findById(new TicketReservationId(id)).orElseThrow(TicketReservationIdDoesNotExist::new);
+        ticketReservationService.cancelReservation(reservation.getId());
+        return this.ticketReservationService.findById(reservation.getId())
+                .map(movie -> ResponseEntity.ok().body(movie))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
 
     @GetMapping("/scheduledMovie/{id}")
     public ResponseEntity<ScheduledMovie> scheduledMovieTicket(@PathVariable String id){
