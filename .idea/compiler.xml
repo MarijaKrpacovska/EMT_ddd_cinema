@@ -10,7 +10,7 @@
         <module name="ticket-reservation" />
         <module name="shared-kernel" />
         <module name="movie-schedule" />
-        <module name="movie-program" />
+        <module name="movie-catalog" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -25,7 +25,7 @@
       <module name="SharedKernel" options="-parameters" />
       <module name="TicketReservation" options="-parameters" />
       <module name="movie" options="-parameters" />
-      <module name="movie-program" options="-parameters" />
+      <module name="movie-catalog" options="-parameters" />
       <module name="movie-schedule" options="-parameters" />
       <module name="shared-kernel" options="-parameters" />
       <module name="ticket-reservation" options="-parameters" />

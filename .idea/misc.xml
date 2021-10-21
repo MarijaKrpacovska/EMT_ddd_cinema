@@ -13,6 +13,7 @@
         <option value="$PROJECT_DIR$/scheduled-movie/pom.xml" />
         <option value="$PROJECT_DIR$/movie-schedule/pom.xml" />
         <option value="$PROJECT_DIR$/movie-program/pom.xml" />
+        <option value="$PROJECT_DIR$/movie-catalog/pom.xml" />
       </list>
     </option>
   </component>
