@@ -8,13 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ticket-reservation" />
-        <module name="scheduled-movie" />
         <module name="shared-kernel" />
-        <module name="movie" />
+        <module name="movie-schedule" />
+        <module name="movie-program" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="movie-schedule" target="11" />
+      <module name="movie" target="16" />
       <module name="SharedKernel" target="16" />
       <module name="TicketReservation" target="16" />
       <module name="user" target="11" />
@@ -25,8 +25,8 @@
       <module name="SharedKernel" options="-parameters" />
       <module name="TicketReservation" options="-parameters" />
       <module name="movie" options="-parameters" />
+      <module name="movie-program" options="-parameters" />
       <module name="movie-schedule" options="-parameters" />
-      <module name="scheduled-movie" options="-parameters" />
       <module name="shared-kernel" options="-parameters" />
       <module name="ticket-reservation" options="-parameters" />
       <module name="user" options="-parameters" />
