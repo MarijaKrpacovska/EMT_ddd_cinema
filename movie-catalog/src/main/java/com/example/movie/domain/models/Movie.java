@@ -2,6 +2,7 @@ package com.example.movie.domain.models;
 
 import com.example.movie.domain.valueobjects.Image;
 import com.example.movie.domain.valueobjects.Rating;
+import com.example.movie.domain.valueobjects.Video;
 import com.example.sharedkernel.domain.base.AbstractEntity;
 import com.example.sharedkernel.domain.genre.Genre;
 import com.example.sharedkernel.domain.money.Money;
@@ -49,7 +50,7 @@ public class Movie extends AbstractEntity<MovieId> {
     })
     private Image movieAdvertisementImage;
 
-    private String trailerUrl;
+    private Video movieTrailer;
 
     private int numberOfTimesScheduled;
 
@@ -60,7 +61,7 @@ public class Movie extends AbstractEntity<MovieId> {
         super(MovieId.randomId(MovieId.class));
     }
 
-    public Movie(String name, MovieLength movieLength, Genre genre, LocalDate publishDate, String description, Image moviePoster, Image movieAdvertisementImage, String trailerUrl, int numberOfTimesScheduled, Rating rating) {
+    public Movie(String name, MovieLength movieLength, Genre genre, LocalDate publishDate, String description, Image moviePoster, Image movieAdvertisementImage, Video movieTrailer, int numberOfTimesScheduled, Rating rating) {
         super(MovieId.randomId(MovieId.class));
         this.name = name;
         this.movieLength = movieLength;
@@ -69,19 +70,19 @@ public class Movie extends AbstractEntity<MovieId> {
         this.description= description;
         this.moviePoster=moviePoster;
         this.movieAdvertisementImage=movieAdvertisementImage;
-        this.trailerUrl=trailerUrl;
+        this.movieTrailer=movieTrailer;
         this.numberOfTimesScheduled=numberOfTimesScheduled;
         this.rating=rating;
     }
 
-    public static Movie build(String name, MovieLength movieLength, Genre genre, LocalDate publishDate, String description, Image moviePoster, Image movieAdvertisementImage, String trailerUrl, int numberOfTimesScheduled, Rating rating) {// Set<ScheduledMovie> scheduledMovieSet
+    public static Movie build(String name, MovieLength movieLength, Genre genre, LocalDate publishDate, String description, Image moviePoster, Image movieAdvertisementImage, Video movieTrailer, int numberOfTimesScheduled, Rating rating) {// Set<ScheduledMovie> scheduledMovieSet
         Movie m = new Movie();
         m.name=name;
         m.movieLength=movieLength;
         m.genre=genre;
         m.publishDate=publishDate;
         m.description=description;
-        m.trailerUrl=trailerUrl;
+        m.movieTrailer=movieTrailer;
         m.moviePoster=moviePoster;
         m.movieAdvertisementImage=movieAdvertisementImage;
         m.numberOfTimesScheduled=numberOfTimesScheduled;

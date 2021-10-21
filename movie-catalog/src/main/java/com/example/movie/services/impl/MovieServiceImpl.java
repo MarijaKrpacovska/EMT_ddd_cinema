@@ -5,6 +5,7 @@ import com.example.movie.domain.models.Movie;
 import com.example.movie.domain.models.MovieId;
 import com.example.movie.domain.repositories.MovieRepository;
 import com.example.movie.domain.valueobjects.Rating;
+import com.example.movie.domain.valueobjects.Video;
 import com.example.movie.services.MovieService;
 import com.example.movie.services.forms.MovieForm;
 import com.example.sharedkernel.domain.events.schedulingMovie.MovieScheduled;
@@ -138,7 +139,7 @@ public class MovieServiceImpl implements MovieService {
             movieVideoUrl = movieForm.getTrailerUrl();
         }
         movieVideoUrl = "https://www.youtube.com/embed/" + movieVideoUrl;
-        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),LocalDate.parse(movieForm.getPublishDate(),formatter), movieForm.getDescription() ,movieForm.getMoviePoster(),movieForm.getMovieAdvertisementImage(), movieVideoUrl,0, new Rating(0.0,0));
+        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),LocalDate.parse(movieForm.getPublishDate(),formatter), movieForm.getDescription() ,movieForm.getMoviePoster(),movieForm.getMovieAdvertisementImage(), Video.valueOf(movieVideoUrl),0, new Rating(0.0,0));
 
         return movie;
     }

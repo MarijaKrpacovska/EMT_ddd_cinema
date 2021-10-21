@@ -140,7 +140,7 @@ const Movies = (props) => {
                             <div className="row">
                                 <div className={"col-md-8"}>
                                     <h1 className={"text-danger"}>
-                                        Current Movies
+                                        Movie Catalog:
                                     </h1>
                                 </div>
                                 <div className="col-sm-4 col-md-4 buttonDiv">

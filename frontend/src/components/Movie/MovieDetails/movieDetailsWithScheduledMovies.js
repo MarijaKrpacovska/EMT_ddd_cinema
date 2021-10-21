@@ -94,7 +94,7 @@ const movieDetailsWithScheduledMovies = (props) => {
                             </div>
                             <div className={"col-md-9"}>
                                 <div className={"row"}>
-                                    <iframe height="500" src={props?.selectedMovie?.trailerUrl}>
+                                    <iframe height="500" src={props?.selectedMovie?.movieTrailer?.videoUrl}>
                                     </iframe>
                                     <br/>
                                 </div>
