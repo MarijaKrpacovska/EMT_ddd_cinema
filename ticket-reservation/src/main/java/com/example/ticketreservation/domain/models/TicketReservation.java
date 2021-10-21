@@ -31,6 +31,10 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
 
+    public Money total() {
+        return tickets.stream().map(Ticket::subtotal).reduce(new Money(currency, 0), Money::add);
+    }
+
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Ticket> tickets = new HashSet<>();
 
@@ -44,10 +48,6 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
         this.currency = currency;
         this.reservationStatus = reservationStatus;
         this.paymentMethod = paymentMethod;
-    }
-
-    public Money total() {
-        return tickets.stream().map(Ticket::subtotal).reduce(new Money(currency, 0), Money::add);
     }
 
     public Ticket addTicket(@NonNull ScheduledMovie scheduledMovie, int qty) {

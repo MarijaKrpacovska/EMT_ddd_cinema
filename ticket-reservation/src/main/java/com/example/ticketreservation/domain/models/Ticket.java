@@ -18,11 +18,9 @@ public class Ticket extends AbstractEntity<TicketId> {
     //price e od tipot Money so cel da se zapazi seprisutniot jazik
     private Money price;
 
+    //dodadov atribut quantity, koj oznachuva kolkavo kolichestvo na bileti se narachuva
     @Column(name = "qty", nullable = false)
     private int quantity;
-
- //   @AttributeOverride(name = "id", column = @Column(name = "movie_id", nullable = false))
- //   private MovieId movieId;
 
     @AttributeOverride(name = "id", column = @Column(name = "scheduledMovieId", nullable = false))
     private ScheduledMovieId scheduledMovieId;

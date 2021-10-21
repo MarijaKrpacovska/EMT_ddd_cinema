@@ -58,42 +58,6 @@ public class MovieServiceImpl implements MovieService {
         return movieRepository.findById(id);
     }
 
-//    @Override
-//    public Optional<Movie> editMovie(MovieId id, MovieForm movieForm) {
-//        Movie movie = this.movieRepository.findById(id).orElseThrow(MovieIdDoesNotExistException::new);
-//        Movie.build(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),movieForm.getPublishDate(),
-//                movieForm.getDescription(),movieForm.getTicketPrice(),movieForm.getUrl());
-//        return Optional.empty();
-//    }
-
-//    @Override
-//    public Optional<Movie> addScheduledMovie(MovieId movieId, ScheduledMovieForm scheduledMovieForm) throws MovieIdDoesNotExistException {
-//        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-//        movie.addScheduledMovie(scheduledMovieForm.getStartTime(), scheduledMovieForm.getEndTime());
-//        var newMovie =movieRepository.saveAndFlush(movie);
-//        return Optional.of(newMovie);
-//    }
-//
-//    @Override
-//    public void deleteItem(MovieId movieId, ScheduledMovieId scheduledMovieId) throws MovieIdDoesNotExistException, ScheduledMovieIdDoesNotExistException {
-//        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-//        movie.deleteScheduledMovie(scheduledMovieId);
-//        movieRepository.saveAndFlush(movie);
-//    }
-//
-//    @Override
-//    public Movie ticketAdded(MovieId movieId,MovieTime movieTime) {
-//        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-//        movie.increaseSales(movieTime);
-//        return movie;
-//    }
-//
-//    @Override
-//    public Movie ticketRemoved(MovieId movieId,MovieTime movieTime ) {
-//        Movie movie = movieRepository.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
-//        movie.decreaseSales(movieTime);
-//        return movie;
-//    }
 
     public Movie scheduledMovieAdded(MovieId movieId){
         Movie movie = this.findById(movieId).orElseThrow(MovieIdDoesNotExistException::new);
