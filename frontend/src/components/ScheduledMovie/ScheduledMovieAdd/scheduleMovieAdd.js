@@ -31,7 +31,7 @@ const ScheduledMovieAdd = (props) => {
             "currency": formData.ticketPriceCurrency,
             "amount": formData.ticketPriceAmount
         };
-        const movieId = props.selectedMovie.id.id;
+        const movieId = props?.selectedMovie?.id?.id;
 
         props.onAddScheduledMovie(sales, startDate, startTime, ticketPrice, movieId);
         history.push("/scheduledMovies");

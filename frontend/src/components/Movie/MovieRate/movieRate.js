@@ -17,13 +17,13 @@ const MovieRate = (props) => {
         e.preventDefault();
         const finalRating = rating.rating;
 
-        props.onRateMovie(props.selectedMovie.id.id, finalRating);
+        props.onRateMovie(props?.selectedMovie?.id?.id, finalRating);
         history.push("/movie");
     }
 
     return(
         <div className="row mt-5">
-            <div className="col-md-5">
+            <div className="col-md-4">
                 <form onSubmit={onFormSubmit}>
 
                     <div className="form-group">
@@ -32,16 +32,25 @@ const MovieRate = (props) => {
                                className="form-control"
                                id="rating"
                                name="rating"
+                               min={"0"}
+                               max={"10"}
                                placeholder="Enter rating"
                                required
                                onChange={handleChange}
                         />
                     </div>
+                    <br/>
 
 
+                    <div className={"text-center"}>
                     <button id="submit" type="submit" className="btn btn-dark align-self-md-center">Submit</button>
-
+                    </div>
                     </form>
+            </div>
+            <div className={"col-md-2"}> </div>
+            <div className={"col-md-6"}>
+               <h1> We value your feedback! <img height={"30px"} src={"https://www.iconpacks.net/icons/2/free-feedback-icon-2949-thumb.png"}/></h1>
+
             </div>
 
         </div>

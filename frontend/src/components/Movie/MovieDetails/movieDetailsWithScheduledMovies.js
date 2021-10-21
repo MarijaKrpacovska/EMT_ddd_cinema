@@ -34,38 +34,38 @@ const movieDetailsWithScheduledMovies = (props) => {
                                 <div className={"row"}>
                                     <div className={"col-md-7"}>
                                         <h1 className={"text-dark nameOfMovie"}>
-                                            {props.selectedMovie.name}
+                                            {props?.selectedMovie?.name}
                                         </h1>
                                     </div>
                                     <div className={"col-md-5 text-right"}>
-                                        {showRating(props.selectedMovie)}
+                                        {showRating(props?.selectedMovie)}
                                     </div>
                                 </div>
                                 <p className={"mt-3"}>
-                                    {props.selectedMovie.description}
+                                    {props?.selectedMovie?.description}
                                 </p>
                                 <hr/>
 
                                 <p className={"mt-3"}>
-                                    <b>Genre: </b>{props.selectedMovie.genre}
+                                    <b>Genre: </b>{props?.selectedMovie?.genre}
                                 </p>
                                 <p className={"mt-3"}>
                                     <b>Length: </b>{props?.selectedMovie?.movieLength?.length} {props?.selectedMovie?.movieLength?.unitOfTime}
                                 </p>
                                 <p className={"mt-3"}>
-                                    <b>Release date: </b>{props.selectedMovie.publishDate}
+                                    <b>Release date: </b>{props?.selectedMovie?.publishDate}
                                 </p>
                                 <hr/>
                                 <div className={"row"}>
                                     <h4 className={"text-danger mb-2"}>Book tickets:</h4>
                                     <br/>
-                                    {props.scheduledMovies.length !== 0 ? props.scheduledMovies.map((term) => {
+                                    {props?.scheduledMovies?.length !== 0 ? props?.scheduledMovies?.map((term) => {
                                             return (
                                                 <div className={"col"}>
                                                     <Link className={"btn btn-lg btn-block btn-dark"}
-                                                          onClick={() => props.onBookTickets(term.id.id)}
-                                                          to={`/ticket/makeNewReservation/${term.id.id}`}>
-                                                        {term.dateAndTimeScheduled.date}, {term.dateAndTimeScheduled.hour}:{term.dateAndTimeScheduled.minutes}
+                                                          onClick={() => props?.onBookTickets(term?.id?.id)}
+                                                          to={`/ticket/makeNewReservation/${term?.id?.id}`}>
+                                                        {term?.dateAndTimeScheduled?.date}, {term?.dateAndTimeScheduled?.hour}:{term?.dateAndTimeScheduled?.minutes}
                                                     </Link>
                                                 </div>
                                             );
@@ -94,7 +94,7 @@ const movieDetailsWithScheduledMovies = (props) => {
                             </div>
                             <div className={"col-md-9"}>
                                 <div className={"row"}>
-                                    <iframe height="500" src={props.selectedMovie.trailerUrl}>
+                                    <iframe height="500" src={props?.selectedMovie?.trailerUrl}>
                                     </iframe>
                                     <br/>
                                 </div>
@@ -121,11 +121,11 @@ const movieDetailsWithScheduledMovies = (props) => {
                                             return (
                                                 <div className={"col-md-3"}>
                                                     <Link onClick={() => {
-                                                        props.onDetails(term.id.id);
-                                                        props.onFetchScheduledMoviesByMovieId(term.id.id)
-                                                        props.onFindSimilarMovies(term.genre)
+                                                        props.onDetails(term?.id?.id);
+                                                        props.onFetchScheduledMoviesByMovieId(term?.id?.id)
+                                                        props.onFindSimilarMovies(term?.genre)
                                                     }}
-                                                          to={`/movie/fetchScheduledMoviesByMovieId/${term.id.id}`}>
+                                                          to={`/movie/fetchScheduledMoviesByMovieId/${term?.id?.id}`}>
                                                         <img width={"220px"} src={term?.moviePoster?.imageUrl}/>
                                                     </Link>
                                                 </div>

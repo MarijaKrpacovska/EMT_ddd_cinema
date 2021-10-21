@@ -69,7 +69,7 @@ class App extends Component {
                             <Route path={"/movie/add"} exact render={() =>
                                 <MovieAdd onAddMovie={this.addMovie}/>}/>
 
-                            <Route path={["/movie",""]}
+                            <Route path={["/movie"]}
                                    exact render={() =>
                                 <Movies movies={this.state.movies}
                                         moviesPage={this.state.moviesPage}
@@ -151,14 +151,16 @@ class App extends Component {
 
                         </div>
                             <div>
-                                <Route path={"/home"} exact render={() =>
+                                <Route path={["/home",""]} exact render={() =>
                                     <HomePage movies={this.state.movies}
                                               onDetails={this.getMovie}
                                               onRateMovie={this.getMovie}
                                               onFetchScheduledMoviesByMovieId={this.fetchScheduledMoviesByMovieId}
                                               onActiveReservation={this.getActiveReservation}
                                               onPageChange={this.loadMoviesWithPagination}
-                                              onScheduleMovie={this.getMovie}/>}/>
+                                              onScheduleMovie={this.getMovie}
+                                              movies={this.state.movies}
+                                              onFindSimilarMovies={this.findSimilarMovies}/>}/>
                             </div>
                         </main>
                     </div>
@@ -327,6 +329,7 @@ class App extends Component {
         // console.log("vo getMovie"+id)
         ScheduledMovieService.cancelScheduledMovie(id)
             .then(() => {
+                this.loadMovies();
                 this.loadScheduledMovies();
             });
     }

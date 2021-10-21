@@ -23,7 +23,7 @@ const TicketReservationAdd = (props) => {
         const tickets = [
             {
                 qty: formData.ticketsQuantity,
-                scheduledMovie: props.scheduledMovie
+                scheduledMovie: props?.scheduledMovie
             }
         ];
         const paymentMethod = formData.paymentMethod;

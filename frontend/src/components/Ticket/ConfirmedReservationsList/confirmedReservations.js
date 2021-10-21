@@ -6,23 +6,29 @@ import ReactPaginate from "react-paginate";
 const ConfirmedReservations = (props) => {
 
     const [pageNumber, setPageNumber] = useState(0);
-    const itemsPerPage = 8;
+    const itemsPerPage = 6;
     const pageVisited = pageNumber * itemsPerPage;
-    const pageCount = Math.ceil(props.reservations.length / itemsPerPage);
+    const pageCount = Math.ceil(props?.reservations?.length / itemsPerPage);
 
     const handlePageChange = ({selected}) => {
         setPageNumber(selected);
     }
 
-    const displayTicketReservations = props.reservations
+    const displayTicketReservations = props?.reservations
         .slice(pageVisited, pageVisited + itemsPerPage)
         .map((term) => {
+            var myDate = new Date(term?.reservationTime?.toString());
             return (
                 <tr>
-                    <td>{term.id.id}</td>
+                    <td>{myDate?.toString()?.substr(0,24)}</td>
+                    <td>{term?.tickets[0]?.quantity}</td>
+                    <td>{term?.paymentMethod}</td>
+                    <td>{term?.currency}</td>
+                    <td>{term?.reservationStatus}</td>
                     <td>
                         <Link
-                            onClick={() => { props.onCancelConfirmedReservation(term.id.id)}}
+                            className={"btn btn-block btn-danger scheduleMovieButton"}
+                            onClick={() => { props.onCancelConfirmedReservation(term?.id?.id)}}
                             to={`/ticket/confirmedReservations`}>
                             Cancel reservation
                         </Link>
@@ -35,17 +41,18 @@ const ConfirmedReservations = (props) => {
         <div className={"container mm-4 mt-5"}>
             <div className={"row"}>
                 <h3 className={"text-danger"}>
-                    Made reservations:
+                    Made Reservations:
                 </h3>
                 <hr/>
                 <div className={"table-responsive"}>
                     <table className={"table table-striped"}>
                         <thead>
                         <tr>
-                            <th scope={"col"}>sales</th>
-                            <th scope={"col"}>time</th>
-                            <th scope={"col"}>ticket price</th>
-                            <th scope={"col"}>movie id</th>
+                            <th scope={"col"}>Made on:</th>
+                            <th scope={"col"}>Number of tickets</th>
+                            <th scope={"col"}>Payment method:</th>
+                            <th scope={"col"}>Payment currency:</th>
+                            <th scope={"col"}>Reservation status:</th>
                             <th></th>
                         </tr>
                         </thead>

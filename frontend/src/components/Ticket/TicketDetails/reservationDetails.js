@@ -46,7 +46,7 @@ const ReservationDetails = (props) => {
                     </table>
 
                     <div>
-                        <b>Payment method:</b> {props.activeReservation.paymentMethod}
+                        <b>Payment method:</b> {props?.activeReservation.paymentMethod}
                     </div>
                     <br/>
                     <br/>
@@ -54,7 +54,7 @@ const ReservationDetails = (props) => {
                     <div className={"row text-center"}>
                         <div className="col buttonDiv">
                             <Link className={"btn btn-success ml-2 mr-4"}
-                                  onClick={() => props.onConfirmReservation(props.activeReservation.id.id)}
+                                  onClick={() => props?.onConfirmReservation(props?.activeReservation?.id?.id)}
                                   to={`/movie`}>
                                 Confirm Reservation
                             </Link>
@@ -62,7 +62,7 @@ const ReservationDetails = (props) => {
 
                         <div className="col buttonDiv">
                             <Link className={"btn btn-danger ml-2 mr-4"}
-                                  onClick={() => props.onCancelReservation(props.activeReservation.id.id)}
+                                  onClick={() => props.onCancelReservation(props?.activeReservation?.id?.id)}
                                   to={`/movie`}>
                                 Cancel Reservation
                             </Link>

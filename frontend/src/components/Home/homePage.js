@@ -48,24 +48,24 @@ const homePage = (props) => {
             <section>
                 <div className="slide-container">
                     <Slide>
-                        {props.movies.map((term) => (
+                        {props?.movies?.map((term) => (
                             <Link
-                                onClick={() => { props.onDetails(term.id.id); props.onFetchScheduledMoviesByMovieId(term.id.id)}}
-                                to={`/movie/fetchScheduledMoviesByMovieId/${term.id.id}`}>
-                            <div hidden={props.movies.length === 0} className="each-slide" key={term.id.id}>
-                                <div className={"slideDiv"} style={{'backgroundImage': `url(${term.movieAdvertisementImage.imageUrl})`}}>
+                                onClick={() => { props.onDetails(term?.id?.id); props.onFetchScheduledMoviesByMovieId(term?.id?.id)}}
+                                to={`/movie/fetchScheduledMoviesByMovieId/${term?.id?.id}`}>
+                            <div hidden={props?.movies?.length === 0} className="each-slide" key={term?.id?.id}>
+                                <div className={"slideDiv"} style={{'backgroundImage': `url(${term?.movieAdvertisementImage?.imageUrl})`}}>
                                     <span className={"slideText"}>
                                         <div className={"slideTextDiv  p-5"}>
                                             <div className={"row firstRow"}>
                                             <div className={"col"}>
-                                                {term.name}
+                                                {term?.name}
                                             </div>
                                             <div className={"col"}>
                                                  {showRating(term)}
                                             </div>
                                             </div>
                                             <div className={"row p-2"}>
-                                            {term.description}
+                                            {term?.description}
                                             </div>
                                         </div>
 

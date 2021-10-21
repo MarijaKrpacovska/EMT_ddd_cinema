@@ -10,7 +10,7 @@ const ScheduledMovie = (props) => {
     const [pageNumber, setPageNumber] = useState(0);
     const itemsPerPage = 6;
     const pageVisited = pageNumber * itemsPerPage;
-    const pageCount = Math.ceil(props.scheduledMovies.length / itemsPerPage);
+    const pageCount = Math.ceil(props?.scheduledMovies?.length / itemsPerPage);
 
     const handlePageChange = ({selected}) => {
         setPageNumber(selected);
@@ -24,34 +24,36 @@ const ScheduledMovie = (props) => {
                 <tr className={term?.scheduledMovieStatus==='CANCELED' ? "bg-danger text-light" : ""}>
                     <td>
                         <p>
-                        {myDate.toString().substr(0,15)}, {term.dateAndTimeScheduled.hour.toString().length === 1 ? "0"+term.dateAndTimeScheduled.hour.toString() : term.dateAndTimeScheduled.hour.toString()}:
-                        {term.dateAndTimeScheduled.minutes.toString().length === 1 ? "0"+term.dateAndTimeScheduled.minutes.toString() : term.dateAndTimeScheduled.minutes.toString()}
+                        {myDate.toString().substr(0,15)}, {term?.dateAndTimeScheduled?.hour?.toString()?.length === 1 ? "0"+term?.dateAndTimeScheduled?.hour?.toString() : term?.dateAndTimeScheduled?.hour?.toString()}:
+                        {term?.dateAndTimeScheduled?.minutes?.toString()?.length === 1 ? "0"+term?.dateAndTimeScheduled?.minutes?.toString() : term?.dateAndTimeScheduled?.minutes?.toString()}
                         </p>
                         </td>
-                    <td>{props.movies.map((obj) => {
-                        if(obj.id.id === term.movieId.id){
+                    <td>{props?.movies?.map((obj) => {
+                        if(obj?.id?.id === term?.movieId?.id){
                             return (
-                                <p>{obj.name}</p>
+                                <p>{obj?.name}</p>
                             );
                         }
                     })}</td>
-                    <td> Sales: {term.sales}</td>
+                    <td>{term?.ticketPrice?.amount} {term?.ticketPrice?.currency}</td>
+
+                    <td> Sales: {term?.sales}</td>
                     <td>
-                        <div hidden={term.scheduledMovieStatus === "CANCELED"}>
+                        <div hidden={term?.scheduledMovieStatus === "CANCELED"}>
                         <Link
                             className={"btn btn btn-block btn-dark scheduleMovieButton"}
-                            onClick={() => props.onBookTickets(term.id.id)}
-                            to={`/ticket/makeNewReservation/${term.id.id}`}>
+                            onClick={() => props.onBookTickets(term?.id?.id)}
+                            to={`/ticket/makeNewReservation/${term?.id?.id}`}>
                             Book tickets
                         </Link>
                         </div>
                     </td>
                     <td>
-                        <div hidden={term.scheduledMovieStatus === "CANCELED"}>
+                        <div hidden={term?.scheduledMovieStatus === "CANCELED"}>
                         <Link
                             className={"btn btn-block btn-danger scheduleMovieButton"}
                             onClick={() => {
-                                props.onCancelScheduledMove(term.id.id)
+                                props.onCancelScheduledMove(term?.id?.id)
                             }}
                             to={`/scheduledMovies`}>
                             Cancel Scheduled Movie
@@ -59,13 +61,13 @@ const ScheduledMovie = (props) => {
                         </div>
                     </td>
                     <td>
-                        <div hidden={term.scheduledMovieStatus === "CANCELED"}>
+                        <div hidden={term?.scheduledMovieStatus === "CANCELED"}>
                         <Link
                             className={"btn btn-block btn-secondary scheduleMovieButton"}
                             onClick={() => {
-                                props.onRescheduleMovie(term.id.id)
+                                props.onRescheduleMovie(term?.id?.id)
                             }}
-                            to={`/scheduledMovies/reschedule/${term.id.id}`}>
+                            to={`/scheduledMovies/reschedule/${term?.id?.id}`}>
                             Reschedule movie
                         </Link>
                         </div>
@@ -91,6 +93,9 @@ const ScheduledMovie = (props) => {
                         </th>
                         <th>
                             Movie
+                        </th>
+                        <th>
+                            Ticket Price
                         </th>
                         <th>
                             Sales
