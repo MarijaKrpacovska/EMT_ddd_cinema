@@ -5,10 +5,8 @@ const TicketReservationAdd = (props) => {
 
     const history = useHistory();
     const [formData, updateFormData] = React.useState({
-        currency: "",
-        tickets: [],
-        reservationTime : "2021-10-04T12:56:06.188568Z",
-        reservationStatus : "ACTIVE",
+        currency: "MKD",
+        ticketsQuantity: 1,
         paymentMethod : "CASH"
     })
 
@@ -21,65 +19,59 @@ const TicketReservationAdd = (props) => {
 
     const onFormSubmit = (e) => {
         e.preventDefault();
-        const currency = "MKD";
+        const currency = formData.currency;
         const tickets = [
             {
-                quantity: 3,
+                qty: formData.ticketsQuantity,
                 scheduledMovie: props.scheduledMovie
-
-            // {
-            //     id: {
-            //         id: "4d219a3f-12de-4630-8fa5-86f23804627b"
-            //     },
-            //     sales: 10,
-            //     startTime: {
-            //         hour: 10,
-            //         minutes: 10
-            //     },
-            //     endTime: {
-            //         hour: 10,
-            //         minutes: 10
-            //     },
-            //     ticketPrice: {
-            //         currency: "MKD",
-            //         amount: 30.0
-            //     },
-            //     movieId: {
-            //         id: "9a78fd3e-9caf-490a-a1d4-c91852494c05"
-            //     }
-            // }
             }
         ];
-
-        const reservationTime = "2021-10-04T12:56:06.188568Z";
-        const reservationStatus = "ACTIVE";
-        const paymentMethod = "CASH"
-        props.onTicketReservationAdd(reservationTime,currency,reservationStatus,paymentMethod,tickets);
+        const paymentMethod = formData.paymentMethod;
+        props.onTicketReservationAdd(currency,paymentMethod,tickets);
         history.push(`/ticket/getTicketReservation/id`);
     }
 
     return(
         <div className="row mt-5">
-            <div className="col-md-5">
+            <div className="col-md-6">
                 <form onSubmit={onFormSubmit}>
-                    <div className="form-group">
-                        <label>currency</label>
+                    <div className="form-group mb-2">
+                        <label htmlFor={"ticketsQuantity"}>Number of tickets: </label>
+                        <input type="number"
+                               defaultValue="1"
+                               min="1"
+                               className="form-control m-1"
+                               id="ticketsQuantity"
+                               name="ticketsQuantity"
+                               required
+                               placeholder="Enter price of tickets"
+                               onChange={handleChange}
+                        />
+                    </div>
+                    <div className="form-group mb-2">
+                        <label htmlFor={"paymentMethod"}>Payment method:</label>
+                        <select name="paymentMethod" className="form-control" onChange={handleChange}>
+                            <option value="CASH">CASH</option>
+                            <option value="CREDIT_CARD">CREDIT CARD</option>
+                        </select>
+                    </div>
+                    <div className="form-group mb-2">
+                        <label htmlFor={"currency"}>Payment Currency:</label>
                         <select name="currency" className="form-control" onChange={handleChange}>
                             <option value="MKD">MKD</option>
                             <option value="USD">USD</option>
                             <option value="EUR">EUR</option>
                         </select>
                     </div>
-                    <div className="form-group">
-                        <label>currency</label>
-                        <select name="paymentMethod" className="form-control" onChange={handleChange}>
-                            <option value="CASH">CASH</option>
-                            <option value="CREDIT_CARD">CREDIT CARD</option>
-                        </select>
-                    </div>
 
-                    <button id="submit" type="submit" className="btn btn-primary">Submit</button>
-                </form>
+
+                    <div className={"text-center"}>
+                    <button id="submit" type="submit" className="btn btn-dark">Submit</button>
+                    </div>
+                    </form>
+            </div>
+            <div className={"col-md-6 text-center"}>
+                <img height={"200px"} src={"https://www.pinclipart.com/picdir/big/134-1340641_desenhos-de-pessoas-no-cinema-clipart.png"}/>
             </div>
         </div>
     )

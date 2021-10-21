@@ -31,23 +31,15 @@ public class TicketReservationForm {
     @Valid
     private Set<TicketForm> tickets = new HashSet<>();
 
-    private Instant reservationTime;
-
-    private ReservationStatus reservationStatus;
-
     private PaymentMethod paymentMethod;
 
     @JsonCreator
     public TicketReservationForm(@JsonProperty("currency") Currency currency,
                                  @JsonProperty("tickets") Set<TicketForm> tickets,
-                                 @JsonProperty("reservationTime") Instant reservationTime,
-                                 @JsonProperty("reservationStatus") ReservationStatus reservationStatus,
                                  @JsonProperty("paymentMethod") PaymentMethod paymentMethod
                                  ){
         this.currency = currency;
         this.tickets = tickets;
-        this.reservationTime=reservationTime;
-        this.reservationStatus=reservationStatus;
         this.paymentMethod=paymentMethod;
     }
 }

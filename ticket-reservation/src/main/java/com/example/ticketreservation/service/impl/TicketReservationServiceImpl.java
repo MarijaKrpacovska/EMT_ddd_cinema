@@ -122,7 +122,7 @@ public class TicketReservationServiceImpl implements TicketReservationService {
     }
 
     private TicketReservation toDomainObject(TicketReservationForm ticketReservationForm) {
-        var ticketReservation = new TicketReservation(Instant.now(),ticketReservationForm.getCurrency(),ticketReservationForm.getReservationStatus(),ticketReservationForm.getPaymentMethod());
+        var ticketReservation = new TicketReservation(Instant.now(),ticketReservationForm.getCurrency(),ReservationStatus.ACTIVE,ticketReservationForm.getPaymentMethod());
         ticketReservationForm.getTickets().forEach(item->ticketReservation.addTicket(item.getScheduledMovie(),item.getQty() ));
         return ticketReservation;
     }

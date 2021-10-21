@@ -73,7 +73,7 @@ const ScheduledMovieAdd = (props) => {
                     <div className={"row"}>
                         <div className={"col-md-9"}>
                             <div className="form-group">
-                                <label htmlFor="name"> Ticket price: </label>
+                                <label htmlFor="ticketPriceAmount"> Ticket price: </label>
                                 <input type="number"
                                        className="form-control m-1"
                                        id="ticketPriceAmount"
@@ -86,7 +86,7 @@ const ScheduledMovieAdd = (props) => {
                         </div>
                         <div className={"col-md-3"}>
                             <div className="form-group">
-                                <label htmlFor="name"> </label>
+                                <label htmlFor="ticketPriceCurrency"> </label>
                                 <select name="ticketPriceCurrency" className="form-control mt-1" onChange={handleChange}>
                                     <option value="MKD">MKD</option>
                                     <option value="EUR">EUR</option>

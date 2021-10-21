@@ -352,8 +352,8 @@ class App extends Component {
             });
     }
 
-    addTicketReservation = (reservationTime,currency,reservationStatus,paymentMethod,tickets) => {
-        TicketService.makeReservation(reservationTime,currency,reservationStatus,paymentMethod,tickets)
+    addTicketReservation = (currency,paymentMethod,tickets) => {
+        TicketService.makeReservation(currency,paymentMethod,tickets)
             .then((data) => {
                 console.log("vo getMovie"+typeof (data.data))
                 this.setState({

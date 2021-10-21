@@ -1,18 +1,16 @@
 import axios from '../custom-axios/axios_ticket';
 
 const TicketService = {
-    makeReservation: (reservationTime,currency,reservationStatus,paymentMethod,tickets) => {
+    makeReservation: (currency,paymentMethod,tickets) => {
         return axios.post("/ticket/makeReservetion", {
-            "reservationTime" : reservationTime,
             "currency" : currency,
-            "reservationStatus" : reservationStatus,
             "paymentMethod" : paymentMethod,
             "tickets" : tickets
         });
     },
     addTicketToReservation: (id, quantity, movie) => {
         return axios.post(`/ticket/addTicketToReservation/${id}`, {
-            "quantity" : quantity,
+            "qty" : quantity,
             "movie" : movie
         });
     },

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Link} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import './scheduledMovie.css';
 import scheduledMovie from "../../Ticket/ConfirmedReservationsList/confirmedReservations";
 
 const ScheduledMovie = (props) => {
@@ -18,19 +19,15 @@ const ScheduledMovie = (props) => {
     const displayScheduledMovies = props.scheduledMovies
         .slice(pageVisited, pageVisited + itemsPerPage)
         .map((term) => {
+            var myDate = new Date(term?.dateAndTimeScheduled?.date?.toString());
             return (
-                // <div className={"row"}>
-                //     <div className={"col"}>
-                //         {term.startTime.hour}:
-                //         {term.startTime.minutes.toString().length === 1 ? "0"+term.startTime.minutes.toString() : term.startTime.minutes.toString()} - {term.endTime.hour}:
-                //         {term.endTime.minutes.toString().length === 1 ? "0"+term.endTime.minutes.toString() : term.endTime.minutes.toString()}
-                //     </div>
-                // </div>
-                <tr>
+                <tr className={term?.scheduledMovieStatus==='CANCELED' ? "bg-danger text-light" : ""}>
                     <td>
-                        {term.dateAndTimeScheduled.hour}:
+                        <p>
+                        {myDate.toString().substr(0,15)}, {term.dateAndTimeScheduled.hour.toString().length === 1 ? "0"+term.dateAndTimeScheduled.hour.toString() : term.dateAndTimeScheduled.hour.toString()}:
                         {term.dateAndTimeScheduled.minutes.toString().length === 1 ? "0"+term.dateAndTimeScheduled.minutes.toString() : term.dateAndTimeScheduled.minutes.toString()}
-                    </td>
+                        </p>
+                        </td>
                     <td>{props.movies.map((obj) => {
                         if(obj.id.id === term.movieId.id){
                             return (
@@ -38,34 +35,40 @@ const ScheduledMovie = (props) => {
                             );
                         }
                     })}</td>
-                    <td>{term.sales}</td>
-                    <td>{term.ticketPrice.amount} {term.ticketPrice.currency}</td>
-                    <td>{term.movieId.id}</td>
-                    <td>{term.scheduledMovieStatus}</td>
+                    <td> Sales: {term.sales}</td>
                     <td>
+                        <div hidden={term.scheduledMovieStatus === "CANCELED"}>
                         <Link
+                            className={"btn btn btn-block btn-dark scheduleMovieButton"}
                             onClick={() => props.onBookTickets(term.id.id)}
                             to={`/ticket/makeNewReservation/${term.id.id}`}>
                             Book tickets
                         </Link>
+                        </div>
                     </td>
                     <td>
+                        <div hidden={term.scheduledMovieStatus === "CANCELED"}>
                         <Link
+                            className={"btn btn-block btn-danger scheduleMovieButton"}
                             onClick={() => {
                                 props.onCancelScheduledMove(term.id.id)
                             }}
                             to={`/scheduledMovies`}>
-                            Cancel scheduled movie
+                            Cancel Scheduled Movie
                         </Link>
+                        </div>
                     </td>
                     <td>
+                        <div hidden={term.scheduledMovieStatus === "CANCELED"}>
                         <Link
+                            className={"btn btn-block btn-secondary scheduleMovieButton"}
                             onClick={() => {
                                 props.onRescheduleMovie(term.id.id)
                             }}
                             to={`/scheduledMovies/reschedule/${term.id.id}`}>
                             Reschedule movie
                         </Link>
+                        </div>
                     </td>
                 </tr>
             );
@@ -81,14 +84,17 @@ const ScheduledMovie = (props) => {
                 <br/>
                 <div className={"table-responsive"}>
                     <table className={"table table-striped"}>
+
                         <thead>
-                        <tr>
-                            <th scope={"col"}>sales</th>
-                            <th scope={"col"}>time</th>
-                            <th scope={"col"}>ticket price</th>
-                            <th scope={"col"}>movie id</th>
-                            <th></th>
-                        </tr>
+                        <th>
+                            Scheduled for
+                        </th>
+                        <th>
+                            Movie
+                        </th>
+                        <th>
+                            Sales
+                        </th>
                         </thead>
                         <tbody>
                         {displayScheduledMovies}
