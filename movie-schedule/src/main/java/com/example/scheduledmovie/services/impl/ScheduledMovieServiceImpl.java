@@ -43,6 +43,7 @@ public class ScheduledMovieServiceImpl implements ScheduledMovieService {
             throw new ConstraintViolationException("The movie form is not valid", constraintViolations);
         }
         var newMovie = scheduledMovieRepository.saveAndFlush(toDomainObject(movieForm));
+        //pri kreiranjeto na nov ScheduledMovie da se zgolemi i brojot na scheduledMovies:
         domainEventPublisher.publish(new MovieScheduled(movieForm.getMovieId()));
         return Optional.of(newMovie);
     }
@@ -72,7 +73,8 @@ public class ScheduledMovieServiceImpl implements ScheduledMovieService {
 
     @Override
     public ScheduledMovie reservationConfirmed(ScheduledMovieId scheduledMovieId, int quantity) {
-        ScheduledMovie scheduledMovie = scheduledMovieRepository.findById(scheduledMovieId).orElseThrow(ScheduledMovieIdDoesNotExistException::new);
+        ScheduledMovie scheduledMovie = scheduledMovieRepository
+                .findById(scheduledMovieId).orElseThrow(ScheduledMovieIdDoesNotExistException::new);
         scheduledMovie.addSales(quantity);
         return scheduledMovie;
     }
@@ -86,7 +88,8 @@ public class ScheduledMovieServiceImpl implements ScheduledMovieService {
 
     @Override
     public void cancelScheduledMovie(ScheduledMovieId scheduledMovieId){
-        ScheduledMovie scheduledMovie = scheduledMovieRepository.findById(scheduledMovieId).orElseThrow(ScheduledMovieIdDoesNotExistException::new);
+        ScheduledMovie scheduledMovie = scheduledMovieRepository
+                .findById(scheduledMovieId).orElseThrow(ScheduledMovieIdDoesNotExistException::new);
         scheduledMovie.cancelScheduledMovie();
         domainEventPublisher.publish(new ScheduledMovieCanceled(scheduledMovie.getMovieId().getId()));
         scheduledMovieRepository.saveAndFlush(scheduledMovie);

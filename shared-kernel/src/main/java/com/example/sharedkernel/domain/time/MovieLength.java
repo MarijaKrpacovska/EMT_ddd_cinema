@@ -20,31 +20,31 @@ public class MovieLength implements ValueObject {
         length=0;
     }
 
-    public double toMin(){
+    public MovieLength toMin(){
         if(unitOfTime.equals(UnitOfTime.min))
-            return length;
+            return new MovieLength(length,unitOfTime);
         else if(unitOfTime.equals(UnitOfTime.hour))
-            return length/60;
+            return new MovieLength(length/60,UnitOfTime.min);
         else
-            return length*60;
+            return new MovieLength(length*60,UnitOfTime.min);
     }
 
-    public double toHour(){
+    public MovieLength toHour(){
         if(unitOfTime.equals(UnitOfTime.min))
-            return length*60;
+            return new MovieLength(length*60,UnitOfTime.hour);
         else if(unitOfTime.equals(UnitOfTime.hour))
-            return length;
+            return new MovieLength(length,unitOfTime);
         else
-            return length*3600;
+            return new MovieLength(length*3600,UnitOfTime.hour);
     }
 
-    public double toSec(){
+    public MovieLength toSec(){
         if(unitOfTime.equals(UnitOfTime.min))
-            return length/60;
+            return new  MovieLength(length/60,UnitOfTime.sec);
         else if(unitOfTime.equals(UnitOfTime.hour))
-            return length/3600;
+            return new MovieLength(length/3600,UnitOfTime.sec);
         else
-            return length;
+            return new MovieLength(length,unitOfTime);
     }
 
     public MovieLength(double length, UnitOfTime unitOfTime) {

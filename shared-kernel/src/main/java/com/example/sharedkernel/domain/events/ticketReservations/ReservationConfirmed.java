@@ -6,6 +6,9 @@ import lombok.Getter;
 
 @Getter
 public class ReservationConfirmed extends DomainEvent {
+
+    //Celta na ovoj nastan e azhuriranje na vrednosta na sales, vo soodvetniot scheduledMovie, za sekoja potvrdena rezervacija
+    //Ovoj event se sluchuva samo koga rezervacijata e potvrdena (nejziniot status e confirmed), a ne koga e kreirana, bidejki ne sekoga kreirana rezervacija ponatamu ke bide potvrdena
     private String scheduledMovieId;
     private int quantity;
 

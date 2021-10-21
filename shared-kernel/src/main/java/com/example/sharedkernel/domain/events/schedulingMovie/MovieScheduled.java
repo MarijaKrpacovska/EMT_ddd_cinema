@@ -7,6 +7,7 @@ import lombok.Getter;
 @Getter
 public class MovieScheduled extends DomainEvent {
 
+    //Ovoj event se sluchuva sekogash koga ke bide zakazhan film, taka shto projot na negovite prikazhuvanja se zgolemuva
     private String movieId;
 
     public MovieScheduled() {

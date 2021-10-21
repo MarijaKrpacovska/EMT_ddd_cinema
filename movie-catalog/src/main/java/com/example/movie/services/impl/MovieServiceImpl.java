@@ -92,19 +92,7 @@ public class MovieServiceImpl implements MovieService {
 
     private Movie toDomainObject(MovieForm movieForm) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String movieVideoUrl = "";
-        if(movieForm.getTrailerUrl().contains("https://youtu.be/")) {
-            movieVideoUrl = movieForm.getTrailerUrl().replace("https://youtu.be/", "");
-        }
-        else if(movieForm.getTrailerUrl().contains("https://www.youtube.com/watch?v=")) {
-            movieVideoUrl = movieForm.getTrailerUrl().replace("https://www.youtube.com/watch?v=", "");
-        }
-        else {
-            movieVideoUrl = movieForm.getTrailerUrl();
-        }
-        movieVideoUrl = "https://www.youtube.com/embed/" + movieVideoUrl;
-        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),LocalDate.parse(movieForm.getPublishDate(),formatter), movieForm.getDescription() ,movieForm.getMoviePoster(),movieForm.getMovieAdvertisementImage(), Video.valueOf(movieVideoUrl),0, new Rating(0.0,0));
-
+        var movie = new Movie(movieForm.getName(),movieForm.getMovieLength(),movieForm.getGenre(),LocalDate.parse(movieForm.getPublishDate(),formatter), movieForm.getDescription() ,movieForm.getMoviePoster(),movieForm.getMovieAdvertisementImage(), Video.buildVideoWithEmbeddableUrl(movieForm.getTrailerUrl()),0, new Rating(0.0,0));
         return movie;
     }
 

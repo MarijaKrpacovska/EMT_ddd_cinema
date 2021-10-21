@@ -6,6 +6,5 @@ public class TopicHolder {
 
     public final static String TOPIC_MOVIE_SCHEDULED = "new-movie-scheduled";
     public final static String TOPIC_SCHEDULED_MOVIE_CANCELED = "scheduled-movie-canceled";
-  //  public final static String TOPIC_RESERVATION_CANCELED = "reservation-canceled";
 }
 

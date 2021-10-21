@@ -44,15 +44,5 @@ public class ScheduledMovieEventListener {
 
     }
 
-//    @KafkaListener(topics= TopicHolder.TOPIC_RESERVATION_CANCELED, groupId = "cinema")
-//    public void consumeReservationCanceledEvent(String jsonMessage) {
-//        try {
-//            ReservationCanceled event = DomainEvent.fromJson(jsonMessage,ReservationCanceled.class);
-//            movieService.reservationCanceled(new ScheduledMovieId(event.getScheduledMovieId()),event.getQuantity());
-//        } catch (Exception e){
-//
-//        }
-//
-//    }
 }
 

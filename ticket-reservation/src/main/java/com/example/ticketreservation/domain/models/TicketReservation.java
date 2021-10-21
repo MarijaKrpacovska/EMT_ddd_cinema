@@ -32,7 +32,8 @@ public class TicketReservation extends AbstractEntity<TicketReservationId> {
     private PaymentMethod paymentMethod;
 
     public Money total() {
-        return tickets.stream().map(Ticket::subtotal).reduce(new Money(currency, 0), Money::add);
+        return tickets
+                .stream().map(Ticket::subtotal).reduce(new Money(currency, 0), Money::add);
     }
 
     @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true, fetch = FetchType.EAGER)

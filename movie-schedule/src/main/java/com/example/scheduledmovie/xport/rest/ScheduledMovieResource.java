@@ -42,13 +42,6 @@ public class ScheduledMovieResource {
         return this.scheduledMovieService.findAllByMovieId(new MovieId(id));
     }
 
-//    @PostMapping("/add")
-//    public ResponseEntity<ScheduledMovie> save(@RequestBody ScheduledMovieForm scheduledMovieForm) {
-//        return this.scheduledMovieService.save(new ScheduledMovieForm(0, new MovieTime(0,0, LocalDate.of(2021,1,1)),new MovieTime(0,0,LocalDate.of(2021,1,1)), new Money(Currency.MKD,1), "9a78fd3e-9caf-490a-a1d4-c91852494c05"))
-//                .map(movie -> ResponseEntity.ok().body(movie))
-//                .orElseGet(() -> ResponseEntity.badRequest().build());
-//    }
-
     @PostMapping("/addScheduledMovie")
     public ResponseEntity<ScheduledMovie> saveScheduledMovie(@RequestBody ScheduledMovieForm scheduledMovieForm) {
         return this.scheduledMovieService.save(scheduledMovieForm)
